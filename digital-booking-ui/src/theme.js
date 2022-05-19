@@ -1,9 +1,6 @@
 import { createTheme } from "@material-ui/core/styles";
 
 export default createTheme({
-  overrides: {
-    MuiFormLabel: { root: { color: "rgb(255,255,255)" } },
-  },
   typography: {
     fontFamily: '"PT Sans", Roboto, Helvetica, sans-serif',
   },
@@ -15,13 +12,13 @@ export default createTheme({
       main: "rgb(63,55,55)",
     },
     primary: {
-      main: "rgb(89,157,38)",
+      main: "rgb(29, 190, 180)",
 
       secondary: "rgb(156,63,1)",
       light: "rgb(47, 82, 20)",
     },
     text: {
-      primary: "rgb(255,255,255)",
+      primary: "rgba(56, 59, 88, 1)",
       dark: "rgb(0,4,17)",
       hint: "rgb(192,187,187)",
     },
