@@ -1,6 +1,7 @@
-import { Button, makeStyles, TextField } from "@material-ui/core";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Button, FormControl, makeStyles, TextField } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ConfirmPassword,
   Email,
@@ -13,6 +14,9 @@ import FormWrapper from "./FormWrapper";
 
 const SignUp = () => {
   const classes = useStyles();
+
+  const navigate = useNavigate();
+
   const name = useSignUpStore((s) => s.name);
   const setName = useSignUpStore((s) => s.setName);
   const surname = useSignUpStore((s) => s.surname);
@@ -23,20 +27,36 @@ const SignUp = () => {
   const setPassword = useSignUpStore((s) => s.setPassword);
   const password2 = useSignUpStore((s) => s.password2);
   const setPassword2 = useSignUpStore((s) => s.setPassword2);
+  const error = useSignUpStore((s) => s.error);
+  const setError = useSignUpStore((s) => s.setError);
+  const resetState = useSignUpStore((s) => s.resetState);
 
-  console.log({ name });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password.trim().length < 6 || password2.trim().length < 6) {
+      setError("The password should be longer than 6");
+      return;
+    }
+    if (password !== password2) {
+      setError("The passwords should match");
+      return;
+    }
+    //Validate Email
+    resetState();
+    navigate("/login");
+  };
 
   return (
     <FormWrapper>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={handleSubmit}>
         <h2>Create Account</h2>
         <div className={classes.namesWrapper}>
-          <Name value={name} onChange={setName} />
-          <Surname value={surname} onChange={setSurname} />
+          <Name value={name.value} onChange={setName} />
+          <Surname value={surname.value} onChange={setSurname} />
         </div>
-        <Email value={email} onChange={setEmail} />
-        <Password value={password} onChange={setPassword} />
-        <ConfirmPassword value={password2} onChange={setPassword2} />
+        <Email value={email.value} onChange={setEmail} />
+        <Password value={password.value} onChange={setPassword} />
+        <ConfirmPassword value={password2.value} onChange={setPassword2} />
         <Button
           type="submit"
           className={classes.button}
@@ -48,6 +68,9 @@ const SignUp = () => {
         <p className={classes.toLogin}>
           Already have an account?<Link to="/login">Log In</Link>
         </p>
+        <div className={classes.errorWrapper}>
+          {error && <Alert severity="error">{error}</Alert>}
+        </div>
       </form>
     </FormWrapper>
   );
@@ -66,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
     "& > h2": {
       color: theme.palette.primary.main,
       fontWeight: "bold",
+      marginBottom: "12px",
     },
   },
   namesWrapper: {
@@ -94,5 +118,9 @@ const useStyles = makeStyles((theme) => ({
       margin: "0 10px",
       color: theme.palette.primary.main,
     },
+  },
+  errorWrapper: {
+    height: "20px",
+    marginTop: "16px",
   },
 }));
