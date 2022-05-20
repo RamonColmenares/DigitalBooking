@@ -3,28 +3,31 @@ import { InputAdornment, makeStyles, TextField } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
-export const Name = ({ value, onChange }) => {
-  console.log(value);
+export const Name = ({ value, onChange, error = false }) => {
   return (
     <TextField
       id="name"
       label="Name"
       value={value}
       onChange={({ target }) => onChange(target.value)}
+      required
+      error={error}
     />
   );
 };
 
-export const Surname = ({ value, onChange }) => (
+export const Surname = ({ value, onChange, error = false }) => (
   <TextField
     id="surname"
     label="Surname"
     value={value}
     onChange={({ target }) => onChange(target.value)}
+    required
+    error={error}
   />
 );
 
-export const Email = ({ value, onChange }) => {
+export const Email = ({ value, onChange, error = false }) => {
   const classes = useStyles();
   return (
     <TextField
@@ -33,11 +36,13 @@ export const Email = ({ value, onChange }) => {
       label="Email"
       value={value}
       onChange={({ target }) => onChange(target.value)}
+      required
+      error={error}
     />
   );
 };
 
-export const Password = ({ value, onChange }) => {
+export const Password = ({ value, onChange, error = false }) => {
   const classes = useStyles();
   const [visible, setVisible] = useState(false);
   return (
@@ -48,9 +53,14 @@ export const Password = ({ value, onChange }) => {
       type={visible ? "text" : "password"}
       value={value}
       onChange={({ target }) => onChange(target.value)}
+      required
+      error={error}
       InputProps={{
         endAdornment: (
-          <InputAdornment onClick={() => setVisible((state) => !state)}>
+          <InputAdornment
+            position="start"
+            onClick={() => setVisible((state) => !state)}
+          >
             {visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
           </InputAdornment>
         ),
@@ -59,7 +69,7 @@ export const Password = ({ value, onChange }) => {
   );
 };
 
-export const ConfirmPassword = ({ value, onChange }) => {
+export const ConfirmPassword = ({ value, onChange, error = false }) => {
   const classes = useStyles();
   return (
     <TextField
@@ -69,6 +79,8 @@ export const ConfirmPassword = ({ value, onChange }) => {
       type="password"
       value={value}
       onChange={({ target }) => onChange(target.value)}
+      required
+      error={error}
     />
   );
 };

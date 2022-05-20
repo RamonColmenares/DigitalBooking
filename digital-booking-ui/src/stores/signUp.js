@@ -5,7 +5,7 @@ const INITIAL_FROM_STATE = {
   surname: "",
   email: "",
   password: "",
-  paswword2: "",
+  password2: "",
 };
 
 const createSignUpStore = () =>
@@ -20,6 +20,15 @@ const createSignUpStore = () =>
     setEmail: (email) => set({ email }),
     setPassword: (password) => set({ password }),
     setPassword2: (password2) => set({ password2 }),
+    setError: (error) => set({ error }),
+
+    resetState: () =>
+      set({
+        ...INITIAL_FROM_STATE,
+        loaded: false,
+        loading: false,
+        error: null,
+      }),
   }));
 
 export const useSignUpStore = createSignUpStore();
