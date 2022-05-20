@@ -1,15 +1,15 @@
-import { create } from "../utils/createStore";
+import { create } from '../utils/createStore';
 
 const INITIAL_FROM_STATE = {
-  name: "",
-  surname: "",
-  email: "",
-  password: "",
-  password2: "",
+  name: '',
+  surname: '',
+  email: '',
+  password: '',
+  password2: '',
 };
 
 const createSignUpStore = () =>
-  create("sign-up")((set, get, api) => ({
+  create('sign-up')((set, get, api) => ({
     ...INITIAL_FROM_STATE,
     loaded: false,
     loading: false,

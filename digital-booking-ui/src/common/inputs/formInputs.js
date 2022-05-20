@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { InputAdornment, makeStyles, TextField } from "@material-ui/core";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import { useState } from 'react';
+import { InputAdornment, makeStyles, TextField } from '@material-ui/core';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 export const Name = ({ value, onChange, error = false }) => {
   return (
@@ -50,7 +50,7 @@ export const Password = ({ value, onChange, error = false }) => {
       className={classes.textField}
       id="password"
       label="Password"
-      type={visible ? "text" : "password"}
+      type={visible ? 'text' : 'password'}
       value={value}
       onChange={({ target }) => onChange(target.value)}
       required
@@ -87,7 +87,7 @@ export const ConfirmPassword = ({ value, onChange, error = false }) => {
 
 const useStyles = makeStyles(() => ({
   textField: {
-    width: "100%",
-    margin: "18px 0",
+    width: '100%',
+    margin: '18px 0',
   },
 }));

@@ -1,5 +1,5 @@
-import { makeStyles } from "@material-ui/core";
-import React from "react";
+import { makeStyles } from '@material-ui/core';
+import React from 'react';
 
 const FormWrapper = ({ children }) => {
   const classes = useStyles();
@@ -8,10 +8,10 @@ const FormWrapper = ({ children }) => {
 
 const useStyles = makeStyles(() => ({
   formWrapper: {
-    display: "flex",
-    alignItems: "center",
-    width: "100vw",
-    height: "100vh",
+    display: 'flex',
+    alignItems: 'center',
+    width: '100vw',
+    height: '100vh',
   },
 }));
 
