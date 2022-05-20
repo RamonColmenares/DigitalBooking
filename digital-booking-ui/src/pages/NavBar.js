@@ -8,12 +8,16 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import Logo from "../assets/Logo";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import DrawerPanel from "./DrawerPanel";
+import { useAuthStore } from "../stores/auth";
 
 const NavBar = () => {
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  const userName = useAuthStore((s) => s.name);
+
   return (
     <>
       <AppBar position="static" color="default" className={classes.nav}>
@@ -21,18 +25,7 @@ const NavBar = () => {
           <Link to="/">
             <Logo />
           </Link>
-          <div className={classes.wrapperButtons}>
-            <Link to="/signup">
-              <Button variant="outlined" color="primary">
-                Sign Up
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button variant="outlined" color="primary">
-                Log In
-              </Button>
-            </Link>
-          </div>
+          <AuthActions />
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -50,6 +43,34 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+const AuthActions = ({ hideLogin = false, hideSignup = false }) => {
+  const classes = useStyles();
+
+  const { pathname } = useLocation();
+
+  const isNotLoginPage = pathname !== "/login";
+  const isNotSignPage = pathname !== "/signup";
+
+  return (
+    <div className={classes.wrapperButtons}>
+      {isNotSignPage && (
+        <Link to="/signup">
+          <Button variant="outlined" color="primary">
+            Sign Up
+          </Button>
+        </Link>
+      )}
+      {isNotLoginPage && (
+        <Link to="/login">
+          <Button variant="contained" color="primary" className="login-button">
+            Log In
+          </Button>
+        </Link>
+      )}
+    </div>
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
   nav: {
@@ -74,6 +95,10 @@ const useStyles = makeStyles((theme) => ({
       "& > button": {
         width: "100%",
       },
+    },
+    "& .login-button": {
+      color: theme.palette.white,
+      fontWeight: "bold",
     },
     "@media (max-width:800px)": {
       display: "none",
