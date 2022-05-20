@@ -13,7 +13,6 @@ export default createTheme({
     },
     primary: {
       main: "rgb(29, 190, 180)",
-
       secondary: "rgb(156,63,1)",
       light: "rgb(47, 82, 20)",
     },
