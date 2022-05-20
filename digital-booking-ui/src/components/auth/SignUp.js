@@ -17,21 +17,26 @@ const SignUp = () => {
   const setName = useSignUpStore((s) => s.setName);
   const surname = useSignUpStore((s) => s.surname);
   const setSurname = useSignUpStore((s) => s.setSurname);
+  const email = useSignUpStore((s) => s.email);
+  const setEmail = useSignUpStore((s) => s.setEmail);
   const password = useSignUpStore((s) => s.password);
-  const setpassword = useSignUpStore((s) => s.setPassword);
+  const setPassword = useSignUpStore((s) => s.setPassword);
   const password2 = useSignUpStore((s) => s.password2);
   const setPassword2 = useSignUpStore((s) => s.setPassword2);
+
+  console.log({ name });
+
   return (
     <FormWrapper>
       <form className={classes.form}>
         <h2>Create Account</h2>
         <div className={classes.namesWrapper}>
-          <Name />
-          <Surname />
+          <Name value={name} onChange={setName} />
+          <Surname value={surname} onChange={setSurname} />
         </div>
-        <Email />
-        <Password />
-        <ConfirmPassword />
+        <Email value={email} onChange={setEmail} />
+        <Password value={password} onChange={setPassword} />
+        <ConfirmPassword value={password2} onChange={setPassword2} />
         <Button
           type="submit"
           className={classes.button}
