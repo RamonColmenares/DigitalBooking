@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Button,
@@ -9,37 +9,43 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import Logo from "../assets/Logo";
 import { Link } from "react-router-dom";
+import DrawerPanel from "./DrawerPanel";
 
 const NavBar = () => {
   const classes = useStyles();
+  const [openDrawer, setOpenDrawer] = useState(false);
   return (
-    <AppBar position="static" color="default" className={classes.nav}>
-      <Toolbar className={classes.contentStyle}>
-        <Link to="/">
-          <Logo />
-        </Link>
-        <div className={classes.wrapperButtons}>
-          <Link to="/login">
-            <Button variant="outlined" color="primary">
-              Log In
-            </Button>
+    <>
+      <AppBar position="static" color="default" className={classes.nav}>
+        <Toolbar className={classes.contentStyle}>
+          <Link to="/">
+            <Logo />
           </Link>
-          <Link to="/signup">
-            <Button variant="outlined" color="primary">
-              Sign Up
-            </Button>
-          </Link>
-        </div>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+          <div className={classes.wrapperButtons}>
+            <Link to="/signup">
+              <Button variant="outlined" color="primary">
+                Sign Up
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button variant="outlined" color="primary">
+                Log In
+              </Button>
+            </Link>
+          </div>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={() => setOpenDrawer(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <DrawerPanel open={openDrawer} setOpen={setOpenDrawer} />
+    </>
   );
 };
 
@@ -69,8 +75,14 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
       },
     },
+    "@media (max-width:800px)": {
+      display: "none",
+    },
   },
   menuButton: {
     display: "none",
+    "@media (max-width:800px)": {
+      display: "block",
+    },
   },
 }));
