@@ -4,12 +4,10 @@ import { PrivateRoute } from "./components/routes/PrivateRoute";
 import LoginPage from "./pages/login/LoginPage";
 import SignUpPage from "./pages/signUp/SignUpPage";
 import HomePage from "./pages/home/HomePage";
-import NavBar from "./pages/NavBar";
 
 const App = () => {
   return (
     <div>
-      <NavBar />
       <Routes>
         <Route
           path="/"
