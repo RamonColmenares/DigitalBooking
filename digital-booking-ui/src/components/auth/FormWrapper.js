@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
   formWrapper: {
     display: "flex",
     alignItems: "center",
+    width: "100vw",
     height: "100vh",
   },
 }));

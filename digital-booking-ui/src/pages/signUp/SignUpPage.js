@@ -10,9 +10,9 @@ import {
   Surname,
 } from "../../common/inputs/formInputs";
 import { useSignUpStore } from "../../stores/signUp";
-import FormWrapper from "./FormWrapper";
+import FormWrapper from "../../components/auth/FormWrapper";
 
-const SignUp = () => {
+const SignUpPage = () => {
   const classes = useStyles();
 
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -84,8 +84,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    width: "80%",
+    width: "50%",
     margin: "0 auto",
+    "@media (max-width:800px)": {
+      width: "90%",
+    },
     "& > h2": {
       color: theme.palette.primary.main,
       fontWeight: "bold",
@@ -94,7 +97,8 @@ const useStyles = makeStyles((theme) => ({
   },
   namesWrapper: {
     display: "flex",
-    width: "50%" /* 220px */,
+    // width: "50%" /* 220px */,
+    width: "100%",
     margin: "18px 0",
     gap: "20px",
     "& > :nth-child(1)": {
@@ -103,10 +107,9 @@ const useStyles = makeStyles((theme) => ({
     "& > :nth-child(2)": {
       flexGrow: 1,
     },
-  },
-  textField: {
-    width: "50%",
-    margin: "18px 0",
+    "@media (max-width:800px)": {
+      flexDirection: "column",
+    },
   },
   button: {
     color: theme.palette.white,

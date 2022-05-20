@@ -1,24 +1,26 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import AppContent from "./components/AppContent";
-import Login from "./components/auth/Login";
-import SignUp from "./components/auth/SignUp";
 import { PrivateRoute } from "./components/routes/PrivateRoute";
+import LoginPage from "./pages/login/LoginPage";
+import SignUpPage from "./pages/signUp/SignUpPage";
+import HomePage from "./pages/home/HomePage";
+import NavBar from "./pages/NavBar";
 
 const App = () => {
   return (
     <div>
+      <NavBar />
       <Routes>
         <Route
           path="/"
           element={
             <PrivateRoute user="true">
-              <AppContent />
+              <HomePage />
             </PrivateRoute>
           }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </div>
   );

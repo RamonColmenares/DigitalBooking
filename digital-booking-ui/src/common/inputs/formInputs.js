@@ -87,7 +87,7 @@ export const ConfirmPassword = ({ value, onChange, error = false }) => {
 
 const useStyles = makeStyles(() => ({
   textField: {
-    width: "50%",
+    width: "100%",
     margin: "18px 0",
   },
 }));
