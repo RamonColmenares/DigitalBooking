@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Email, Password } from "../../common/inputs/formInputs";
 import FormWrapper from "../../components/auth/FormWrapper";
+import { useAuthStore } from "../../stores/auth";
 import { useLoginStore } from "../../stores/login";
 import { useSignUpStore } from "../../stores/signUp";
 
@@ -20,11 +21,16 @@ const LoginPage = () => {
   const setError = useLoginStore((state) => state.setError);
   const resetState = useLoginStore((state) => state.resetState);
 
+  const name = useSignUpStore((s) => s.name);
+  const surname = useSignUpStore((s) => s.surname);
   const emailSignUp = useSignUpStore((s) => s.email);
   const passwordSignUp = useSignUpStore((s) => s.password);
 
+  const setAuthName = useAuthStore((s) => s.setName);
+  const setAuthSurname = useAuthStore((s) => s.setSurname);
+
   useEffect(() => {
-    return () => resetState();
+    return () => setError("");
   }, []);
 
   const handleSubmit = (e) => {
@@ -40,6 +46,8 @@ const LoginPage = () => {
     }
 
     navigate("/");
+    setAuthName(name);
+    setAuthSurname(surname);
   };
 
   return (
@@ -77,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: "50%",
     margin: "0 auto",
+    "@media (max-width:800px)": {
+      width: "90%",
+    },
     "& > h2": {
       color: theme.palette.primary.main,
       fontWeight: "bold",
