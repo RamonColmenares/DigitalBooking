@@ -94,10 +94,12 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   wrapperButtons: {
+    "& > :nth-child(1)": {
+      marginRight: "20px",
+    },
     "& > a": {
       display: "inline-block",
       width: "200px",
-      margin: "0 20px",
       "& > button": {
         width: "100%",
       },

@@ -10,7 +10,7 @@ export default HomePage;
 
 const useStyles = makeStyles(() => ({
   body: {
-    height: "90vh", //100vh - nav Heigth
+    height: "85vh", //100vh - nav Heigth
     border: "2px solid black",
   },
 }));

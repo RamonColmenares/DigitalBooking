@@ -36,6 +36,6 @@ const useStyles = makeStyles(() => ({
     gap: "10px",
   },
   link: {
-    color: "black",
+    color: "inherit",
   },
 }));
