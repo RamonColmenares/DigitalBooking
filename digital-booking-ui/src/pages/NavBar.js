@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   AppBar,
   Button,
@@ -8,8 +9,8 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import Logo from "../assets/Logo";
-import { Link, useLocation } from "react-router-dom";
 import DrawerPanel from "./DrawerPanel";
+import User from "../common/Displayers/User";
 import { useAuthStore } from "../stores/auth";
 
 const NavBar = () => {
@@ -17,6 +18,7 @@ const NavBar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const userName = useAuthStore((s) => s.name);
+  const userSurname = useAuthStore((s) => s.surname);
 
   return (
     <>
@@ -25,7 +27,11 @@ const NavBar = () => {
           <Link to="/">
             <Logo />
           </Link>
-          <AuthActions />
+          {userName ? (
+            <User name={userName} surname={userSurname} navbar />
+          ) : (
+            <AuthActions />
+          )}
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -44,7 +50,7 @@ const NavBar = () => {
 
 export default NavBar;
 
-const AuthActions = ({ hideLogin = false, hideSignup = false }) => {
+const AuthActions = () => {
   const classes = useStyles();
 
   const { pathname } = useLocation();

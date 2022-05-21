@@ -10,7 +10,7 @@ const DrawerPanel = ({ open, setOpen }) => {
   return (
     <Drawer anchor="right" open={open} classes={{ paper: classes.root }}>
       <HeaderDrawer setOpen={setOpen} />
-      <BodyDrawer />
+      <BodyDrawer setOpen={setOpen} />
       <FooterDrawer />
     </Drawer>
   );

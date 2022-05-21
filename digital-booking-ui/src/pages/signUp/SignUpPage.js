@@ -1,7 +1,7 @@
 import { Button, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ConfirmPassword,
   Email,
@@ -32,7 +32,7 @@ const SignUpPage = () => {
   const resetState = useSignUpStore((s) => s.resetState);
 
   useEffect(() => {
-    return () => resetState();
+    return () => setError("");
   }, []);
 
   const handleSubmit = (e) => {
@@ -102,7 +102,6 @@ const useStyles = makeStyles((theme) => ({
   },
   namesWrapper: {
     display: "flex",
-    // width: "50%" /* 220px */,
     width: "100%",
     margin: "18px 0",
     gap: "20px",

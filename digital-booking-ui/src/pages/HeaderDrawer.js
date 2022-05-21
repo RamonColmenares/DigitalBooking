@@ -1,9 +1,13 @@
 import React from "react";
 import { IconButton, makeStyles } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import { useAuthStore } from "../stores/auth";
+import User from "../common/Displayers/User";
 
 const HeaderDrawer = ({ setOpen }) => {
   const classes = useStyles();
+  const userName = useAuthStore((s) => s.name);
+  const userSurname = useAuthStore((s) => s.surname);
   return (
     <div className={classes.header}>
       <IconButton
@@ -12,7 +16,13 @@ const HeaderDrawer = ({ setOpen }) => {
       >
         <CloseIcon />
       </IconButton>
-      <h2 className={classes.title}>MENU</h2>
+      <div className={classes.titleWrapper}>
+        {userName ? (
+          <User name={userName} surname={userSurname} />
+        ) : (
+          <h2 className={classes.title}>MENU</h2>
+        )}
+      </div>
     </div>
   );
 };
@@ -27,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
   closeButton: {
     color: theme.palette.white,
   },
-  title: {
+  titleWrapper: {
     color: theme.palette.white,
     position: "absolute",
     right: 10,
-    top: 135,
+    top: 130,
   },
 }));
