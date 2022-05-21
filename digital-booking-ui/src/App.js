@@ -8,7 +8,7 @@ import NavBar from "./pages/NavBar";
 
 const App = () => {
   return (
-    <div>
+    <>
       <NavBar />
       <Routes>
         <Route
@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
-    </div>
+    </>
   );
 };
 
