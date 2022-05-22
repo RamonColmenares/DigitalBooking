@@ -1,8 +1,7 @@
 package com.example.piG1.controller;
 
 import com.example.piG1.model.CategoriaDTO;
-import com.example.piG1.service.ICategoriaService;
-import com.mysql.cj.xdevapi.Collection;
+import com.example.piG1.service.IService.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
