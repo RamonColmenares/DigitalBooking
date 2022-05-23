@@ -1,7 +1,7 @@
 import { create } from "../utils/createStore";
 
 const createLoginStore = () =>
-  create("login")((set, get, api) => ({
+  create("login")((set, get) => ({
     email: "",
     password: "",
     error: "",

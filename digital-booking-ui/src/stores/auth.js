@@ -7,7 +7,7 @@ const INITIAL_FROM_STATE = {
 };
 
 const createAuthStore = () =>
-  create("auth")((set, get, api) => ({
+  create("auth")((set, get) => ({
     ...INITIAL_FROM_STATE,
     cart: [],
     favorites: [],

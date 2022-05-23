@@ -2,7 +2,7 @@ import { apiRequest } from "../client/mocks/categoriesMock";
 import { create } from "../utils/createStore";
 
 const createCategoriesStore = () =>
-  create("categories")((set, get, api) => ({
+  create("categories")((set, get) => ({
     data: [],
     loading: false,
     loaded: false,
