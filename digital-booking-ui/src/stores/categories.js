@@ -4,10 +4,13 @@ import { create } from "../utils/createStore";
 const createCategoriesStore = () =>
   create("categories")((set, get, api) => ({
     data: [],
+    loading: false,
+    loaded: false,
 
     fetchData: async () => {
+      set((state) => ({ ...state, loading: true }));
       const response = await apiRequest();
-      set({ data: response });
+      set({ data: response, loaded: true, loading: false });
       return;
     },
   }));
