@@ -8,26 +8,21 @@ const selectiveImmer = (mutator) =>
     ? produce(mutator) //lets use immer to apply changes
     : mutator; //lets just merge the states!
 
-const immerMiddleware = (next) => (set, get, api) =>
+const immerMiddleware = (next) => (set, get) =>
   next(
     (mutator, replace, name) => set(selectiveImmer(mutator), replace, name),
-    get,
-    api
+    get
   );
 
-const namingMiddleware = (next) => (set, get, api) =>
-  next(
-    (mutator, replace, name) => {
-      // Makes "replace" parameter optional
-      if (isString(replace)) {
-        name = replace;
-        replace = false;
-      }
-      set(mutator, replace, name || "anonymous");
-    },
-    get,
-    api
-  );
+const namingMiddleware = (next) => (set, get) =>
+  next((mutator, replace, name) => {
+    // Makes "replace" parameter optional
+    if (isString(replace)) {
+      name = replace;
+      replace = false;
+    }
+    set(mutator, replace, name || "anonymous");
+  }, get);
 
 export const create = (storeName) => (fn) => {
   const useStore = createStore(

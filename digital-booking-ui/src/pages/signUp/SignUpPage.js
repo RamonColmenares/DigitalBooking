@@ -1,4 +1,4 @@
-import { Button, FormControl, makeStyles, TextField } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -31,6 +31,10 @@ const SignUpPage = () => {
   const setError = useSignUpStore((s) => s.setError);
   const resetState = useSignUpStore((s) => s.resetState);
 
+  useEffect(() => {
+    return () => setError("");
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password.trim().length < 6 || password2.trim().length < 6) {
@@ -42,7 +46,8 @@ const SignUpPage = () => {
       return;
     }
     //Validate Email
-    resetState();
+
+    // resetState();
     navigate("/login");
   };
 
@@ -97,7 +102,6 @@ const useStyles = makeStyles((theme) => ({
   },
   namesWrapper: {
     display: "flex",
-    // width: "50%" /* 220px */,
     width: "100%",
     margin: "18px 0",
     gap: "20px",

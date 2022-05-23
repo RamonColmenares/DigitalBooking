@@ -5,10 +5,11 @@ import LoginPage from "./pages/login/LoginPage";
 import SignUpPage from "./pages/signUp/SignUpPage";
 import HomePage from "./pages/home/HomePage";
 import NavBar from "./pages/NavBar";
+import Footer from "./pages/Footer";
 
 const App = () => {
   return (
-    <div>
+    <>
       <NavBar />
       <Routes>
         <Route
@@ -22,7 +23,8 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
-    </div>
+      <Footer />
+    </>
   );
 };
 
