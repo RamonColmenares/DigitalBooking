@@ -37,12 +37,19 @@ public class CategoriaController {
         categoriaService.editarCategoria(categoriaDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarCategoria(@PathVariable Integer id)
     {
-        categoriaService.eliminarCategoria(id);
-        return ResponseEntity.ok(HttpStatus.OK);
-    }
+        ResponseEntity response = null;
+        if(categoriaService.listarCategoria(id) == null){
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else{
+            categoriaService.eliminarCategoria(id);
+            response= ResponseEntity.ok("SE ELIMINÓ LA CATEGORIA CON ID " + id);
+        }
+        return response;
+    };
     @GetMapping
     public Set<CategoriaDTO> listarCategorias()
     {
