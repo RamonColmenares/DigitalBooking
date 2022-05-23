@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     width: "100vw",
-    height: "90vh",
+    height: "85vh",
   },
 }));
 
