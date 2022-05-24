@@ -1,4 +1,4 @@
-import { Button, makeStyles } from "@material-ui/core";
+import { Button, Input, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -45,8 +45,13 @@ const SignUpPage = () => {
       setError("The passwords should match");
       return;
     }
-    //Validate Email
-
+    if (email !== null){
+      const pattern = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g)
+      if(!pattern.test(email)){
+          setError("The email is not valid");
+          return;
+        }
+    }
     // resetState();
     navigate("/login");
   };
