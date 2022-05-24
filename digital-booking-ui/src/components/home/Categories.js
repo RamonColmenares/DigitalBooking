@@ -51,26 +51,26 @@ const SkeletonCategoryCards = () => {
       <Skeleton
         className={classes.skeletonCard}
         variant="rect"
-        width={430}
-        height={250}
+        width={"20vw"}
+        height={300}
       />
       <Skeleton
         className={classes.skeletonCard}
         variant="rect"
-        width={430}
-        height={250}
+        width={"20vw"}
+        height={300}
       />
       <Skeleton
         className={classes.skeletonCard}
         variant="rect"
-        width={430}
-        height={250}
+        width={"20vw"}
+        height={300}
       />
       <Skeleton
         className={classes.skeletonCard}
         variant="rect"
-        width={430}
-        height={250}
+        width={"20vw"}
+        height={300}
       />
     </>
   );
@@ -88,14 +88,21 @@ const useStyles = makeStyles((theme) => ({
   cardWrapper: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "space-between",
     gap: "15px",
     flexWrap: "wrap",
+    "@media (max-width:490px)": {
+      flexDirection: "column",
+    },
   },
   card: {
-    width: "430px",
+    width: "24%",
     borderRadius: "10px",
     ...theme.mixins.cardShadow,
     cursor: "pointer",
+    "&:hover": {
+      transform: "scale(1.02)",
+    },
     "& .card-img": {
       objectFit: "cover",
       width: "100%",
@@ -107,8 +114,15 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "5px",
       },
     },
+    "@media (max-width:1200px)": {
+      width: "45%",
+    },
+    "@media (max-width:490px)": {
+      width: "100%",
+    },
   },
   skeletonCard: {
     borderRadius: "10px",
+    width: "100%",
   },
 }));
