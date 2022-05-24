@@ -1,5 +1,6 @@
 package com.example.piG1.controller;
 
+import com.example.piG1.model.Categoria;
 import com.example.piG1.model.CategoriaDTO;
 import com.example.piG1.service.IService.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.Set;
 
 @RestController
@@ -34,8 +36,14 @@ public class CategoriaController {
     @PutMapping
     public ResponseEntity<?> editarCategoria(@RequestBody CategoriaDTO categoriaDTO)
     {
-        categoriaService.editarCategoria(categoriaDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+        ResponseEntity<Categoria> response = null;
+
+        if (categoriaDTO.getId() != null && categoriaService.listarCategoria(categoriaDTO.getId()) != null)
+            response = ResponseEntity.ok(categoriaService.editarCategoria(categoriaDTO));
+        else
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return response;
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarCategoria(@PathVariable Integer id)
