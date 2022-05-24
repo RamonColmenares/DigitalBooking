@@ -80,7 +80,7 @@ export default Categories;
 
 const useStyles = makeStyles((theme) => ({
   section: {
-    margin: "30px 0",
+    padding: "30px 0",
     "& > h2": {
       marginBottom: "15px",
     },
