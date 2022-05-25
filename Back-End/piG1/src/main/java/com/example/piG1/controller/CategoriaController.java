@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -22,20 +23,27 @@ public class CategoriaController {
 
     //ahora hago los metodos que necesito en categoria
 
+    //***********GETTERS*************
+    @GetMapping("/{id}")
+    public CategoriaDTO listarCategoria(@PathVariable Integer id) {
+        return categoriaService.listarCategoria(id);
+    }
+
+    @GetMapping
+    public List<CategoriaDTO> listarCategorias() {
+        return categoriaService.listarCategorias();
+    }
+
+    //***********POST*************
     @PostMapping
-    public ResponseEntity<?> crearCategoria(@RequestBody CategoriaDTO categoriaDTO){
+    public ResponseEntity<?> crearCategoria(@RequestBody CategoriaDTO categoriaDTO) {
         categoriaService.crearCategoria(categoriaDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public CategoriaDTO listarCategoria(@PathVariable Integer id){
-        return categoriaService.listarCategoria(id);
-    }
-
+    //**********PUT*************
     @PutMapping
-    public ResponseEntity<?> editarCategoria(@RequestBody CategoriaDTO categoriaDTO)
-    {
+    public ResponseEntity<?> editarCategoria(@RequestBody CategoriaDTO categoriaDTO) {
         ResponseEntity<Categoria> response = null;
 
         if (categoriaDTO.getId() != null && categoriaService.listarCategoria(categoriaDTO.getId()) != null)
@@ -45,22 +53,18 @@ public class CategoriaController {
 
         return response;
     }
+
+    //**********DELETE*************
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarCategoria(@PathVariable Integer id)
-    {
+    public ResponseEntity<?> eliminarCategoria(@PathVariable Integer id) {
         ResponseEntity response = null;
-        if(categoriaService.listarCategoria(id) == null){
+        if (categoriaService.listarCategoria(id) == null) {
             response = new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        else{
+        } else {
             categoriaService.eliminarCategoria(id);
-            response= ResponseEntity.ok("SE ELIMINÓ LA CATEGORIA CON ID " + id);
+            response = ResponseEntity.ok("SE ELIMINÓ LA CATEGORIA CON ID " + id);
         }
         return response;
-    };
-    @GetMapping
-    public Set<CategoriaDTO> listarCategorias()
-    {
-        return categoriaService.listarCategorias();
     }
 }
+

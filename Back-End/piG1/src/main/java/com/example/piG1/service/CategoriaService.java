@@ -8,10 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 //necesito acceder a la capa de DATOS(o sea el repository)
 @Service
@@ -60,15 +57,27 @@ public class CategoriaService implements ICategoriaService{
         categoriaRepository.deleteById(id);
     }
 
-    @Override
-    public Set<CategoriaDTO> listarCategorias() {
-        //esto me devuelve una lista de categoria
-        List<Categoria> categorias = categoriaRepository.findAll();
-        Set<CategoriaDTO> categoriasDTO = new HashSet<>();//recorro las categorias y lleno otro Set, y los transformo en categoriasDTO
+//    @Override
+//    public Set<CategoriaDTO> listarCategorias() {
+//        //esto me devuelve una lista de categoria
+//        List<Categoria> categorias = categoriaRepository.findAll();
+//        Set<CategoriaDTO> categoriasDTO = new HashSet<>();//recorro las categorias y lleno otro Set, y los transformo en categoriasDTO
+//
+//        for(Categoria categoria: categorias){
+//            categoriasDTO.add(mapper.convertValue(categoria, CategoriaDTO.class));
+//        }
+//        return categoriasDTO;
+//    }
+        @Override
+        public List<CategoriaDTO> listarCategorias() {
+            //esto me devuelve una lista de categoria
+            List<Categoria> categorias = categoriaRepository.findAll();
+            List<CategoriaDTO> categoriasDTO = new ArrayList<>();//recorro las categorias y lleno otra list, y los transformo en categoriasDTO
 
-        for(Categoria categoria: categorias){
-            categoriasDTO.add(mapper.convertValue(categoria, CategoriaDTO.class));
+            for(Categoria categoria: categorias){
+                categoriasDTO.add(mapper.convertValue(categoria, CategoriaDTO.class));
+            }
+            categoriasDTO .sort(Comparator.comparing(CategoriaDTO::getId)); // aquí suponiendo que tienes un id dentro de tu clase                                                                                                                                             CategoriaDTO
+            return categoriasDTO;
         }
-        return categoriasDTO;
-    }
 }
