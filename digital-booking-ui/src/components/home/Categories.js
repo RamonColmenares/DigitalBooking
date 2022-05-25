@@ -1,7 +1,8 @@
-import { makeStyles } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import React, { useEffect } from "react";
 import { useCategoriesStore } from "../../stores/categories";
+import { useProductsStore } from "../../stores/products";
 
 const Categories = () => {
   const classes = useStyles();

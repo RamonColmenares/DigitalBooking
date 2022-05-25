@@ -1,7 +1,8 @@
-import { makeStyles } from "@material-ui/core";
 import React from "react";
+import { makeStyles } from "@material-ui/core";
 import Categories from "../../components/home/Categories";
 import SearchSection from "../../components/home/SearchSection";
+import Products from "../../components/home/Products";
 
 const HomePage = () => {
   const classes = useStyles();
@@ -9,6 +10,7 @@ const HomePage = () => {
     <main className={classes.body}>
       <SearchSection />
       <Categories />
+      <Products />
     </main>
   );
 };
