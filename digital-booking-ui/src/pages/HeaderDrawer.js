@@ -1,13 +1,11 @@
 import React from "react";
 import { IconButton, makeStyles } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { useAuthStore } from "../stores/auth";
 import User from "../common/Displayers/User";
 
-const HeaderDrawer = ({ setOpen }) => {
+const HeaderDrawer = ({ setOpen, userName, userSurname }) => {
   const classes = useStyles();
-  const userName = useAuthStore((s) => s.name);
-  const userSurname = useAuthStore((s) => s.surname);
+
   return (
     <div className={classes.header}>
       <IconButton
@@ -33,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     height: "20%",
     backgroundColor: theme.palette.primary.main,
+    position: "relative",
   },
   closeButton: {
     color: theme.palette.white,
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   titleWrapper: {
     color: theme.palette.white,
     position: "absolute",
-    right: 10,
-    top: 130,
+    bottom: "5%",
+    right: "5%",
   },
 }));

@@ -46,6 +46,7 @@ const LoginPage = () => {
     }
 
     navigate("/");
+    resetState();
     setAuthName(name);
     setAuthSurname(surname);
   };

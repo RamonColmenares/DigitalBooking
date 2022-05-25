@@ -43,7 +43,12 @@ const NavBar = () => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <DrawerPanel open={openDrawer} setOpen={setOpenDrawer} />
+      <DrawerPanel
+        userName={userName}
+        userSurname={userSurname}
+        open={openDrawer}
+        setOpen={setOpenDrawer}
+      />
     </>
   );
 };
@@ -62,14 +67,14 @@ const AuthActions = () => {
     <div className={classes.wrapperButtons}>
       {isNotSignPage && (
         <Link to="/signup">
-          <Button variant="outlined" color="primary">
+          <Button variant="contained" color="primary" className="signup-button">
             Sign Up
           </Button>
         </Link>
       )}
       {isNotLoginPage && (
         <Link to="/login">
-          <Button variant="contained" color="primary" className="login-button">
+          <Button variant="outlined" color="primary">
             Log In
           </Button>
         </Link>
@@ -104,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
       },
     },
-    "& .login-button": {
+    "& .signup-button": {
       color: theme.palette.white,
       fontWeight: "bold",
     },

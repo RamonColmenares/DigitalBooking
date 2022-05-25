@@ -5,11 +5,11 @@ import HeaderDrawer from "./HeaderDrawer";
 import BodyDrawer from "./BodyDrawer";
 import FooterDrawer from "./FooterDrawer";
 
-const DrawerPanel = ({ open, setOpen }) => {
+const DrawerPanel = ({ open, setOpen, ...rest }) => {
   const classes = useStyles();
   return (
     <Drawer anchor="right" open={open} classes={{ paper: classes.root }}>
-      <HeaderDrawer setOpen={setOpen} />
+      <HeaderDrawer setOpen={setOpen} {...rest} />
       <BodyDrawer setOpen={setOpen} />
       <FooterDrawer />
     </Drawer>

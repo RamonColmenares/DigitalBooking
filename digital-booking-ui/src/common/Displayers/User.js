@@ -1,20 +1,29 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
+import { IconButton, makeStyles } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useAuthStore } from "../../stores/auth";
 
 const User = ({ name, surname, navbar = false }) => {
   const classes = useUserStyles({ navbar });
   const fullName = `${name} ${surname}`;
   const alias = `${name.charAt(0)}${surname.charAt(0)}`;
 
+  const logout = useAuthStore((s) => s.resetState);
+
   return (
     <div className={classes.userWrapper}>
       <Avatar alt={fullName}>{alias.toUpperCase()}</Avatar>
       <div>
         <p>
-          Hola, <br /> <span>{fullName}</span>
+          Welcome, <br /> <span>{fullName}</span>
         </p>
       </div>
+      {navbar && (
+        <IconButton onClick={() => logout()}>
+          <ExitToAppIcon fontSize="small" className={classes.logoutIcon} />
+        </IconButton>
+      )}
     </div>
   );
 };
@@ -33,5 +42,8 @@ const useUserStyles = makeStyles((theme) => ({
     "@media (max-width:800px)": {
       display: ({ navbar }) => (navbar ? "none" : ""),
     },
+  },
+  logoutIcon: {
+    color: "red",
   },
 }));

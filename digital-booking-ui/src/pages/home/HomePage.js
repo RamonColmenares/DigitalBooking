@@ -16,6 +16,5 @@ export default HomePage;
 const useStyles = makeStyles(() => ({
   body: {
     minHeight: "85vh", //100vh - nav - footer
-    padding: "0 40px",
   },
 }));
