@@ -9,7 +9,7 @@ export default createTheme({
     secondary: {
       light: "rgb(221,226,198)",
       dark: "rgb(0,4,17)",
-      main: "rgb(63,55,55)",
+      main: "rgb(84, 87, 118)",
     },
     primary: {
       main: "rgb(29, 190, 180)",
