@@ -181,6 +181,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .category": {
       color: theme.palette.text.hint,
+      marginRight: "10px",
     },
     "& .star": {
       color: theme.palette.primary.main,
