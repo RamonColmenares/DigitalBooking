@@ -85,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
     "& > h2": {
       marginBottom: "15px",
     },
+    "@media (max-width:480px)": {
+      padding: "30px 15px",
+    },
   },
   cardWrapper: {
     display: "flex",
