@@ -1,7 +1,18 @@
-import { Button, makeStyles } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
-import React, { useEffect } from 'react';
-import { useProductsStore } from '../../stores/products';
+import React, { useEffect } from "react";
+import { Button, makeStyles, Tooltip } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
+import { useProductsStore } from "../../stores/products";
+import StarRateIcon from "@material-ui/icons/StarRate";
+
+import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
+import { ServicesDisplayer } from "../../common/Displayers/ServicesDisplayer";
+
+const CATEGORY = {
+  Hotels: "Hotel",
+  Departments: "Department",
+  Hostels: "Hostel",
+  "Bed and Breakfast": "Bed and Breakfast",
+};
 
 const Products = () => {
   const classes = useStyles();
@@ -46,16 +57,41 @@ const ProductCard = ({
   <div className={className}>
     <img src={crimg} alt={title} className="card-img" />
     <div className="card-text">
-      <p>{category}</p>
-      <h3>{title}</h3>
-      <h6>{location}</h6>
-      <p>{description}</p>
-      <Button type="submit" variant="contained">
-        Details
-      </Button>
+      <div className="upper-card">
+        <div className="category-wrapper">
+          <p className="category">{CATEGORY[category]}</p>
+          <StarRates />
+        </div>
+        <Tooltip title={title} arrow>
+          <h3 className="title">{title}</h3>
+        </Tooltip>
+        <LocationDisplayer />
+        <ServicesDisplayer />
+      </div>
+      <div className="bottom-card">
+        <p className="description">{description}</p>
+        <Button
+          className="button-details"
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          DETAILS
+        </Button>
+      </div>
     </div>
   </div>
 );
+
+const StarRates = () => {
+  return (
+    <>
+      <StarRateIcon className="star" /> <StarRateIcon className="star" />{" "}
+      <StarRateIcon className="star" /> <StarRateIcon className="star" />
+      <StarRateIcon className="star" />
+    </>
+  );
+};
 
 const SkeletonCategoryCards = () => {
   const classes = useStyles();
@@ -64,25 +100,25 @@ const SkeletonCategoryCards = () => {
       <Skeleton
         className={classes.skeletonCard}
         variant="rect"
-        width={'20vw'}
+        width={"20vw"}
         height={300}
       />
       <Skeleton
         className={classes.skeletonCard}
         variant="rect"
-        width={'20vw'}
+        width={"20vw"}
         height={300}
       />
       <Skeleton
         className={classes.skeletonCard}
         variant="rect"
-        width={'20vw'}
+        width={"20vw"}
         height={300}
       />
       <Skeleton
         className={classes.skeletonCard}
         variant="rect"
-        width={'20vw'}
+        width={"20vw"}
         height={300}
       />
     </>
@@ -93,50 +129,87 @@ export default Products;
 
 const useStyles = makeStyles((theme) => ({
   section: {
-    padding: '30px 0',
-    '& > h2': {
-      marginBottom: '15px',
+    padding: "30px 0",
+    "& > h2": {
+      marginBottom: "15px",
     },
   },
   cardWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '15px',
-    flexWrap: 'wrap',
-    '@media (max-width:490px)': {
-      flexDirection: 'column',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: "15px",
+    flexWrap: "wrap",
+    "@media (max-width:490px)": {
+      flexDirection: "column",
     },
   },
   productCard: {
-    display: 'flex',
-    width: '24%',
-    borderRadius: '10px',
+    display: "flex",
+    width: "49%",
+    borderRadius: "10px",
     ...theme.mixins.cardShadow,
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.02)',
+    cursor: "pointer",
+    "&:hover": {
+      transform: "scale(1.02)",
     },
-    '& .card-img': {
-      objectFit: 'cover',
-      width: '50%',
-      borderRadius: '10px 10px 0px 0px',
+    "@media (max-width:1200px)": {
+      width: "100%",
     },
-    '& .card-text': {
-      padding: '10px',
-      '& > h3': {
-        marginBottom: '5px',
+    "@media (max-width:600px)": {
+      flexDirection: "column",
+    },
+    "& .card-img": {
+      objectFit: "cover",
+      width: "300px",
+      height: "300px",
+      borderRadius: "10px",
+      "@media (max-width:600px)": {
+        width: "100%",
       },
     },
-    '@media (max-width:1200px)': {
-      width: '45%',
+    "& .card-text": {
+      padding: "15px",
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
     },
-    '@media (max-width:490px)': {
-      width: '100%',
+    "& .category-wrapper": {
+      display: "flex",
+      alignItems: "center",
     },
+    "& .category": {
+      color: theme.palette.text.hint,
+    },
+    "& .star": {
+      color: theme.palette.primary.main,
+    },
+    "& .title": {
+      fontSize: "24px",
+      width: "90%",
+      ...theme.mixins.textClamp(2),
+    },
+    "& .description": {
+      ...theme.mixins.textClamp(3),
+      marginBottom: "15px",
+      paddingRight: "5px",
+    },
+    "& .button-details": {
+      color: theme.palette.white,
+      width: "100%",
+    },
+
+    // "@media (max-width:1200px)": {
+    //   width: "45%",
+    // },
+    // "@media (max-width:490px)": {
+    //   width: "100%",
+    // },
   },
+
   skeletonCard: {
-    borderRadius: '10px',
-    width: '100%',
+    borderRadius: "10px",
+    width: "100%",
   },
 }));

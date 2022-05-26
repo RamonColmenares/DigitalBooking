@@ -19,7 +19,7 @@ export default createTheme({
     text: {
       primary: "rgba(56, 59, 88, 1)",
       dark: "rgb(0,4,17)",
-      hint: "rgb(192,187,187)",
+      hint: "rgba(56, 59, 88, 1)",
     },
   },
 
