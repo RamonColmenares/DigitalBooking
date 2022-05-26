@@ -61,6 +61,12 @@ const ProductCard = ({
         <div className="category-wrapper">
           <p className="category">{CATEGORY[category]}</p>
           <StarRates />
+          <div className="punctuation">
+            <div className="number">
+              <p>8</p>
+            </div>
+            <p>Very Good</p>
+          </div>
         </div>
         <Tooltip title={title} arrow>
           <h3 className="title">{title}</h3>
@@ -181,6 +187,7 @@ const useStyles = makeStyles((theme) => ({
     "& .category-wrapper": {
       display: "flex",
       alignItems: "center",
+      position: "relative",
     },
     "& .category": {
       color: theme.palette.text.hint,
@@ -188,6 +195,28 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .star": {
       color: theme.palette.primary.main,
+    },
+    "& .punctuation": {
+      position: "absolute",
+      right: 0,
+      top: 0,
+      textAlign: "right",
+      "& :nth-child(2)": {
+        marginTop: "5px",
+        fontWeight: "bold",
+      },
+      "& .number": {
+        display: "flex",
+        justifyContent: "end",
+        "& > p": {
+          backgroundColor: "black",
+          color: "white",
+          borderRadius: "5px",
+          fontSize: "20px",
+          fontWeight: "bold",
+          padding: "2px 6px",
+        },
+      },
     },
     "& .title": {
       fontSize: "24px",
