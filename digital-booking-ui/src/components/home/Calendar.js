@@ -46,11 +46,40 @@ const Calendar = (props) => {
 
 export default Calendar;
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     width: "30%",
     "@media (max-width:500px)": {
       width: "100%",
+      "& .react-datepicker": {
+        display: "flex",
+        flexDirection: "column",
+        width: "95vw",
+      },
+    },
+    "& .react-datepicker": {
+      color: "white",
+    },
+    "& .react-datepicker__triangle": {
+      // "&::after": {
+      //   borderBottomColor: `8px solid red`,
+      // },
+    },
+    "& .react-datepicker__header": {
+      backgroundColor: theme.palette.primary.main,
+    },
+    "& .react-datepicker__current-month": {
+      color: theme.palette.white,
+    },
+    "& .react-datepicker__day-name": {
+      color: theme.palette.white,
+    },
+    "& .react-datepicker__navigation": {
+      // backgroundColor: theme.palette.primary.main,
+      borderRadius: "100%",
+      "&:hover": {
+        transform: "scale(1.1)",
+      },
     },
   },
   calendar: {
