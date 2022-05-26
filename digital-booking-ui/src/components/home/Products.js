@@ -129,7 +129,7 @@ export default Products;
 
 const useStyles = makeStyles((theme) => ({
   section: {
-    padding: "30px 0",
+    padding: "30px 40px",
     "& > h2": {
       marginBottom: "15px",
     },
