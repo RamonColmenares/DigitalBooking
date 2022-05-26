@@ -12,8 +12,8 @@ export const ServicesDisplayer = ({ services }) => {
   const classes = useStyles();
   return (
     <div>
-      {Object.values(SERVICES).map((Service) => (
-        <Service className={classes.icon} />
+      {Object.values(SERVICES).map((Service, index) => (
+        <Service key={index} className={classes.icon} />
       ))}
     </div>
   );
