@@ -198,6 +198,7 @@ const useStyles = makeStyles((theme) => ({
     "& .button-details": {
       color: theme.palette.white,
       width: "100%",
+      fontWeight: "bold",
     },
 
     // "@media (max-width:1200px)": {
