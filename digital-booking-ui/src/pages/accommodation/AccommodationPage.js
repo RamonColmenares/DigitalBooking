@@ -5,6 +5,7 @@ import { useAccommodationStore } from "../../stores/accommodation";
 import CenterContainer from "../../common/Displayers/CenterContainer";
 import ErrorSplash from "../../assets/ErrorSplash";
 import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
+import LocationSection from "../../components/accomodation/LocationSection";
 
 const AccommodationPage = () => {
   const classes = useStyles();
@@ -29,7 +30,10 @@ const AccommodationPage = () => {
       {loading && !loaded ? (
         <h1>Loading...</h1>
       ) : (
-        <HeaderAccommodation accommodation={accommodation} />
+        <>
+          <HeaderAccommodation accommodation={accommodation} />
+          <LocationSection accommodation={accommodation} />
+        </>
       )}
     </>
   );

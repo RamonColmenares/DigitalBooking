@@ -7,7 +7,7 @@ export default createTheme({
   palette: {
     white: "rgb(255,255,255)",
     secondary: {
-      light: "rgb(221,226,198)",
+      light: "rgb(220,220,220)",
       dark: "rgb(0,4,17)",
       main: "rgb(84, 87, 118)",
     },
