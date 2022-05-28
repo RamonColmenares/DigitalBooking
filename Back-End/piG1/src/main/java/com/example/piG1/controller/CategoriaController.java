@@ -3,6 +3,7 @@ package com.example.piG1.controller;
 import com.example.piG1.model.Categoria;
 import com.example.piG1.model.CategoriaDTO;
 import com.example.piG1.service.IService.ICategoriaService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
+@Slf4j
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
