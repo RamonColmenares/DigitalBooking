@@ -42,6 +42,7 @@ const App = () => {
             </PubliceRoute>
           }
         />
+        <Route path="accommodation/:id" element={<h1>hola</h1>} />
       </Routes>
       <Footer />
     </>
