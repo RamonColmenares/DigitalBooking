@@ -6,13 +6,8 @@ import StarRateIcon from "@material-ui/icons/StarRate";
 
 import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
 import { ServicesDisplayer } from "../../common/Displayers/ServicesDisplayer";
-
-const CATEGORY = {
-  Hotels: "Hotel",
-  Departments: "Department",
-  Hostels: "Hostel",
-  "Bed and Breakfast": "Bed and Breakfast",
-};
+import { CATEGORIES } from "../../models/business/categories";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const classes = useStyles();
@@ -20,6 +15,12 @@ const Products = () => {
   const loading = useProductsStore((s) => s.loading);
   const loaded = useProductsStore((s) => s.loaded);
   const fetchProducts = useProductsStore((s) => s.fetchData);
+
+  const navigate = useNavigate();
+
+  const handleGoAccommodation = (id) => {
+    navigate(`/accommodation/${id}`);
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -34,6 +35,7 @@ const Products = () => {
             <ProductCard
               key={product.id}
               className={classes.productCard}
+              onClick={handleGoAccommodation}
               {...product}
             />
           ))
@@ -53,13 +55,14 @@ const ProductCard = ({
   category,
   location,
   className,
+  onClick,
 }) => (
   <div className={className} key={id}>
     <img src={crimg} alt={title} className="card-img" />
     <div className="card-text">
       <div className="upper-card">
         <div className="category-wrapper">
-          <p className="category">{CATEGORY[category]}</p>
+          <p className="category">{CATEGORIES[category]}</p>
           <StarRates />
           <div className="punctuation">
             <div className="number">
@@ -81,6 +84,7 @@ const ProductCard = ({
           type="submit"
           variant="contained"
           color="primary"
+          onClick={() => onClick(id)}
         >
           DETAILS
         </Button>

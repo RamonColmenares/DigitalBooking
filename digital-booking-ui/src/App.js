@@ -8,6 +8,7 @@ import Footer from "./pages/Footer";
 import { PubliceRoute } from "./components/routes/PublicRoute";
 import { useAuthStore } from "./stores/auth";
 import { useCitiesStore } from "./stores/cities";
+import AccommodationPage from "./pages/accommodation/AccommodationPage";
 
 const App = () => {
   const user = useAuthStore((s) => s.name);
@@ -42,7 +43,7 @@ const App = () => {
             </PubliceRoute>
           }
         />
-        <Route path="accommodation/:id" element={<h1>hola</h1>} />
+        <Route path="accommodation/:id" element={<AccommodationPage />} />
       </Routes>
       <Footer />
     </>

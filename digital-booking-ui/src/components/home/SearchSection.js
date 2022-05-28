@@ -16,7 +16,7 @@ const SearchSection = () => {
   const { data } = useCitiesStore((s) => s.data);
 
   return (
-    <div className={classes.section}>
+    <section className={classes.section}>
       <h2>Look for offers on hotels, houses and much more</h2>
       <form className={classes.wrapper} onSubmit={(e) => e.preventDefault()}>
         <div className={classes.div}>
@@ -47,7 +47,7 @@ const SearchSection = () => {
           Search
         </Button>
       </form>
-    </div>
+    </section>
   );
 };
 
