@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { IconButton, makeStyles } from "@material-ui/core";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
-import { CATEGORIES } from "../../models/business/categories";
+import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { useAccommodationStore } from "../../stores/accommodation";
 import CenterContainer from "../../common/Displayers/CenterContainer";
 import ErrorSplash from "../../assets/ErrorSplash";
+import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
 
 const AccommodationPage = () => {
   const classes = useStyles();
@@ -21,36 +20,24 @@ const AccommodationPage = () => {
     fetchData();
   }, [fetchData]);
 
-  const handleGoBack = () => {
-    navigate(-1);
-  };
-
-  if (true) {
+  if (error) {
     return <CenterContainer>{/* <ErrorSplash /> */}</CenterContainer>;
   }
 
-  if (loading) return <h1>Cargando</h1>;
   return (
-    <main className={classes.body}>
-      <section className={classes.header}>
-        <IconButton onClick={handleGoBack}>
-          <NavigateBeforeIcon fontSize="large" className="back-arrow" />
-        </IconButton>
-        <div className={classes.title}>
-          <p>{CATEGORIES[accommodation.category]}</p>
-          <h3>{accommodation.title}</h3>
-        </div>
-      </section>
-    </main>
+    <>
+      {loading && !loaded ? (
+        <h1>Loading...</h1>
+      ) : (
+        <HeaderAccommodation accommodation={accommodation} />
+      )}
+    </>
   );
 };
 
 export default AccommodationPage;
 
 const useStyles = makeStyles((theme) => ({
-  body: {
-    minHeight: "85vh",
-  },
   header: {
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.white,
