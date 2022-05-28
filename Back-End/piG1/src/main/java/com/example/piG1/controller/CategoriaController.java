@@ -8,41 +8,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
+
 @Slf4j
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
-    //se va a comunicar con la capa de servicio
 
     @Autowired
     ICategoriaService categoriaService;
-    //hago la instancia con inyeccion de dependencias
 
-    //ahora hago los metodos que necesito en categoria
-
-    //***********GETTERS*************
     @GetMapping("/{id}")
     public CategoriaDTO listarCategoria(@PathVariable Integer id) {
         return categoriaService.listarCategoria(id);
     }
-
     @GetMapping
     public List<CategoriaDTO> listarCategorias() {
         return categoriaService.listarCategorias();
     }
 
-    //***********POST*************
+
     @PostMapping
     public ResponseEntity<?> crearCategoria(@RequestBody CategoriaDTO categoriaDTO) {
         categoriaService.crearCategoria(categoriaDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    //**********PUT*************
+
     @PutMapping
     public ResponseEntity<?> editarCategoria(@RequestBody CategoriaDTO categoriaDTO) {
         ResponseEntity<Categoria> response = null;
@@ -55,7 +48,7 @@ public class CategoriaController {
         return response;
     }
 
-    //**********DELETE*************
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarCategoria(@PathVariable Integer id) {
         ResponseEntity response = null;
