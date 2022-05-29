@@ -2,6 +2,10 @@ import React from "react";
 import StarIcon from "@material-ui/icons/Star";
 import { makeStyles } from "@material-ui/core";
 
+//
+//ADD RATING MUI
+//
+
 const PunctuationDisplayerWithStars = () => {
   const classes = useStyles();
   return (

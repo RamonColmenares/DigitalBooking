@@ -22,8 +22,6 @@ const App = () => {
     fetchCities();
   }, []);
 
-  console.log({ cities });
-
   return (
     <>
       <NavBar />
