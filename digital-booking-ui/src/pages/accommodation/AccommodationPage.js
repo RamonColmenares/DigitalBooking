@@ -6,6 +6,8 @@ import CenterContainer from "../../common/Displayers/CenterContainer";
 import ErrorSplash from "../../assets/ErrorSplash";
 import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
 import LocationSection from "../../components/accomodation/LocationSection";
+import LikeAndShareSection from "../../components/accomodation/LikeAndShareSection";
+import Gallery from "../../components/accomodation/Gallery";
 
 const AccommodationPage = () => {
   const classes = useStyles();
@@ -33,6 +35,8 @@ const AccommodationPage = () => {
         <>
           <HeaderAccommodation accommodation={accommodation} />
           <LocationSection accommodation={accommodation} />
+          <LikeAndShareSection />
+          <Gallery />
         </>
       )}
     </>
@@ -41,32 +45,4 @@ const AccommodationPage = () => {
 
 export default AccommodationPage;
 
-const useStyles = makeStyles((theme) => ({
-  header: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.white,
-    padding: "10px 40px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    "& .back-arrow": {
-      color: theme.palette.white,
-    },
-    "@media (max-width:500px)": {
-      padding: "10px",
-    },
-  },
-  title: {
-    textAlign: "right",
-    "& > p": {
-      textTransform: "uppercase",
-    },
-    "& > h3": {
-      fontWeight: "bold",
-      fontSize: "24px",
-      "@media (max-width:500px)": {
-        fontSize: "18px",
-      },
-    },
-  },
-}));
+const useStyles = makeStyles((theme) => ({}));
