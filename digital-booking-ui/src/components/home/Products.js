@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
 import { Button, makeStyles, Tooltip } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import { useProductsStore } from "../../stores/products";
 import StarRateIcon from "@material-ui/icons/StarRate";
-
 import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
+import { useNavigate } from "react-router-dom";
+
+import { useProductsStore } from "../../stores/products";
 import { ServicesDisplayer } from "../../common/Displayers/ServicesDisplayer";
 import { CATEGORIES } from "../../models/business/categories";
-import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const classes = useStyles();
   const products = useProductsStore((s) => s.data);
   const loading = useProductsStore((s) => s.loading);
   const loaded = useProductsStore((s) => s.loaded);
+
   const fetchProducts = useProductsStore((s) => s.fetchData);
 
   const navigate = useNavigate();
