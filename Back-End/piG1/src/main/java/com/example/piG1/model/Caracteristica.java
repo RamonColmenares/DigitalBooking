@@ -24,7 +24,8 @@ public class Caracteristica {
     @Column(name="descripcion")
     public String descripcion;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private List<Producto> productos = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
+    private Producto producto;
 }

@@ -4,8 +4,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductoDTO {
+public class ImagenDTO {
     public Integer id;
     public String nombre;
-    public String descripcion;
 }

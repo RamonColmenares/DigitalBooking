@@ -22,6 +22,7 @@ public class Categoria {
     private String titulo;
     private String descripcion;
     private String url;
+
     @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Producto> productos = new ArrayList<>();
