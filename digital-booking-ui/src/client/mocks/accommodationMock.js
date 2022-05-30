@@ -9,7 +9,7 @@ const data = [
     title: "Freehand Toronto - Premium King Room",
     location: "Toronto, Canada",
     description:
-      "Designed by famed duo Roman & Williams, with custom art by Bard College students and alumni throughout.",
+      "Architect David Chipperfield designed the airy interiors of this classic pergola-style house to celebrate the breathtaking surroundings of Lake Garda. From this prestigious position on the Eden Luxury Resort, you’ll enjoy endless views of the lake, as well as easy access to walking and biking trails.\nAfter a day on the lake, cool off in the pool or grab a drink at Eden’s gourmet restaurant.",
   },
 ];
 
