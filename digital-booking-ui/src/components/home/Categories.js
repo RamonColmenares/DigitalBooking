@@ -109,8 +109,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginBottom: "15px",
     gap: "20px",
-    "& > button": {
-      // marginBottom: "5px",
+    "@media (max-width:480px)": {
+      flexDirection: "column",
+      alignItems: "start",
     },
   },
   cardWrapper: {
