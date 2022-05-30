@@ -8,6 +8,7 @@ import HeaderAccommodation from "../../components/accomodation/HeaderAccommodati
 import LocationSection from "../../components/accomodation/LocationSection";
 import LikeAndShareSection from "../../components/accomodation/LikeAndShareSection";
 import Gallery from "../../components/accomodation/Gallery";
+import DescriptionSection from "../../components/accomodation/DescriptionSection";
 
 const AccommodationPage = () => {
   const classes = useStyles();
@@ -37,6 +38,7 @@ const AccommodationPage = () => {
           <LocationSection accommodation={accommodation} />
           <LikeAndShareSection />
           <Gallery />
+          <DescriptionSection accommodation={accommodation} />
         </>
       )}
     </>
