@@ -28,7 +28,7 @@ const AccommodationPage = () => {
   return (
     <>
       {loading && !loaded ? (
-        <h1>Loading...</h1>
+        <h1>Loading..</h1>
       ) : (
         <>
           <HeaderAccommodation accommodation={accommodation} />
