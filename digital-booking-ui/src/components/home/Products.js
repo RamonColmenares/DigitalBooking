@@ -225,7 +225,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .title": {
       fontSize: "24px",
-      width: "90%",
+      width: "75%",
       ...theme.mixins.textClamp(2),
     },
     "& .description": {
