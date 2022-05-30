@@ -1,8 +1,9 @@
+import React, { useEffect } from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import React, { useEffect } from "react";
 import { useCategoriesStore } from "../../stores/categories";
 import { useProductsStore } from "../../stores/products";
+import BackspaceIcon from "@material-ui/icons/Backspace";
 
 const Categories = () => {
   const classes = useStyles();
@@ -11,19 +12,36 @@ const Categories = () => {
   const loaded = useCategoriesStore((s) => s.loaded);
   const fetchCategories = useCategoriesStore((s) => s.fetchData);
 
+  const filterCategory = useProductsStore((s) => s.filterCategory);
+  const setFilter = useProductsStore((s) => s.setFilter);
+  const clearFilter = useProductsStore((s) => s.clearFilter);
+
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
   return (
     <section className={classes.section}>
-      <h2>Search by Category</h2>
+      <div className={classes.titleWrapper}>
+        <h2>Search by Category</h2>
+        {filterCategory && (
+          <Button
+            color="secondary"
+            variant="contained"
+            endIcon={<BackspaceIcon fontSize="small" />}
+            onClick={clearFilter}
+          >
+            Clear Filters
+          </Button>
+        )}
+      </div>
       <div className={classes.cardWrapper}>
         {categories && loaded ? (
           categories.map((category) => (
             <CategoryCard
               key={category.id}
               className={classes.card}
+              onClick={setFilter}
               {...category}
             />
           ))
@@ -35,8 +53,8 @@ const Categories = () => {
   );
 };
 
-const CategoryCard = ({ id, title, description, img, className }) => (
-  <div className={className}>
+const CategoryCard = ({ id, title, description, img, onClick, className }) => (
+  <div className={className} onClick={() => onClick(title)}>
     <img src={img} alt={title} className="card-img" />
     <div className="card-text">
       <h3>{title}</h3>
@@ -82,11 +100,17 @@ export default Categories;
 const useStyles = makeStyles((theme) => ({
   section: {
     padding: "30px 40px",
-    "& > h2": {
-      marginBottom: "15px",
-    },
     "@media (max-width:480px)": {
       padding: "30px 15px",
+    },
+  },
+  titleWrapper: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "15px",
+    gap: "20px",
+    "& > button": {
+      // marginBottom: "5px",
     },
   },
   cardWrapper: {
