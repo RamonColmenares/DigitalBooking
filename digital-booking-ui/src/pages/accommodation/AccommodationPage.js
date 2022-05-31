@@ -9,6 +9,7 @@ import LocationSection from "../../components/accomodation/LocationSection";
 import LikeAndShareSection from "../../components/accomodation/LikeAndShareSection";
 import Gallery from "../../components/accomodation/Gallery";
 import DescriptionSection from "../../components/accomodation/DescriptionSection";
+import ServicesSection from "../../components/accomodation/ServicesSection";
 
 const AccommodationPage = () => {
   const classes = useStyles();
@@ -39,6 +40,7 @@ const AccommodationPage = () => {
           <LikeAndShareSection />
           <Gallery />
           <DescriptionSection accommodation={accommodation} />
+          <ServicesSection accommodation={accommodation} />
         </>
       )}
     </>
