@@ -34,21 +34,50 @@ public class ProductServices implements IProductServices {
 
     @Override
     public ProductDTO save(ProductDTO productDTO) {
-        return null;
+        Product product = mapper.convertValue(productDTO, Product.class);
+        productRepository.save(product);
+        if (productDTO.getId() == null){
+            productDTO.setId(product.getId());
+            logger.info("Producto registrada correctamente: "+ productDTO);
+        }else{
+            logger.info("Producto actualizada correctamente: "+ productDTO);
+        }
+        return productDTO;
     }
 
     @Override
     public ProductDTO findById(Integer id) throws ResourceNotFoundException {
-        return null;
+        Product product = checkId(id);
+        ProductDTO productDTO = mapper.convertValue(product, ProductDTO.class);
+        logger.info("La busqueda fue exitosa: id " + id);
+        return productDTO;
     }
 
     @Override
     public List<ProductDTO> findAll() {
-        return null;
+        List<ProductDTO> productsDTO = new ArrayList<>();
+        List<Product> products = productRepository.findAll();
+        for(Product product: products){
+            productsDTO.add(mapper.convertValue(product, ProductDTO.class));
+        }
+        productsDTO .sort(Comparator.comparing(ProductDTO::getId)); //
+        logger.info("La busqueda fue exitosa: "+ productsDTO);
+        return productsDTO;
     }
 
     @Override
     public void delete(Integer id) throws ResourceNotFoundException {
+        checkId(id);
+        productRepository.deleteById(id);
+        logger.info("Se elimino el producto correctamente con el id("+id+")");
+    }
 
+    @Override
+    public Product checkId(Integer id) throws ResourceNotFoundException {
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isEmpty()) {
+            throw new ResourceNotFoundException(messageError + id);
+        }
+        return product.get();
     }
 }
