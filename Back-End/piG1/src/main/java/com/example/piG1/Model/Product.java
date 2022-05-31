@@ -1,4 +1,4 @@
-package com.example.piG1.model;
+package com.example.piG1.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

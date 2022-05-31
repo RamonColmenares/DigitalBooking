@@ -1,8 +1,5 @@
-package com.example.piG1.model;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package com.example.piG1.Model;
 import lombok.*;
-
-import javax.persistence.Column;
 
 @Getter
 @Setter

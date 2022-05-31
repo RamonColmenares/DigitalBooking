@@ -1,4 +1,4 @@
-package com.example.piG1.util;
+package com.example.piG1.Util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

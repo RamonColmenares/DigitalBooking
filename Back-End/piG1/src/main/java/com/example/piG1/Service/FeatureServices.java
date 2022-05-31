@@ -1,59 +1,43 @@
-package com.example.piG1.service;
+package com.example.piG1.Service;
 
-import com.example.piG1.model.*;
-import com.example.piG1.repository.IFeatureRepository;
-import com.example.piG1.service.IService.ICaracteristicaService;
+import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.*;
+import com.example.piG1.Repository.IFeatureRepository;
+import com.example.piG1.Service.IService.IFeatureServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-public class FeatureServices implements ICaracteristicaService {
+public class FeatureServices implements IFeatureServices {
 
     @Autowired
-    private IFeatureRepository caracteristicaRepository;
+    private IFeatureRepository featureRepository;
     @Autowired
     private FeatureServices featureServices;
 
     @Autowired
     ObjectMapper mapper;
 
-    private Feature guardarCaracteristica(FeatureDTO featureDTO){
-        Feature feature = mapper.convertValue(featureDTO, Feature.class);
-        return caracteristicaRepository.save(feature);
-    }
 
     @Override
-    public Feature crearCaracteristica(FeatureDTO featureDTO) {
-        return guardarCaracteristica(featureDTO);
-    }
-
-    @Override
-    public FeatureDTO listarCaracteristica(Integer id) {
+    public FeatureDTO save(FeatureDTO featureDTO) {
         return null;
     }
 
     @Override
-    public Feature editarCaracteristica(FeatureDTO featureDTO) {
-        return guardarCaracteristica(featureDTO);
+    public FeatureDTO findById(Integer id) throws ResourceNotFoundException {
+        return null;
     }
 
     @Override
-    public void eliminarCategoria(Integer id) {
-        caracteristicaRepository.deleteById(id);
+    public List<FeatureDTO> findAll() {
+        return null;
     }
 
     @Override
-    public List<FeatureDTO> listarCaracteristicas() {
-        List<Feature> features = caracteristicaRepository.findAll();
-        List<FeatureDTO> caracteristicasDTO = new ArrayList<>();
+    public void delete(Integer id) throws ResourceNotFoundException {
 
-        for(Feature feature : features){
-            caracteristicasDTO.add(mapper.convertValue(feature, FeatureDTO.class));
-        }
-        caracteristicasDTO .sort(Comparator.comparing(FeatureDTO::getId)); //                                                                                                                      CategoryDTO
-        return caracteristicasDTO;
     }
 }

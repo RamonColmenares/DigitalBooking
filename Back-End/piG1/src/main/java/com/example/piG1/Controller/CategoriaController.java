@@ -1,8 +1,7 @@
-package com.example.piG1.controller;
+package com.example.piG1.Controller;
 
-import com.example.piG1.model.Category;
-import com.example.piG1.model.CategoryDTO;
-import com.example.piG1.service.IService.ICategoriaService;
+import com.example.piG1.Model.Category;
+import com.example.piG1.Model.CategoryDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

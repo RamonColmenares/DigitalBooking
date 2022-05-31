@@ -1,7 +1,5 @@
-package com.example.piG1.model;
+package com.example.piG1.Model;
 import lombok.*;
-
-import javax.persistence.Column;
 
 @Getter
 @Setter

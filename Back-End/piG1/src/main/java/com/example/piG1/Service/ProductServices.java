@@ -1,8 +1,9 @@
-package com.example.piG1.service;
+package com.example.piG1.Service;
 
-import com.example.piG1.model.*;
-import com.example.piG1.repository.*;
-import com.example.piG1.service.IService.IProductoService;
+import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.*;
+import com.example.piG1.Repository.*;
+import com.example.piG1.Service.IService.IProductServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,70 +13,42 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductServices implements IProductoService {
+public class ProductServices implements IProductServices {
     protected final static Logger logger = Logger.getLogger(ProductServices.class);
 
     @Autowired
-    private IProductRepository productoRepository;
+    private IProductRepository productRepository;
     @Autowired
     private ProductServices productServices;
     @Autowired
-    private IImageRepository imagenRepository;
+    private IImageRepository imageRepository;
     @Autowired
-    private IFeatureRepository caracteristicaRepository;
+    private IFeatureRepository featureRepository;
     @Autowired
-    private ICityRepository ciudadRepository;
+    private ICityRepository cityRepository;
     @Autowired
-    private ICategoryRepository categoriaRepository;
+    private ICategoryRepository categoryRepository;
 
     @Autowired
     ObjectMapper mapper;
 
-    private ProductDTO guardarProducto(ProductDTO productDTO){
-        Product product = mapper.convertValue(productDTO, Product.class);
-        productoRepository.save(product);
-        if (productDTO.getId() == null){
-            productDTO.setId(product.getId());
-            logger.info("Product registrado correctamente: "+ productDTO);
-        }else{
-            logger.info("Product actualizado correctamente: "+ productDTO);
-        }
-        return productDTO;
+    @Override
+    public ProductDTO save(ProductDTO productDTO) {
+        return null;
     }
 
     @Override
-    public Product crearProducto(ProductDTO productDTO) {
-        return guardarProducto(productDTO);
+    public ProductDTO findById(Integer id) throws ResourceNotFoundException {
+        return null;
     }
 
     @Override
-    public ProductDTO listarProducto(Integer id) {
-        Optional<Product> producto = productoRepository.findById(id);
-        ProductDTO productDTO = null;
-        if (producto.isPresent())
-            productDTO = mapper.convertValue(producto, ProductDTO.class);
-        return productDTO;
+    public List<ProductDTO> findAll() {
+        return null;
     }
 
     @Override
-    public Product editarProducto(ProductDTO productDTO) {
-        return guardarProducto(productDTO);
-    }
+    public void delete(Integer id) throws ResourceNotFoundException {
 
-    @Override
-    public void eliminarProducto(Integer id) {
-        productoRepository.deleteById(id);
-    }
-
-    @Override
-    public List<ProductDTO> listarProductos() {
-        List<Product> products = productoRepository.findAll();
-        List<ProductDTO> productosDTO = new ArrayList<>();
-
-        for(Product product : products){
-            productosDTO.add(mapper.convertValue(product, ProductDTO.class));
-        }
-        productosDTO .sort(Comparator.comparing(ProductDTO::getId)); //
-        return productosDTO;
     }
 }

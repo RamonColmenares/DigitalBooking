@@ -1,10 +1,11 @@
-package com.example.piG1.service;
+package com.example.piG1.Service;
 
-import com.example.piG1.model.Image;
-import com.example.piG1.model.ImageDTO;
-import com.example.piG1.repository.IImageRepository;
-import com.example.piG1.repository.IProductRepository;
-import com.example.piG1.service.IService.IImagenService;
+import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.Image;
+import com.example.piG1.Model.ImageDTO;
+import com.example.piG1.Repository.IImageRepository;
+import com.example.piG1.Repository.IProductRepository;
+import com.example.piG1.Service.IService.IImageServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,54 +14,31 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class ImageServices implements IImagenService {
+public class ImageServices implements IImageServices {
     @Autowired
-    private IImageRepository imagenRepository;
-    @Autowired
-    private IProductRepository productoRepository;
+    private IImageRepository imageRepository;
 
     @Autowired
     ObjectMapper mapper;
 
-    private Image guardarImagen (ImageDTO imageDTO) {
-        Image imagen = mapper.convertValue(imageDTO, Image.class);
-        return imagenRepository.save(imagen);
+
+    @Override
+    public ImageDTO save(ImageDTO imageDTO) {
+        return null;
     }
 
     @Override
-    public Image crearImagen(ImageDTO imageDTO) {
-        return guardarImagen(imageDTO);
+    public ImageDTO findById(Integer id) throws ResourceNotFoundException {
+        return null;
     }
 
     @Override
-    public ImageDTO listarImagen(Integer id) {
-        Optional<Image> imagen = imagenRepository.findById(id);
-        ImageDTO imageDTO = null;
-        if(imagen.isPresent()) {
-            imageDTO = mapper.convertValue(imagen, ImageDTO.class);
-        }
-        return imageDTO;
+    public List<ImageDTO> findAll() {
+        return null;
     }
 
     @Override
-    public Image editarImagen(ImageDTO imageDTO) {
-        return guardarImagen(imageDTO);
-    }
+    public void delete(Integer id) throws ResourceNotFoundException {
 
-    @Override
-    public void eliminarImagen(Integer id) {
-        imagenRepository.deleteById(id);
-    }
-
-    @Override
-    public List<ImageDTO> listarImagenes() {
-        List<Image> imagenes = imagenRepository.findAll();
-        List<ImageDTO> imagenesDTO = new ArrayList<>();
-
-        for(Image imagen: imagenes){
-            imagenesDTO.add(mapper.convertValue(imagen, ImageDTO.class));
-        }
-        imagenesDTO .sort(Comparator.comparing(ImageDTO::getId)); //
-        return imagenesDTO;
     }
 }
