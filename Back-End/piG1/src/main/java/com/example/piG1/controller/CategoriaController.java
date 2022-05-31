@@ -1,7 +1,7 @@
 package com.example.piG1.controller;
 
-import com.example.piG1.model.Categoria;
-import com.example.piG1.model.CategoriaDTO;
+import com.example.piG1.model.Category;
+import com.example.piG1.model.CategoryDTO;
 import com.example.piG1.service.IService.ICategoriaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,28 +20,28 @@ public class CategoriaController {
     ICategoriaService categoriaService;
 
     @GetMapping("/{id}")
-    public CategoriaDTO listarCategoria(@PathVariable Integer id) {
+    public CategoryDTO listarCategoria(@PathVariable Integer id) {
         return categoriaService.listarCategoria(id);
     }
     @GetMapping
-    public List<CategoriaDTO> listarCategorias() {
+    public List<CategoryDTO> listarCategorias() {
         return categoriaService.listarCategorias();
     }
 
 
     @PostMapping
-    public ResponseEntity<?> crearCategoria(@RequestBody CategoriaDTO categoriaDTO) {
-        categoriaService.crearCategoria(categoriaDTO);
+    public ResponseEntity<?> crearCategoria(@RequestBody CategoryDTO categoryDTO) {
+        categoriaService.crearCategoria(categoryDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
 
     @PutMapping
-    public ResponseEntity<?> editarCategoria(@RequestBody CategoriaDTO categoriaDTO) {
-        ResponseEntity<Categoria> response = null;
+    public ResponseEntity<?> editarCategoria(@RequestBody CategoryDTO categoryDTO) {
+        ResponseEntity<Category> response = null;
 
-        if (categoriaDTO.getId() != null && categoriaService.listarCategoria(categoriaDTO.getId()) != null)
-            response = ResponseEntity.ok(categoriaService.editarCategoria(categoriaDTO));
+        if (categoryDTO.getId() != null && categoriaService.listarCategoria(categoryDTO.getId()) != null)
+            response = ResponseEntity.ok(categoriaService.editarCategoria(categoryDTO));
         else
             response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
@@ -61,4 +61,11 @@ public class CategoriaController {
         return response;
     }
 }
+
+//    ResponseEntity<Product> response = null;
+//        if (productoDTO.getId() != null && productoService.listarProducto(productoDTO.getId()) != null)
+//                response = ResponseEntity.ok(productoService.editarProducto(productoDTO));
+//                else
+//                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//                return guardarProducto(productoDTO);
 
