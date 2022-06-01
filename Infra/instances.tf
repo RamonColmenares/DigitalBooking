@@ -1,5 +1,3 @@
-
-
 data "aws_availability_zones" "available" {}
 
 // según la documentación de amazon, el siguiente bloque de data es así para la imagen de ubuntu server
@@ -9,7 +7,7 @@ data "aws_ami" "ubuntu" {
     owners = ["099720109477"]
     filter {
         name = "name"
-        values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-22.17-amd64-server-*"]
+        values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
     }
 }
 
@@ -18,27 +16,26 @@ resource "aws_key_pair" "mykey" {
     public_key = file(var.PATH_TO_PUBLIC_KEY)
 }
 
-resource "aws_instance" "boceto" {
-    count = 4
+resource "aws_instance" "instance1" {
     ami = data.aws_ami.ubuntu.id
     instance_type = "t2.micro"
-    availability_zone = data.aws_availability_zones.available.names[0]
+    availability_zone = data.aws_availability_zones.available.names[2]
+    key_name = aws_key_pair.mykey.key_name
+    vpc_security_group_ids = [ aws_security_group.validate-g1vpc-ssh.id, aws_security_group.validate-g1vpc-http.id ]
+    subnet_id = aws_subnet.g1vpc-public-2.id
     tags = {
-        Name = "instance-${count.index}"
+        Name = "g1_instance1"
     }
 
     // según la documentación de terraform, provisioner copia los scripts a mi instancia y las ejecuta.
     // ejecuto el script que instala Nginx tras la configuración inline de los permisos.
 
-    provisioner "file" {
-    source = "installNginx.sh"
-    destination = "/tmp/installNginx.sh"
-    }
 
     provisioner "remote-exec" {
         inline = [
-            "chmod +x /tmp/instalNginx.sh",
-            "sudo /tmp/installNginx.sh",
+            "sudo apt-get -y update",
+            "sudo apt-get -y install nginx",
+            "sudo service nginx start",
         ]
     }
 
@@ -51,7 +48,23 @@ resource "aws_instance" "boceto" {
         private_key = file(var.PATH_TO_PRIVATE_KEY)
     }
 }
-output "public_ip" {
-    value = aws_instance.boceto.public_ip
+
+resource "aws_instance" "instance2" {
+    ami = data.aws_ami.ubuntu.id
+    instance_type = "t2.micro"
+    availability_zone = data.aws_availability_zones.available.names[2]
+    key_name = aws_key_pair.mykey.key_name
+    vpc_security_group_ids = [ aws_security_group.validate-g1vpc-ssh.id ]
+    subnet_id = aws_subnet.g1vpc-private-1.id
+    tags = {
+        Name = "g1_instance2"
+    }
 }
+
+
+/*
+output "public_ip" {
+    value = aws_instance.instance.public_ip
+}
+*/
 
