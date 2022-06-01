@@ -16,9 +16,9 @@ public class CategoryServices implements ICategoryServices {
     protected final static Logger logger = Logger.getLogger(CategoryServices.class);
 
     @Autowired
-    private ICategoryRepository categoryRepository ;
+    public ICategoryRepository categoryRepository ;
     @Autowired
-    private CategoryServices categoryServices;
+    public CategoryServices categoryServices;
 
     @Autowired
     ObjectMapper mapper;

@@ -12,10 +12,10 @@ public class ProductDTO {
     public Integer id;
     public String name;
     public String description;
-    private List<Image> images;
-    private List<Policy> policies;
-    private City city;
-    private Category category;
-    private List<Feature> features;
-    private List<Booking> bookings;
+    public List<Image> images;
+    public List<Policy> policies;
+    public City city;
+    public Category category;
+    public List<Feature> features;
+    public List<Booking> bookings;
 }

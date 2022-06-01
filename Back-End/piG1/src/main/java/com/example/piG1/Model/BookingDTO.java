@@ -9,8 +9,8 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class BookingDTO {
-    private Integer id;
+    public Integer id;
     public Date startDate;
     public Date endDate;
-    private List<Product> products;
+    public List<Product> products;
 }

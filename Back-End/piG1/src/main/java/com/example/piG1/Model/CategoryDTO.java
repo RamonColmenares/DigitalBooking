@@ -10,9 +10,9 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class CategoryDTO {
-    private Integer id;
-    private String title;
-    private String description;
-    private String urlImage;
-    private List<Product> products;
+    public Integer id;
+    public String title;
+    public String description;
+    public String urlImage;
+    public List<Product> products;
 }

@@ -19,10 +19,12 @@ public class City {
     @SequenceGenerator(name = "city_sequence", sequenceName = "city_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_sequence")
     public Integer id;
+    @Column(name="name")
     public String name;
+    @Column(name="nameCountry")
     public String nameCountry;
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Product> products = new ArrayList<>();
+    public List<Product> products = new ArrayList<>();
 }

@@ -17,7 +17,7 @@ import java.util.Optional;
 public class ImageServices implements IImageServices {
     protected final static Logger logger = Logger.getLogger(ImageServices.class);
     @Autowired
-    private IImageRepository imageRepository;
+    public IImageRepository imageRepository;
 
     @Autowired
     ObjectMapper mapper;

@@ -28,5 +28,5 @@ public class Feature {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
-    private Product product;
+    public Product product;
 }

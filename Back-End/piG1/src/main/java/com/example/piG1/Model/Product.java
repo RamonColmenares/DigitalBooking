@@ -28,27 +28,27 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Category category;
+    public Category category;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List <Feature> features = new ArrayList<>();
+    public List <Feature> features = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "city_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private City city;
+    public City city;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List <Image> images = new ArrayList<>();
+    public List <Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List <Policy> policies = new ArrayList<>();
+    public List <Policy> policies = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List <Booking> bookings = new ArrayList<>();
+    public List <Booking> bookings = new ArrayList<>();
 
 }

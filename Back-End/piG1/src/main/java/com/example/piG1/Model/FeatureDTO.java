@@ -13,5 +13,5 @@ public class FeatureDTO {
     public Integer id;
     public String name;
     public String icon;
-    private List<Product>products;
+    public List<Product>products;
 }

@@ -21,7 +21,7 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
     protected final static Logger logger = Logger.getLogger(TypeOfPolicyServices.class);
 
     @Autowired
-    private ITypeOfPolicyRepository typeOfPolicyRepository;
+    public ITypeOfPolicyRepository typeOfPolicyRepository;
 
     @Autowired
     ObjectMapper mapper;
