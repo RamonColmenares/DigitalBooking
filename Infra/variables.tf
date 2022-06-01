@@ -2,20 +2,23 @@
 
 variable "AWS_ACCESS_KEY" {
     type = string
-    default = "XXXXXXX"
+    default = "mock_access_key"
 }
 
 variable "AWS_SECRET_KEY" {
     type = string
-    default = "xxxxxxxxxXXXXXXxx"
+    default = "mock_secret_key"
 }
 
 variable "AWS_REGION" {
-    type = string
-    default = "us-west-1"
+    default = "us-east-1"
 }
 
-VARIABLE "PATH_TO_PUBLIC_KEY" {
+variable "PATH_TO_PRIVATE_KEY" {
+    default = "mykey"
+}
+
+variable "PATH_TO_PUBLIC_KEY" {
     default = "mykey.pub"
 }
 
