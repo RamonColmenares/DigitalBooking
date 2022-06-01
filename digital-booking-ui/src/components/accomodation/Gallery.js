@@ -60,4 +60,7 @@ const useStyles = makeStyles(() => ({
       height: "40vh",
     },
   },
+  imgWrapper: {
+    margin: "0px 5px"
+  }
 }));
