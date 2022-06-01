@@ -2,16 +2,15 @@ package com.example.piG1.Model;
 
 import lombok.*;
 
-import java.util.List;
+import javax.persistence.Column;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class FeatureDTO {
+public class TypeOfPolicyDTO {
     public Integer id;
-    public String name;
-    public String icon;
-    private List<Product>products;
+    public String title;
+    public String description;
 }

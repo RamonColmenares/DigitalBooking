@@ -1,5 +1,4 @@
 package com.example.piG1.Model;
-
 import lombok.*;
 
 import java.util.List;
@@ -9,9 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class FeatureDTO {
+public class PolicyDTO {
     public Integer id;
-    public String name;
-    public String icon;
-    private List<Product>products;
+    private List<TypeOfPolicy> typeOfPolicies;
 }

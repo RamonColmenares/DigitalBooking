@@ -1,7 +1,6 @@
 package com.example.piG1.Model;
-
 import lombok.*;
-
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -9,10 +8,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CategoryDTO {
+public class BookingDTO {
     private Integer id;
-    private String title;
-    private String description;
-    private String urlImage;
+    public Date startDate;
+    public Date endDate;
     private List<Product> products;
 }
