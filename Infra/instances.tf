@@ -60,11 +60,3 @@ resource "aws_instance" "instance2" {
         Name = "g1_instance2"
     }
 }
-
-
-/*
-output "public_ip" {
-    value = aws_instance.instance.public_ip
-}
-*/
-
