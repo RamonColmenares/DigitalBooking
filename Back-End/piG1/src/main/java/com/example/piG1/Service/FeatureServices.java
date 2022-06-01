@@ -17,9 +17,9 @@ public class FeatureServices implements IFeatureServices {
     protected final static Logger logger = Logger.getLogger(FeatureServices.class);
 
     @Autowired
-    private IFeatureRepository featureRepository;
+    public IFeatureRepository featureRepository;
     @Autowired
-    private FeatureServices featureServices;
+    public FeatureServices featureServices;
 
     @Autowired
     ObjectMapper mapper;

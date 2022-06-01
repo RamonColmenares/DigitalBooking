@@ -23,9 +23,9 @@ public class Policy {
 
     @OneToMany(mappedBy = "policy", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<TypeOfPolicy> typeOfPolicies = new ArrayList<>();
+    public List<TypeOfPolicy> typeOfPolicies = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Product product;
+    public Product product;
 }

@@ -13,5 +13,5 @@ public class CityDTO {
     public Integer id;
     public String name;
     public String nameCountry;
-    private List<Product> products;
+    public List<Product> products;
 }

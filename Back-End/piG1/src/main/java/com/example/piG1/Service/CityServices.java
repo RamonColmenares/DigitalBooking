@@ -16,7 +16,7 @@ import java.util.Optional;
 public class CityServices implements ICityServices {
     protected final static Logger logger = Logger.getLogger(CityServices.class);
     @Autowired
-    private ICityRepository cityRepository;
+    public ICityRepository cityRepository;
 
     @Autowired
     ObjectMapper mapper;

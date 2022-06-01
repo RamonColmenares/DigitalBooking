@@ -10,5 +10,5 @@ import java.util.List;
 @ToString
 public class PolicyDTO {
     public Integer id;
-    private List<TypeOfPolicy> typeOfPolicies;
+    public List<TypeOfPolicy> typeOfPolicies;
 }

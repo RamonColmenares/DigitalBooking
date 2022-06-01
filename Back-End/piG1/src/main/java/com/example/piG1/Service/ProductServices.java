@@ -17,18 +17,7 @@ public class ProductServices implements IProductServices {
     protected final static Logger logger = Logger.getLogger(ProductServices.class);
 
     @Autowired
-    private IProductRepository productRepository;
-    @Autowired
-    private ProductServices productServices;
-    @Autowired
-    private IImageRepository imageRepository;
-    @Autowired
-    private IFeatureRepository featureRepository;
-    @Autowired
-    private ICityRepository cityRepository;
-    @Autowired
-    private ICategoryRepository categoryRepository;
-
+    public IProductRepository productRepository;
     @Autowired
     ObjectMapper mapper;
 

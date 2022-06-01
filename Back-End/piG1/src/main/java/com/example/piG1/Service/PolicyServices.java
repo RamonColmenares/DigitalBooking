@@ -18,7 +18,7 @@ public class PolicyServices implements IPolicyServices {
     protected final static Logger logger = Logger.getLogger(PolicyServices.class);
 
     @Autowired
-    private IPolicyRepository policyRepository;
+    public IPolicyRepository policyRepository;
     @Autowired
     ObjectMapper mapper;
 
