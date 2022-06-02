@@ -7,19 +7,18 @@ import com.example.piG1.Service.IService.IFeatureServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class FeatureServices implements IFeatureServices {
     protected final static Logger logger = Logger.getLogger(FeatureServices.class);
 
     @Autowired
     public IFeatureRepository featureRepository;
-    @Autowired
-    public FeatureServices featureServices;
 
     @Autowired
     ObjectMapper mapper;

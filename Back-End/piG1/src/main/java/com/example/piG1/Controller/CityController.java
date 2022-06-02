@@ -15,30 +15,31 @@ import java.util.List;
 @RestController
 @RequestMapping("/cities")
 public class CityController {
+
     @Autowired
-    CityServices cityServices;
+    ICityServices iCityServices;
 
     @GetMapping
     public ResponseEntity<List<CityDTO>> findAll(){
-        return ResponseEntity.ok(cityServices.findAll());
+        return ResponseEntity.ok(iCityServices.findAll());
     }
 
     @PostMapping
     public ResponseEntity<CityDTO> save(@RequestBody CityDTO cityDTO){
         if(cityDTO.getId() == null)
-            return ResponseEntity.status(HttpStatus.CREATED).body(cityServices.save(cityDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(iCityServices.save(cityDTO));
         else
-            return ResponseEntity.ok(cityServices.save(cityDTO));
+            return ResponseEntity.ok(iCityServices.save(cityDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
-        cityServices.delete(id);
+        iCityServices.delete(id);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CityDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
-        return ResponseEntity.ok(cityServices.findById(id));
+        return ResponseEntity.ok(iCityServices.findById(id));
     }
 }

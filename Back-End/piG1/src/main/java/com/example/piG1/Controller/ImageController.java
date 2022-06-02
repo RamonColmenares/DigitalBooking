@@ -4,6 +4,7 @@ import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.CategoryDTO;
 import com.example.piG1.Model.ImageDTO;
 import com.example.piG1.Service.IService.ICategoryServices;
+import com.example.piG1.Service.IService.IImageServices;
 import com.example.piG1.Service.ImageServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,29 +16,29 @@ import java.util.List;
 @RequestMapping("/images")
 public class ImageController {
     @Autowired
-    ImageServices imageServices;
+    IImageServices iImageServices;
 
     @GetMapping
     public ResponseEntity<List<ImageDTO>> findAll(){
-        return ResponseEntity.ok(imageServices.findAll());
+        return ResponseEntity.ok(iImageServices.findAll());
     }
 
     @PostMapping
     public ResponseEntity<ImageDTO> save(@RequestBody ImageDTO imageDTO){
         if(imageDTO.getId() == null)
-            return ResponseEntity.status(HttpStatus.CREATED).body(imageServices.save(imageDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(iImageServices.save(imageDTO));
         else
-            return ResponseEntity.ok(imageServices.save(imageDTO));
+            return ResponseEntity.ok(iImageServices.save(imageDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
-        imageServices.delete(id);
+        iImageServices.delete(id);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ImageDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
-        return ResponseEntity.ok(imageServices.findById(id));
+        return ResponseEntity.ok(iImageServices.findById(id));
     }
 }

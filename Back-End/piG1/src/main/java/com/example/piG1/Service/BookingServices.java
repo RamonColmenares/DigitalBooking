@@ -3,21 +3,25 @@ package com.example.piG1.Service;
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.*;
 import com.example.piG1.Repository.IBookingRepository;
-import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Service.IService.IBookingServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BookingServices implements IBookingServices {
     protected final static Logger logger = Logger.getLogger(BookingServices.class);
+
+
     @Autowired
-    private IBookingRepository bookingRepository;
+    public IBookingRepository bookingRepository;
+
     @Autowired
     ObjectMapper mapper;
 

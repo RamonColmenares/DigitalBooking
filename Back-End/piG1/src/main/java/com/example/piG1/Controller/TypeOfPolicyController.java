@@ -4,6 +4,7 @@ import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.CategoryDTO;
 import com.example.piG1.Model.TypeOfPolicyDTO;
 import com.example.piG1.Service.IService.ICategoryServices;
+import com.example.piG1.Service.IService.ITypeOfPolicyServices;
 import com.example.piG1.Service.TypeOfPolicyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,29 +16,29 @@ import java.util.List;
 @RequestMapping("/typeOfPolicies")
 public class TypeOfPolicyController {
     @Autowired
-    TypeOfPolicyServices typeOfPolicyServices;
+    ITypeOfPolicyServices iTypeOfPolicyServices;
 
     @GetMapping
     public ResponseEntity<List<TypeOfPolicyDTO>> findAll(){
-        return ResponseEntity.ok(typeOfPolicyServices.findAll());
+        return ResponseEntity.ok(iTypeOfPolicyServices.findAll());
     }
 
     @PostMapping
     public ResponseEntity<TypeOfPolicyDTO> save(@RequestBody TypeOfPolicyDTO typeOfPolicyDTO){
         if(typeOfPolicyDTO.getId() == null)
-            return ResponseEntity.status(HttpStatus.CREATED).body(typeOfPolicyServices.save(typeOfPolicyDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(iTypeOfPolicyServices.save(typeOfPolicyDTO));
         else
-            return ResponseEntity.ok(typeOfPolicyServices.save(typeOfPolicyDTO));
+            return ResponseEntity.ok(iTypeOfPolicyServices.save(typeOfPolicyDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
-        typeOfPolicyServices.delete(id);
+        iTypeOfPolicyServices.delete(id);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TypeOfPolicyDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
-        return ResponseEntity.ok(typeOfPolicyServices.findById(id));
+        return ResponseEntity.ok(iTypeOfPolicyServices.findById(id));
     }
 }
