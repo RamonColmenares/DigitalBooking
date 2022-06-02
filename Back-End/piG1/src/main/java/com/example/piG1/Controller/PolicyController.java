@@ -4,6 +4,7 @@ import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.CategoryDTO;
 import com.example.piG1.Model.PolicyDTO;
 import com.example.piG1.Service.IService.ICategoryServices;
+import com.example.piG1.Service.IService.IPolicyServices;
 import com.example.piG1.Service.PolicyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,29 +16,29 @@ import java.util.List;
 @RequestMapping("/policies")
 public class PolicyController {
     @Autowired
-    PolicyServices policyServices;
+    IPolicyServices iPolicyServices;
 
     @GetMapping
     public ResponseEntity<List<PolicyDTO>> findAll(){
-        return ResponseEntity.ok(policyServices.findAll());
+        return ResponseEntity.ok(iPolicyServices.findAll());
     }
 
     @PostMapping
     public ResponseEntity<PolicyDTO> save(@RequestBody PolicyDTO policyDTO){
         if(policyDTO.getId() == null)
-            return ResponseEntity.status(HttpStatus.CREATED).body(policyServices.save(policyDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(iPolicyServices.save(policyDTO));
         else
-            return ResponseEntity.ok(policyServices.save(policyDTO));
+            return ResponseEntity.ok(iPolicyServices.save(policyDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
-        policyServices.delete(id);
+        iPolicyServices.delete(id);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PolicyDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
-        return ResponseEntity.ok(policyServices.findById(id));
+        return ResponseEntity.ok(iPolicyServices.findById(id));
     }
 }

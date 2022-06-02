@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/feature")
+@RequestMapping("/features")
 public class FeatureController {
     @Autowired
-    FeatureServices featureServices;
+    IFeatureServices iFeatureServices;
 
     @GetMapping
     public ResponseEntity<List<FeatureDTO>> findAll(){
-        return ResponseEntity.ok(featureServices.findAll());
+        return ResponseEntity.ok(iFeatureServices.findAll());
     }
 
     @PostMapping
     public ResponseEntity<FeatureDTO> save(@RequestBody FeatureDTO featureDTO){
         if(featureDTO.getId() == null)
-            return ResponseEntity.status(HttpStatus.CREATED).body(featureServices.save(featureDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(iFeatureServices.save(featureDTO));
         else
-            return ResponseEntity.ok(featureServices.save(featureDTO));
+            return ResponseEntity.ok(iFeatureServices.save(featureDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
-        featureServices.delete(id);
+        iFeatureServices.delete(id);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FeatureDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
-        return ResponseEntity.ok(featureServices.findById(id));
+        return ResponseEntity.ok(iFeatureServices.findById(id));
     }
 }

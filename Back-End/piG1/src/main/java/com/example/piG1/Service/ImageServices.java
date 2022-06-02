@@ -8,14 +8,16 @@ import com.example.piG1.Service.IService.IImageServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class ImageServices implements IImageServices {
     protected final static Logger logger = Logger.getLogger(ImageServices.class);
+
     @Autowired
     public IImageRepository imageRepository;
 

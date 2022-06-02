@@ -13,32 +13,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bookings")
+@RequestMapping("/categories")
 public class CategoryController {
+
     @Autowired
-    CategoryServices categoryServices;
+    ICategoryServices iCategoryServices;
 
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> findAll(){
-        return ResponseEntity.ok(categoryServices.findAll());
+        return ResponseEntity.ok(iCategoryServices.findAll());
     }
 
     @PostMapping
     public ResponseEntity<CategoryDTO> save(@RequestBody CategoryDTO categoryDTO){
         if(categoryDTO.getId() == null)
-            return ResponseEntity.status(HttpStatus.CREATED).body(categoryServices.save(categoryDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(iCategoryServices.save(categoryDTO));
         else
-            return ResponseEntity.ok(categoryServices.save(categoryDTO));
+            return ResponseEntity.ok(iCategoryServices.save(categoryDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
-        categoryServices.delete(id);
+        iCategoryServices.delete(id);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
-        return ResponseEntity.ok(categoryServices.findById(id));
+        return ResponseEntity.ok(iCategoryServices.findById(id));
     }
 }
