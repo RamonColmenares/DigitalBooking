@@ -1,4 +1,4 @@
-package com.example.piG1.Model;
+package com.example.piG1.Model.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
@@ -24,7 +24,7 @@ public class Category {
     @Column(name="urlImage")
     public String urlImage;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<Product> products = new ArrayList<>();
+//    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    public List<Product> products = new ArrayList<>();
 }

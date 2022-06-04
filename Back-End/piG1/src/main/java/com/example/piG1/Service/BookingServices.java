@@ -1,8 +1,13 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.*;
+import com.example.piG1.Model.DTO.BookingCompliteDTO;
+import com.example.piG1.Model.DTO.BookingDTO;
+import com.example.piG1.Model.DTO.ProductAddBookingDTO;
+import com.example.piG1.Model.Entity.Booking;
+import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Repository.IBookingRepository;
+import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Service.IService.IBookingServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
@@ -20,7 +25,9 @@ public class BookingServices implements IBookingServices {
 
 
     @Autowired
-    public IBookingRepository bookingRepository;
+    private IBookingRepository bookingRepository;
+    @Autowired
+    private IProductRepository productRepository;
 
     @Autowired
     ObjectMapper mapper;
@@ -38,12 +45,6 @@ public class BookingServices implements IBookingServices {
     public BookingDTO save(BookingDTO bookingDTO) {
         Booking booking = mapper.convertValue(bookingDTO, Booking.class);
         bookingRepository.save(booking);
-        if (bookingDTO.getId() == null){
-            bookingDTO.setId(booking.getId());
-            logger.info("Reserva registrada correctamente: "+ bookingDTO);
-        }else{
-            logger.info("Reserva actualizada correctamente: "+ bookingDTO);
-        }
         return bookingDTO;
     }
 
@@ -72,5 +73,19 @@ public class BookingServices implements IBookingServices {
         checkId(id);
         bookingRepository.deleteById(id);
         logger.info("Se elimino la reserva correctamente con el id("+id+")");
+    }
+    @Override
+    public void saveBookings(List<Booking> bookingsList) {
+        bookingRepository.saveAll(bookingsList);
+    }
+
+    @Override
+    public BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO) {
+        //obtengo el producto
+        Optional <Product> product = productRepository.findById(productAddBookingDTO.getProductId());
+        Booking  booking = mapper.convertValue(productAddBookingDTO, Booking.class);
+        booking.setProduct(product.get());
+        booking = bookingRepository.save(booking);
+        return  mapper.convertValue(booking, BookingCompliteDTO.class);
     }
 }

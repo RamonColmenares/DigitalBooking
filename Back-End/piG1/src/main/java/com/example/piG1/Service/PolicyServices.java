@@ -1,9 +1,9 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.*;
+import com.example.piG1.Model.DTO.PolicyDTO;
+import com.example.piG1.Model.Entity.Policy;
 import com.example.piG1.Repository.IPolicyRepository;
-import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Service.IService.IPolicyServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
@@ -19,7 +19,7 @@ public class PolicyServices implements IPolicyServices {
     protected final static Logger logger = Logger.getLogger(PolicyServices.class);
 
     @Autowired
-    public IPolicyRepository policyRepository;
+    private IPolicyRepository policyRepository;
 
     @Autowired
     ObjectMapper mapper;
@@ -32,16 +32,16 @@ public class PolicyServices implements IPolicyServices {
         }
         return policy.get();
     }
+
+    @Override
+    public void savePolicies(List<Policy>policiesList) {
+       policyRepository.saveAll(policiesList);
+    }
+
     @Override
     public PolicyDTO save(PolicyDTO policyDTO) {
         Policy policy = mapper.convertValue(policyDTO, Policy.class);
         policyRepository.save(policy);
-        if (policyDTO.getId() == null){
-            policyDTO.setId(policy.getId());
-            logger.info("Producto registrada correctamente: "+ policyDTO);
-        }else{
-            logger.info("Producto actualizada correctamente: "+ policyDTO);
-        }
         return policyDTO;
     }
 

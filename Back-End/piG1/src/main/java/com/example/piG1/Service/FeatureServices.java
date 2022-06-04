@@ -1,7 +1,8 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.*;
+import com.example.piG1.Model.DTO.FeatureDTO;
+import com.example.piG1.Model.Entity.Feature;
 import com.example.piG1.Repository.IFeatureRepository;
 import com.example.piG1.Service.IService.IFeatureServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,15 +26,14 @@ public class FeatureServices implements IFeatureServices {
 
 
     @Override
+    public void saveFeatures(List<Feature> featureList) {
+        featureRepository.saveAll(featureList);
+    }
+
+    @Override
     public FeatureDTO save(FeatureDTO featureDTO) {
         Feature feature = mapper.convertValue(featureDTO, Feature.class);
         featureRepository.save(feature);
-        if (featureDTO.getId() == null){
-            featureDTO.setId(feature.getId());
-            logger.info("Caracteristica registrada correctamente: "+ featureDTO);
-        }else{
-            logger.info("Caracteristica actualizada correctamente: "+ featureDTO);
-        }
         return featureDTO;
     }
 

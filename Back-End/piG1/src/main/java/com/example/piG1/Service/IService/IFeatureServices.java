@@ -1,10 +1,17 @@
 package com.example.piG1.Service.IService;
 
-import com.example.piG1.Model.Category;
-import com.example.piG1.Model.Feature;
-import com.example.piG1.Model.FeatureDTO;
+import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.Entity.Feature;
+import com.example.piG1.Model.DTO.FeatureDTO;
+import com.example.piG1.Model.Entity.Image;
 import com.example.piG1.Service.ICheckId;
-import com.example.piG1.Service.IServices;
 
-public interface IFeatureServices extends IServices<FeatureDTO>, ICheckId<Feature> {
+import java.util.List;
+
+public interface IFeatureServices extends ICheckId<Feature> {
+    void saveFeatures(List<Feature> featureList);
+    FeatureDTO save(FeatureDTO featureDTO);
+    FeatureDTO findById(Integer id) throws ResourceNotFoundException;
+    List<FeatureDTO> findAll();
+    void delete(Integer id) throws ResourceNotFoundException;
 }

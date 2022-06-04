@@ -1,7 +1,8 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.*;
+import com.example.piG1.Model.DTO.CityDTO;
+import com.example.piG1.Model.Entity.City;
 import com.example.piG1.Repository.ICityRepository;
 import com.example.piG1.Service.IService.ICityServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,12 +28,6 @@ public class CityServices implements ICityServices {
     public CityDTO save(CityDTO cityDTO) {
         City city = mapper.convertValue(cityDTO, City.class);
         cityRepository.save(city);
-        if (cityDTO.getId() == null){
-            cityDTO.setId(city.getId());
-            logger.info("Ciudad registrada correctamente: "+ cityDTO);
-        }else{
-            logger.info("Ciudad actualizada correctamente: "+ cityDTO);
-        }
         return cityDTO;
     }
 

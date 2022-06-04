@@ -1,12 +1,11 @@
-package com.example.piG1.Model;
+package com.example.piG1.Model.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.piG1.Model.Entity.Category;
+import com.example.piG1.Model.Entity.City;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -30,25 +29,24 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Category category;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List <Feature> features = new ArrayList<>();
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "city_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public City city;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List <Image> images = new ArrayList<>();
+//    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    public List <Feature> features = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List <Policy> policies = new ArrayList<>();
+//    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    public List <Image> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List <Booking> bookings = new ArrayList<>();
+//    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    public List <Policy> policies = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    public List <Booking> bookings = new ArrayList<>();
 }

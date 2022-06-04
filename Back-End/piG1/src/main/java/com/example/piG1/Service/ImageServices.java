@@ -1,9 +1,9 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.*;
+import com.example.piG1.Model.DTO.ImageDTO;
+import com.example.piG1.Model.Entity.Image;
 import com.example.piG1.Repository.IImageRepository;
-import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Service.IService.IImageServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
@@ -29,12 +29,6 @@ public class ImageServices implements IImageServices {
     public ImageDTO save(ImageDTO imageDTO) {
         Image image = mapper.convertValue(imageDTO, Image.class);
         imageRepository.save(image);
-        if (imageDTO.getId() == null){
-            imageDTO.setId(image.getId());
-            logger.info("Imagen registrada correctamente: "+ imageDTO);
-        }else{
-            logger.info("Imagen actualizada correctamente: "+ imageDTO);
-        }
         return imageDTO;
     }
 
@@ -72,5 +66,10 @@ public class ImageServices implements IImageServices {
             throw new ResourceNotFoundException(messageError + id);
         }
         return image.get();
+    }
+
+    @Override
+    public void saveImages(List<Image> imageList) {
+        imageRepository.saveAll(imageList);
     }
 }

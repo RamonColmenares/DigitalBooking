@@ -1,11 +1,10 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.BookingDTO;
-import com.example.piG1.Model.CategoryDTO;
-import com.example.piG1.Service.BookingServices;
+import com.example.piG1.Model.DTO.BookingCompliteDTO;
+import com.example.piG1.Model.DTO.BookingDTO;
+import com.example.piG1.Model.DTO.ProductAddBookingDTO;
 import com.example.piG1.Service.IService.IBookingServices;
-import com.example.piG1.Service.IService.ICategoryServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +28,11 @@ public class BookingController {
             return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.save(bookingDTO));
         else
             return ResponseEntity.ok(iBookingServices.save(bookingDTO));
+    }
+
+    @PostMapping ("/add")
+    public ResponseEntity<BookingCompliteDTO> addBookings (@RequestBody ProductAddBookingDTO productAddBookingDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.addBooking(productAddBookingDTO));
     }
 
     @DeleteMapping("/{id}")
