@@ -9,7 +9,7 @@ import "../../index.css";
 //DatePicker Configuration in Spanish
 registerLocale("es", es);
 
-const Calendar = (props) => {
+const Calendar = ({ inline }) => {
   const classes = useStyles();
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -38,6 +38,7 @@ const Calendar = (props) => {
         onChange={(dates) => handleSelection(dates)}
         startDate={startDate}
         endDate={endDate}
+        inline={inline}
       />
       {/* <CalendarTodayIcon className={classes.icon} /> */}
     </div>
@@ -59,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .react-datepicker": {
       color: "white",
+      width: "100%",
     },
     "& .react-datepicker__triangle": {
       // "&::after": {

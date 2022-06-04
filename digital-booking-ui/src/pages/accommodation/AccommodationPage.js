@@ -11,6 +11,7 @@ import Gallery from "../../components/accomodation/Gallery";
 import DescriptionSection from "../../components/accomodation/DescriptionSection";
 import ServicesSection from "../../components/accomodation/ServicesSection";
 import Rules from "../../components/accomodation/Rules";
+import CalendarReservations from "../../components/accomodation/CalendarReservations";
 
 const AccommodationPage = () => {
   const classes = useStyles();
@@ -43,6 +44,7 @@ const AccommodationPage = () => {
           <DescriptionSection accommodation={accommodation} />
           <ServicesSection accommodation={accommodation} />
           <Rules accommodation={accommodation} />
+          <CalendarReservations />
         </>
       )}
     </>
