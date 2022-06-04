@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, makeStyles, Tooltip } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
-import StarRateIcon from "@material-ui/icons/StarRate";
+import { Rating, Skeleton } from "@material-ui/lab";
 import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
 import { useNavigate } from "react-router-dom";
 
@@ -64,7 +63,7 @@ const ProductCard = ({
       <div className="upper-card">
         <div className="category-wrapper">
           <p className="category">{CATEGORIES[category]}</p>
-          <StarRates />
+          <Rating size="small" />
           <div className="punctuation">
             <div className="number">
               <p>8</p>
@@ -93,16 +92,6 @@ const ProductCard = ({
     </div>
   </div>
 );
-
-const StarRates = () => {
-  return (
-    <>
-      <StarRateIcon className="star" /> <StarRateIcon className="star" />{" "}
-      <StarRateIcon className="star" /> <StarRateIcon className="star" />
-      <StarRateIcon className="star" />
-    </>
-  );
-};
 
 const SkeletonCategoryCards = () => {
   const classes = useStyles();

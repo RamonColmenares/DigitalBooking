@@ -1,6 +1,6 @@
 import React from "react";
-import StarIcon from "@material-ui/icons/Star";
 import { makeStyles } from "@material-ui/core";
+import { Rating } from "@material-ui/lab";
 
 //
 //ADD RATING MUI
@@ -13,11 +13,7 @@ const PunctuationDisplayerWithStars = () => {
       <div className={classes.review}>
         <p>Very Good</p>
         <div className="stars">
-          <StarIcon fontSize="small" />
-          <StarIcon fontSize="small" />
-          <StarIcon fontSize="small" />
-          <StarIcon fontSize="small" />
-          <StarIcon fontSize="small" />
+          <Rating size="small" />
         </div>
       </div>
       <div className={classes.punctuation}>8</div>
