@@ -1,4 +1,4 @@
-package com.example.piG1.Model;
+package com.example.piG1.Model.DTO;
 import lombok.*;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +9,8 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class BookingDTO {
-    public Integer id;
-    public Date startDate;
-    public Date endDate;
-    public List<Product> products;
+    private Integer id;
+    private Date startDate;
+    private Date endDate;
+//    private List<Product> products;
 }

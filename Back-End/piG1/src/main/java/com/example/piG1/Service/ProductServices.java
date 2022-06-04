@@ -1,10 +1,12 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.*;
+import com.example.piG1.Model.DTO.*;
+import com.example.piG1.Model.Entity.*;
 import com.example.piG1.Repository.*;
-import com.example.piG1.Service.IService.IProductServices;
+import com.example.piG1.Service.IService.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,27 +15,95 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+@Log4j
 @Service
 public class ProductServices implements IProductServices {
     protected final static Logger logger = Logger.getLogger(ProductServices.class);
 
     @Autowired
-    public IProductRepository productRepository;
+    private IProductRepository productRepository;
+    @Autowired
+    private ICityRepository cityRepository;
+    @Autowired
+    private ICategoryRepository categoryRepository;
+    @Autowired
+    private IImageServices imageServices;
+    @Autowired
+    private IBookingServices bookingServices;
+    @Autowired
+    private IPolicyServices policyServices;
+    @Autowired
+    private IFeatureServices featureServices;
 
     @Autowired
     ObjectMapper mapper;
 
     @Override
+    public ProductCompliteDTO saveComplite(ProductDTO productDTO) {
+        Product product = mapper.convertValue(productDTO, Product.class);
+        Optional <City> city = cityRepository.findById(productDTO.getCityId());
+        Optional <Category> category = categoryRepository.findById(productDTO.getCategoryId());
+        product.setCategory(category.get());
+        product.setCity(city.get());
+
+        product = productRepository.save(product);
+        System.out.println(product);
+//        log.info(product);
+        return mapper.convertValue(product, ProductCompliteDTO.class);
+    }
+
+    @Override
+    public ProductCompliteDTO addImages(ProductAddImagesDTO productAddImagesDTO) {
+        //obtengo el producto
+        Optional <Product> product = productRepository.findById(productAddImagesDTO.getProductId());
+        List <Image> listImage = new ArrayList<>();
+        for (ImageDTO imageDTO: productAddImagesDTO.getListImages()){
+            Image  image = mapper.convertValue(imageDTO, Image.class);
+            image.setProduct(product.get());
+            listImage.add(image);
+        }
+        imageServices.saveImages(listImage);
+        //ya debe tener imagenes
+        product = productRepository.findById(productAddImagesDTO.getProductId());
+        return  mapper.convertValue(product, ProductCompliteDTO.class);
+    }
+
+    @Override
+    public ProductCompliteDTO addPolicies(ProductAddPoliciesDTO productAddPoliciesDTO) {
+        //obtengo el producto
+        Optional <Product> product = productRepository.findById(productAddPoliciesDTO.getProductId());
+        List <Policy> policiesList = new ArrayList<>();
+        for (PolicyDTO policyDTO: productAddPoliciesDTO.getListPolicies()){
+            Policy  policy = mapper.convertValue(policyDTO, Policy.class);
+            policy.setProduct(product.get());
+            policiesList.add(policy);
+        }
+        policyServices.savePolicies(policiesList);
+        //ya debe tener imagenes
+        product = productRepository.findById(productAddPoliciesDTO.getProductId());
+        return  mapper.convertValue(product, ProductCompliteDTO.class);
+    }
+
+    @Override
+    public ProductCompliteDTO addFeatures (ProductAddFeaturesDTO productAddFeaturesDTO) {
+        //obtengo el producto
+        Optional <Product> product = productRepository.findById(productAddFeaturesDTO.getProductId());
+        List <Feature> featureList = new ArrayList<>();
+        for (FeatureDTO featureDTO: productAddFeaturesDTO.getListFeatures()){
+            Feature  feature = mapper.convertValue(featureDTO, Feature.class);
+            feature.setProduct(product.get());
+            featureList.add(feature);
+        }
+        featureServices.saveFeatures(featureList);
+        product = productRepository.findById(productAddFeaturesDTO.getProductId());
+        return  mapper.convertValue(product, ProductCompliteDTO.class);
+    }
+
+    @Override
     public ProductDTO save(ProductDTO productDTO) {
         Product product = mapper.convertValue(productDTO, Product.class);
-        productRepository.save(product);
-        if (productDTO.getId() == null){
-            productDTO.setId(product.getId());
-            logger.info("Producto registrada correctamente: "+ productDTO);
-        }else{
-            logger.info("Producto actualizada correctamente: "+ productDTO);
-        }
-        return productDTO;
+        product = productRepository.save(product);
+        return mapper.convertValue(product, ProductDTO.class);
     }
 
     @Override
@@ -44,14 +114,16 @@ public class ProductServices implements IProductServices {
         return productDTO;
     }
 
+    //aca quiero q retorne un productoComplite
     @Override
-    public List<ProductDTO> findAll() {
-        List<ProductDTO> productsDTO = new ArrayList<>();
+    public List<ProductCompliteDTO> findAll() {
+        //aca quiero llamar al metodo saveComplite y luego hacer esto
+        List<ProductCompliteDTO> productsDTO = new ArrayList<>();
         List<Product> products = productRepository.findAll();
         for(Product product: products){
-            productsDTO.add(mapper.convertValue(product, ProductDTO.class));
+            productsDTO.add(mapper.convertValue(product, ProductCompliteDTO.class));
         }
-        productsDTO .sort(Comparator.comparing(ProductDTO::getId)); //
+        productsDTO .sort(Comparator.comparing(ProductCompliteDTO::getId)); //
         logger.info("La busqueda fue exitosa: "+ productsDTO);
         return productsDTO;
     }

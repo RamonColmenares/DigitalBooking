@@ -1,4 +1,4 @@
-package com.example.piG1.Model;
+package com.example.piG1.Model.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;

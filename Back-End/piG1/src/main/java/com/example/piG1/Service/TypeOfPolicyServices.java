@@ -1,12 +1,11 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.Product;
-import com.example.piG1.Model.ProductDTO;
-import com.example.piG1.Model.TypeOfPolicy;
-import com.example.piG1.Model.TypeOfPolicyDTO;
-import com.example.piG1.Repository.ICategoryRepository;
+import com.example.piG1.Model.DTO.*;
+import com.example.piG1.Model.Entity.Policy;
+import com.example.piG1.Model.Entity.TypeOfPolicy;
 import com.example.piG1.Repository.ITypeOfPolicyRepository;
+import com.example.piG1.Service.IService.IPolicyServices;
 import com.example.piG1.Service.IService.ITypeOfPolicyServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
@@ -22,7 +21,9 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
     protected final static Logger logger = Logger.getLogger(TypeOfPolicyServices.class);
 
     @Autowired
-    public ITypeOfPolicyRepository typeOfPolicyRepository;
+    private ITypeOfPolicyRepository typeOfPolicyRepository;
+    @Autowired
+    private IPolicyServices policyServices;
 
     @Autowired
     ObjectMapper mapper;
@@ -37,15 +38,23 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
     }
 
     @Override
+    public TypeOfPolicyDTO addPolicies(TypeOfPolicyAddPoliciesDTO typeOfPolicyAddPoliciesDTO) {
+        Optional <TypeOfPolicy> typeOfPolicy = typeOfPolicyRepository.findById(typeOfPolicyAddPoliciesDTO.getTypeOfPolicyId());
+        List <Policy> policyList = new ArrayList<>();
+        for (PolicyDTO policyDTO: typeOfPolicyAddPoliciesDTO.getListPolicies()){
+            Policy  policy = mapper.convertValue(policyDTO, Policy.class);
+            policy.setTypeOfPolicy(typeOfPolicy.get());
+            policyList.add(policy);
+        }
+        policyServices.savePolicies(policyList);
+        typeOfPolicy = typeOfPolicyRepository.findById(typeOfPolicyAddPoliciesDTO.getTypeOfPolicyId());
+        return  mapper.convertValue(typeOfPolicy, TypeOfPolicyDTO.class);
+    }
+
+    @Override
     public TypeOfPolicyDTO save(TypeOfPolicyDTO typeOfPolicyDTO) {
         TypeOfPolicy typeOfPolicy = mapper.convertValue(typeOfPolicyDTO, TypeOfPolicy.class);
         typeOfPolicyRepository.save(typeOfPolicy);
-        if (typeOfPolicyDTO.getId() == null){
-            typeOfPolicy.setId(typeOfPolicy.getId());
-            logger.info("Politica registrada correctamente: "+ typeOfPolicyDTO);
-        }else{
-            logger.info("Politica actualizada correctamente: "+ typeOfPolicyDTO);
-        }
         return typeOfPolicyDTO;
     }
 

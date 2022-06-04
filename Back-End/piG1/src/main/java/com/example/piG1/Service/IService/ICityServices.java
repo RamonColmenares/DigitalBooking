@@ -1,10 +1,15 @@
 package com.example.piG1.Service.IService;
 
-import com.example.piG1.Model.Category;
-import com.example.piG1.Model.City;
-import com.example.piG1.Model.CityDTO;
+import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.Entity.City;
+import com.example.piG1.Model.DTO.CityDTO;
 import com.example.piG1.Service.ICheckId;
-import com.example.piG1.Service.IServices;
 
-public interface ICityServices  extends IServices<CityDTO>, ICheckId<City> {
+import java.util.List;
+
+public interface ICityServices  extends ICheckId<City> {
+    CityDTO save(CityDTO t);
+    CityDTO findById(Integer id) throws ResourceNotFoundException;
+    List<CityDTO> findAll();
+    void delete(Integer id) throws ResourceNotFoundException;
 }

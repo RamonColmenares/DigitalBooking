@@ -1,11 +1,8 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.CategoryDTO;
-import com.example.piG1.Model.TypeOfPolicyDTO;
-import com.example.piG1.Service.IService.ICategoryServices;
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO;
 import com.example.piG1.Service.IService.ITypeOfPolicyServices;
-import com.example.piG1.Service.TypeOfPolicyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +22,7 @@ public class TypeOfPolicyController {
 
     @PostMapping
     public ResponseEntity<TypeOfPolicyDTO> save(@RequestBody TypeOfPolicyDTO typeOfPolicyDTO){
-        if(typeOfPolicyDTO.getId() == null)
             return ResponseEntity.status(HttpStatus.CREATED).body(iTypeOfPolicyServices.save(typeOfPolicyDTO));
-        else
-            return ResponseEntity.ok(iTypeOfPolicyServices.save(typeOfPolicyDTO));
     }
 
     @DeleteMapping("/{id}")

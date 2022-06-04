@@ -1,12 +1,9 @@
-package com.example.piG1.Model;
+package com.example.piG1.Model.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -20,10 +17,17 @@ public class Policy {
     @SequenceGenerator(name = "policy_sequence", sequenceName = "policy_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "policy_sequence")
     public Integer id;
+    @Column(name="description")
+    public String description;
+//    @ManyToOne(mappedBy = "policy", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    public List<TypeOfPolicy> typeOfPolicies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "policy", fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<TypeOfPolicy> typeOfPolicies = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "type_of_policy_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public TypeOfPolicy typeOfPolicy;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

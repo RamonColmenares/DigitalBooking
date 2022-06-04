@@ -1,13 +1,10 @@
-package com.example.piG1.Model;
+package com.example.piG1.Model.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -30,5 +27,4 @@ public class Booking {
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
     public Product product;
-
 }

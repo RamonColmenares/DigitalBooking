@@ -1,9 +1,17 @@
 package com.example.piG1.Service.IService;
 
-import com.example.piG1.Model.TypeOfPolicy;
-import com.example.piG1.Model.TypeOfPolicyDTO;
+import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.DTO.TypeOfPolicyAddPoliciesDTO;
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO;
+import com.example.piG1.Model.Entity.TypeOfPolicy;
 import com.example.piG1.Service.ICheckId;
-import com.example.piG1.Service.IServices;
 
-public interface ITypeOfPolicyServices extends IServices<TypeOfPolicyDTO>, ICheckId<TypeOfPolicy> {
+import java.util.List;
+
+public interface ITypeOfPolicyServices extends  ICheckId<TypeOfPolicy> {
+    TypeOfPolicyDTO addPolicies(TypeOfPolicyAddPoliciesDTO typeOfPolicyAddPoliciesDTO);
+    TypeOfPolicyDTO save(TypeOfPolicyDTO t);
+    TypeOfPolicyDTO findById(Integer id) throws ResourceNotFoundException;
+    List<TypeOfPolicyDTO> findAll();
+    void delete(Integer id) throws ResourceNotFoundException;
 }

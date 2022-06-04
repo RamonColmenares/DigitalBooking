@@ -1,4 +1,4 @@
-package com.example.piG1.Model;
+package com.example.piG1.Model.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -23,8 +23,4 @@ public class City {
     public String name;
     @Column(name="nameCountry")
     public String nameCountry;
-
-    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<Product> products = new ArrayList<>();
 }

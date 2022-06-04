@@ -1,10 +1,7 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.CategoryDTO;
-import com.example.piG1.Model.CityDTO;
-import com.example.piG1.Service.CityServices;
-import com.example.piG1.Service.IService.ICategoryServices;
+import com.example.piG1.Model.DTO.CityDTO;
 import com.example.piG1.Service.IService.ICityServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,10 +23,7 @@ public class CityController {
 
     @PostMapping
     public ResponseEntity<CityDTO> save(@RequestBody CityDTO cityDTO){
-        if(cityDTO.getId() == null)
             return ResponseEntity.status(HttpStatus.CREATED).body(iCityServices.save(cityDTO));
-        else
-            return ResponseEntity.ok(iCityServices.save(cityDTO));
     }
 
     @DeleteMapping("/{id}")

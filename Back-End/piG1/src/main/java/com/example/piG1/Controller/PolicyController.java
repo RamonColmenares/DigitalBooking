@@ -1,11 +1,8 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.CategoryDTO;
-import com.example.piG1.Model.PolicyDTO;
-import com.example.piG1.Service.IService.ICategoryServices;
+import com.example.piG1.Model.DTO.PolicyDTO;
 import com.example.piG1.Service.IService.IPolicyServices;
-import com.example.piG1.Service.PolicyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

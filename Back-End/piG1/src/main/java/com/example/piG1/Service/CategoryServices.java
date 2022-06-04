@@ -1,8 +1,8 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.Category;
-import com.example.piG1.Model.CategoryDTO;
+import com.example.piG1.Model.Entity.Category;
+import com.example.piG1.Model.DTO.CategoryDTO;
 import com.example.piG1.Repository.ICategoryRepository;
 import com.example.piG1.Service.IService.ICategoryServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,12 +26,6 @@ public class CategoryServices implements ICategoryServices {
     public CategoryDTO save(CategoryDTO categoryDTO) {
         Category category = mapper.convertValue(categoryDTO, Category.class);
         categoryRepository.save(category);
-        if (categoryDTO.getId() == null){
-            categoryDTO.setId(category.getId());
-            logger.info("Categoria registrada correctamente: "+ categoryDTO);
-        }else{
-            logger.info("Categoria actualizada correctamente: "+ categoryDTO);
-        }
         return categoryDTO;
     }
 
