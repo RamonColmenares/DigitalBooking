@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/cities")
+@CrossOrigin(origins = "*")
 public class CityController {
 
     @Autowired

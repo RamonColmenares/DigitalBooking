@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/features")
+@CrossOrigin(origins = "*")
 public class FeatureController {
     @Autowired
     IFeatureServices iFeatureServices;

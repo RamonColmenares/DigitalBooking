@@ -53,9 +53,16 @@ const Categories = () => {
   );
 };
 
-const CategoryCard = ({ id, title, description, img, onClick, className }) => (
+const CategoryCard = ({
+  id,
+  title,
+  description,
+  urlImage,
+  onClick,
+  className,
+}) => (
   <div className={className} onClick={() => onClick(title)}>
-    <img src={img} alt={title} className="card-img" />
+    <img src={urlImage} alt={title} className="card-img" />
     <div className="card-text">
       <h3>{title}</h3>
       <p>{description}</p>
