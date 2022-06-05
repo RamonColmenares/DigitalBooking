@@ -13,9 +13,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "features")
 public class Feature {
+//    @Id
+//    @SequenceGenerator(name = "feature_sequence", sequenceName = "feature_sequence", allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feature_sequence")
     @Id
-    @SequenceGenerator(name = "feature_sequence", sequenceName = "feature_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feature_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     @Column(name="name")
     public String name;
