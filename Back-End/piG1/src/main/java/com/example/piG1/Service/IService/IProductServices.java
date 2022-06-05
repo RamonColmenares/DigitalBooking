@@ -13,7 +13,8 @@ public interface IProductServices extends ICheckId<Product> {
     ProductCompliteDTO addPolicies(ProductAddPoliciesDTO productAddPoliciesDTO);
     ProductCompliteDTO addFeatures(ProductAddFeaturesDTO productAddFeaturesDTO);
     ProductDTO save(ProductDTO ProductDTO);
-    ProductDTO findById(Integer id) throws ResourceNotFoundException;
+    ProductFullDTO findById(Integer id) throws ResourceNotFoundException;
+    ProductCompliteDTO findByIdComplite(Integer id) throws ResourceNotFoundException;
     List<ProductCompliteDTO> findAll();
     void delete(Integer id) throws ResourceNotFoundException;
     List<ProductDTO> findByCityId(Integer cityId);

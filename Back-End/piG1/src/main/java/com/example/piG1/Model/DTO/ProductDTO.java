@@ -17,7 +17,7 @@ public class ProductDTO {
     private String description;
     private List<Image> images;
     private List<Policy> policies;
-    private Integer cityId;
-    private Integer categoryId;
+    private Integer city_id;
+    private Integer category_id;
     private List<Feature> features;
 }

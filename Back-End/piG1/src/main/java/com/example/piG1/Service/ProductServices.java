@@ -41,8 +41,8 @@ public class ProductServices implements IProductServices {
     @Override
     public ProductCompliteDTO saveComplite(ProductDTO productDTO) {
         Product product = mapper.convertValue(productDTO, Product.class);
-        Optional <City> city = cityRepository.findById(productDTO.getCityId());
-        Optional <Category> category = categoryRepository.findById(productDTO.getCategoryId());
+        Optional <City> city = cityRepository.findById(productDTO.getCity_id());
+        Optional <Category> category = categoryRepository.findById(productDTO.getCategory_id());
         product.setCategory(category.get());
         product.setCity(city.get());
 
@@ -107,14 +107,29 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public ProductDTO findById(Integer id) throws ResourceNotFoundException {
+    public ProductFullDTO findById(Integer id) throws ResourceNotFoundException {
         Product product = checkId(id);
-        ProductDTO productDTO = mapper.convertValue(product, ProductDTO.class);
-        logger.info("La busqueda fue exitosa: id " + id);
-        return productDTO;
+        System.out.println(product);
+        ProductFullDTO productFullDTO = mapper.convertValue(product, ProductFullDTO.class);
+        //necesito lista de imagenes, de policies y de features
+        List<ImageDTO> imagesList = imageServices.findByProductId(id);
+        productFullDTO.setImages(imagesList);
+
+        List<PolicyDTO> policiesDTO = policyServices.findByProductId(id);
+        productFullDTO.setPolicies(policiesDTO);
+
+        List<FeatureDTO> featuresDTO = featureServices.findByProductId(id);
+        productFullDTO.setFeatures(featuresDTO);
+        return productFullDTO;
     }
 
-    //aca quiero q retorne un productoComplite
+    @Override
+    public ProductCompliteDTO findByIdComplite(Integer id) throws ResourceNotFoundException {
+        Product product = checkId(id);
+        logger.info("La busqueda fue exitosa: id " + id);
+        return mapper.convertValue(product, ProductCompliteDTO.class);
+    }
+
     @Override
     public List<ProductCompliteDTO> findAll() {
         //aca quiero llamar al metodo saveComplite y luego hacer esto

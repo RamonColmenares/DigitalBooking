@@ -2,7 +2,9 @@ package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.FeatureDTO;
+import com.example.piG1.Model.DTO.PolicyDTO;
 import com.example.piG1.Model.Entity.Feature;
+import com.example.piG1.Model.Entity.Policy;
 import com.example.piG1.Repository.IFeatureRepository;
 import com.example.piG1.Service.IService.IFeatureServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +26,18 @@ public class FeatureServices implements IFeatureServices {
     @Autowired
     ObjectMapper mapper;
 
+
+    @Override
+    public List<FeatureDTO> findByProductId(Integer id) throws ResourceNotFoundException {
+        List<FeatureDTO> featuresDTO = new ArrayList<>();
+        List<Feature> features = featureRepository.findByProductId(id);
+        for(Feature feature: features){
+            featuresDTO.add(mapper.convertValue(feature, FeatureDTO.class));
+        }
+        featuresDTO .sort(Comparator.comparing(FeatureDTO::getId)); //
+        logger.info("La busqueda fue exitosa: "+ featuresDTO);
+        return featuresDTO;
+    }
 
     @Override
     public void saveFeatures(List<Feature> featureList) {

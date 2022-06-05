@@ -32,6 +32,6 @@ public class Policy {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
     public Product product;
 }

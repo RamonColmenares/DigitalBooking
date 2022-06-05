@@ -3,6 +3,7 @@ package com.example.piG1.Controller;
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.ProductCompliteDTO;
 import com.example.piG1.Model.DTO.ProductDTO;
+import com.example.piG1.Model.DTO.ProductFullDTO;
 import com.example.piG1.Service.IService.IProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,16 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
+    public ResponseEntity<ProductFullDTO>findById(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findById(id));
+    }
+    @GetMapping("/allData/{id}")
+    public ResponseEntity<ProductCompliteDTO>findByIdComplite(@PathVariable Integer id) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iProductServices.findByIdComplite(id));
+    }
+
+    @GetMapping("/allCity/{id}")
+    public ResponseEntity<List<ProductDTO>>findByCityId(@PathVariable Integer id) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iProductServices.findByCityId(id));
     }
 }

@@ -2,7 +2,9 @@ package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.ImageDTO;
+import com.example.piG1.Model.DTO.ProductDTO;
 import com.example.piG1.Model.Entity.Image;
+import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Repository.IImageRepository;
 import com.example.piG1.Service.IService.IImageServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +42,7 @@ public class ImageServices implements IImageServices {
         return imageDTO;
     }
 
+
     @Override
     public List<ImageDTO> findAll() {
         List<ImageDTO> imagesDTO = new ArrayList<>();
@@ -71,5 +74,17 @@ public class ImageServices implements IImageServices {
     @Override
     public void saveImages(List<Image> imageList) {
         imageRepository.saveAll(imageList);
+    }
+
+    @Override
+    public List<ImageDTO> findByProductId(Integer id) throws ResourceNotFoundException {
+        List<ImageDTO> imagesDTO = new ArrayList<>();
+        List<Image> images = imageRepository.findByProductId(id);
+        for(Image image: images){
+            imagesDTO.add(mapper.convertValue(image, ImageDTO.class));
+        }
+        imagesDTO .sort(Comparator.comparing(ImageDTO::getId)); //
+        logger.info("La busqueda fue exitosa: "+ imagesDTO);
+        return imagesDTO;
     }
 }

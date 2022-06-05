@@ -1,7 +1,9 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.DTO.ImageDTO;
 import com.example.piG1.Model.DTO.PolicyDTO;
+import com.example.piG1.Model.Entity.Image;
 import com.example.piG1.Model.Entity.Policy;
 import com.example.piG1.Repository.IPolicyRepository;
 import com.example.piG1.Service.IService.IPolicyServices;
@@ -31,6 +33,18 @@ public class PolicyServices implements IPolicyServices {
             throw new ResourceNotFoundException(messageError + id);
         }
         return policy.get();
+    }
+
+    @Override
+    public List<PolicyDTO> findByProductId(Integer id) throws ResourceNotFoundException {
+            List<PolicyDTO> policiesDTO = new ArrayList<>();
+            List<Policy> policies = policyRepository.findByProductId(id);
+            for(Policy policy: policies){
+                policiesDTO.add(mapper.convertValue(policy, PolicyDTO.class));
+            }
+            policiesDTO .sort(Comparator.comparing(PolicyDTO::getId)); //
+            logger.info("La busqueda fue exitosa: "+ policiesDTO);
+            return policiesDTO;
     }
 
     @Override
