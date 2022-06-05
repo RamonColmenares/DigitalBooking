@@ -1,10 +1,8 @@
 package com.example.piG1.Service.IService;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.PolicyDTO;
 import com.example.piG1.Model.Entity.Feature;
-import com.example.piG1.Model.DTO.FeatureDTO;
-import com.example.piG1.Model.Entity.Image;
+import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import com.example.piG1.Service.ICheckId;
 
 import java.util.List;

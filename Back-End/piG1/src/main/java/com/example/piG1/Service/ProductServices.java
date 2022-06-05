@@ -1,7 +1,10 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.*;
+import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
+import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
+import com.example.piG1.Model.DTO.ProductDTO.*;
 import com.example.piG1.Model.Entity.*;
 import com.example.piG1.Repository.*;
 import com.example.piG1.Service.IService.*;
@@ -111,7 +114,6 @@ public class ProductServices implements IProductServices {
         Product product = checkId(id);
         System.out.println(product);
         ProductFullDTO productFullDTO = mapper.convertValue(product, ProductFullDTO.class);
-        //necesito lista de imagenes, de policies y de features
         List<ImageDTO> imagesList = imageServices.findByProductId(id);
         productFullDTO.setImages(imagesList);
 
@@ -132,7 +134,6 @@ public class ProductServices implements IProductServices {
 
     @Override
     public List<ProductCompliteDTO> findAll() {
-        //aca quiero llamar al metodo saveComplite y luego hacer esto
         List<ProductCompliteDTO> productsDTO = new ArrayList<>();
         List<Product> products = productRepository.findAll();
         for(Product product: products){
@@ -160,50 +161,34 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public List<ProductDTO> findByCityId(Integer cityId) {
-        List<ProductDTO> productsDTO = new ArrayList<>();
+    public List<ProductFindByFilterDTO> findByCityId(Integer cityId) throws ResourceNotFoundException {
+        List<ProductFindByFilterDTO> productsFindByFilterDTO = new ArrayList<>();
         List<Product> products = productRepository.findByCityId(cityId);
         for(Product product: products){
-            productsDTO.add(mapper.convertValue(product, ProductDTO.class));
+            ProductFindByFilterDTO productFindByFilterDTO = mapper.convertValue(product, ProductFindByFilterDTO.class);
+            Integer productId = product.getId();
+            List<ImageDTO> imagesList = imageServices.findByProductId(productId);
+            productFindByFilterDTO.setImages(imagesList);
+            productsFindByFilterDTO.add(productFindByFilterDTO);
         }
-        productsDTO .sort(Comparator.comparing(ProductDTO::getId)); //
-        logger.info("La busqueda fue exitosa: "+ productsDTO);
-        return productsDTO;
+        productsFindByFilterDTO .sort(Comparator.comparing(ProductFindByFilterDTO::getId)); //
+        logger.info("La busqueda fue exitosa: "+ productsFindByFilterDTO);
+        return productsFindByFilterDTO;
     }
 
     @Override
-    public List<ProductDTO> findByCityName(String cityName) {
-        List<ProductDTO> productsDTO = new ArrayList<>();
-        List<Product> products = productRepository.findByCityName(cityName);
+    public List<ProductFindByFilterDTO> findByCategoryId(Integer categoryId) throws ResourceNotFoundException {
+        List<ProductFindByFilterDTO> productsFindByFilterDTO = new ArrayList<>();
+        List<Product> products = productRepository.findByCityId(categoryId);
         for(Product product: products){
-            productsDTO.add(mapper.convertValue(product, ProductDTO.class));
+            ProductFindByFilterDTO productFindByFilterDTO = mapper.convertValue(product, ProductFindByFilterDTO.class);
+            Integer productId = product.getId();
+            List<ImageDTO> imagesList = imageServices.findByProductId(productId);
+            productFindByFilterDTO.setImages(imagesList);
+            productsFindByFilterDTO.add(productFindByFilterDTO);
         }
-        productsDTO .sort(Comparator.comparing(ProductDTO::getId)); //
-        logger.info("La busqueda fue exitosa: "+ productsDTO);
-        return productsDTO;
-    }
-
-    @Override
-    public List<ProductDTO> findByCategoryId(Integer categoryId) {
-        List<ProductDTO> productsDTO = new ArrayList<>();
-        List<Product> products = productRepository.findByCategoryId(categoryId);
-        for(Product product: products){
-            productsDTO.add(mapper.convertValue(product, ProductDTO.class));
-        }
-        productsDTO .sort(Comparator.comparing(ProductDTO::getId)); //
-        logger.info("La busqueda fue exitosa: "+ productsDTO);
-        return productsDTO;
-    }
-
-    @Override
-    public List<ProductDTO> findByCategoryTitle(String categoryTitle) {
-        List<ProductDTO> productsDTO = new ArrayList<>();
-        List<Product> products = productRepository.findByCategoryTitle(categoryTitle);
-        for(Product product: products){
-            productsDTO.add(mapper.convertValue(product, ProductDTO.class));
-        }
-        productsDTO .sort(Comparator.comparing(ProductDTO::getId)); //
-        logger.info("La busqueda fue exitosa: "+ productsDTO);
-        return productsDTO;
+        productsFindByFilterDTO .sort(Comparator.comparing(ProductFindByFilterDTO::getId)); //
+        logger.info("La busqueda fue exitosa: "+ productsFindByFilterDTO);
+        return productsFindByFilterDTO;
     }
 }

@@ -1,4 +1,5 @@
-package com.example.piG1.Model.DTO;
+package com.example.piG1.Model.DTO.TypeOfPolicyDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import lombok.*;
 import java.util.List;
 

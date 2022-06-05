@@ -1,17 +1,17 @@
-package com.example.piG1.Model.DTO;
-
+package com.example.piG1.Model.DTO.CityDTO;
 import lombok.*;
 
 import java.util.List;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class FeatureDTO {
+public class CityDTO {
     private Integer id;
     private String name;
-    private String icon;
-//    public List<Product>products;
+    private String name_country;
+//    public List<Product> products;
 }

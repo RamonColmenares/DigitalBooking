@@ -1,9 +1,9 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.BookingCompliteDTO;
-import com.example.piG1.Model.DTO.BookingDTO;
-import com.example.piG1.Model.DTO.ProductAddBookingDTO;
+import com.example.piG1.Model.DTO.BookingDTO.BookingCompliteDTO;
+import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
+import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Repository.IBookingRepository;

@@ -1,7 +1,7 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.CategoryDTO;
+import com.example.piG1.Model.DTO.CategoryDTO.CategoryDTO;
 import com.example.piG1.Service.IService.ICategoryServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

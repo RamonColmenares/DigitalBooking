@@ -1,8 +1,9 @@
 package com.example.piG1.Service.IService;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.TypeOfPolicyAddPoliciesDTO;
-import com.example.piG1.Model.DTO.TypeOfPolicyDTO;
+
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyAddPoliciesDTO;
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyDTO;
 import com.example.piG1.Model.Entity.TypeOfPolicy;
 import com.example.piG1.Service.ICheckId;
 

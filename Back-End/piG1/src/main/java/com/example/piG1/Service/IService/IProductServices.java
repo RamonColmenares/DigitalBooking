@@ -1,7 +1,7 @@
 package com.example.piG1.Service.IService;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.*;
+import com.example.piG1.Model.DTO.ProductDTO.*;
 import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Service.ICheckId;
 
@@ -17,10 +17,8 @@ public interface IProductServices extends ICheckId<Product> {
     ProductCompliteDTO findByIdComplite(Integer id) throws ResourceNotFoundException;
     List<ProductCompliteDTO> findAll();
     void delete(Integer id) throws ResourceNotFoundException;
-    List<ProductDTO> findByCityId(Integer cityId);
-    List<ProductDTO> findByCityName(String cityName);
-    List<ProductDTO> findByCategoryId(Integer categoryId);
-    List<ProductDTO> findByCategoryTitle(String categoryTitle);
+    List<ProductFindByFilterDTO> findByCityId(Integer cityId) throws ResourceNotFoundException;
+    List<ProductFindByFilterDTO> findByCategoryId(Integer categoryId) throws ResourceNotFoundException;
 
 
 }

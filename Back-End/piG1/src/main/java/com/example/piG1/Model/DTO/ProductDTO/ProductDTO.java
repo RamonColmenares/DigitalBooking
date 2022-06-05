@@ -1,4 +1,4 @@
-package com.example.piG1.Model.DTO;
+package com.example.piG1.Model.DTO.ProductDTO;
 import com.example.piG1.Model.Entity.Feature;
 import com.example.piG1.Model.Entity.Image;
 import com.example.piG1.Model.Entity.Policy;

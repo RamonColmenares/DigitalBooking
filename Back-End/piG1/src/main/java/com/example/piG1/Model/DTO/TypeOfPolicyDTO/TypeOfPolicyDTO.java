@@ -1,4 +1,6 @@
-package com.example.piG1.Model.DTO;
+package com.example.piG1.Model.DTO.TypeOfPolicyDTO;
+
+import com.example.piG1.Model.Entity.Policy;
 import com.example.piG1.Model.Entity.TypeOfPolicy;
 import lombok.*;
 
@@ -10,7 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PolicyDTO {
+public class TypeOfPolicyDTO {
     private Integer id;
+    private String title;
     private String description;
+//    private List<Policy> policiesList;
 }

@@ -1,7 +1,7 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.CityDTO;
+import com.example.piG1.Model.DTO.CityDTO.CityDTO;
 import com.example.piG1.Model.Entity.City;
 import com.example.piG1.Repository.ICityRepository;
 import com.example.piG1.Service.IService.ICityServices;
