@@ -15,9 +15,7 @@ const App = () => {
   const user = useAuthStore((s) => s.name);
   const classes = useStyles();
 
-  const cities = useCitiesStore((s) => s.data);
   const fetchCities = useCitiesStore((s) => s.fetchData);
-
   useEffect(() => {
     fetchCities();
   }, []);
