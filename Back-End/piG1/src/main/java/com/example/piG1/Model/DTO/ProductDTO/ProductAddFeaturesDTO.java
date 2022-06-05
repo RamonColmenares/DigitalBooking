@@ -1,5 +1,6 @@
-package com.example.piG1.Model.DTO;
+package com.example.piG1.Model.DTO.ProductDTO;
 
+import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import lombok.*;
 
 import java.util.List;

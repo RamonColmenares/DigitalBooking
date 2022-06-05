@@ -1,9 +1,10 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.ProductCompliteDTO;
-import com.example.piG1.Model.DTO.ProductDTO;
-import com.example.piG1.Model.DTO.ProductFullDTO;
+import com.example.piG1.Model.DTO.ProductDTO.ProductCompliteDTO;
+import com.example.piG1.Model.DTO.ProductDTO.ProductDTO;
+import com.example.piG1.Model.DTO.ProductDTO.ProductFindByFilterDTO;
+import com.example.piG1.Model.DTO.ProductDTO.ProductFullDTO;
 import com.example.piG1.Service.IService.IProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,11 @@ public class ProductController {
     }
 
     @GetMapping("/allCity/{id}")
-    public ResponseEntity<List<ProductDTO>>findByCityId(@PathVariable Integer id) throws ResourceNotFoundException {
+    public ResponseEntity<List<ProductFindByFilterDTO>>findByCityId(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findByCityId(id));
+    }
+    @GetMapping("/allCategory/{id}")
+    public ResponseEntity<List<ProductFindByFilterDTO>>findByCategoryId(@PathVariable Integer id) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iProductServices.findByCategoryId(id));
     }
 }

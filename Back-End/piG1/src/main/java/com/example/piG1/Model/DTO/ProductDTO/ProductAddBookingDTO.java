@@ -1,5 +1,6 @@
-package com.example.piG1.Model.DTO;
+package com.example.piG1.Model.DTO.ProductDTO;
 
+import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
 import lombok.*;
 
 @Getter

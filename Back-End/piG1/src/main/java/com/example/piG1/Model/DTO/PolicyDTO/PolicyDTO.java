@@ -1,7 +1,8 @@
-package com.example.piG1.Model.DTO;
-
+package com.example.piG1.Model.DTO.PolicyDTO;
+import com.example.piG1.Model.Entity.TypeOfPolicy;
 import lombok.*;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Getter
@@ -9,10 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CategoryDTO {
+public class PolicyDTO {
     private Integer id;
-    private String title;
     private String description;
-    private String urlImage;
-//    public List<Product> products;
 }

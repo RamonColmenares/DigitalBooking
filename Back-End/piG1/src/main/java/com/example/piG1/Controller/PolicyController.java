@@ -1,7 +1,7 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.PolicyDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import com.example.piG1.Service.IService.IPolicyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.piG1.Model.DTO;
+package com.example.piG1.Model.DTO.ImageDTO;
 import lombok.*;
 
 @Getter

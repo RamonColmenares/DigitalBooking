@@ -1,10 +1,8 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.ImageDTO;
-import com.example.piG1.Model.DTO.ProductDTO;
+import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
 import com.example.piG1.Model.Entity.Image;
-import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Repository.IImageRepository;
 import com.example.piG1.Service.IService.IImageServices;
 import com.fasterxml.jackson.databind.ObjectMapper;

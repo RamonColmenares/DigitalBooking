@@ -1,5 +1,8 @@
-package com.example.piG1.Model.DTO;
+package com.example.piG1.Model.DTO.ProductDTO;
 
+import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
+import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import com.example.piG1.Model.Entity.*;
 import lombok.*;
 
