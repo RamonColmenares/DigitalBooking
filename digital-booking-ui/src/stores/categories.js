@@ -1,3 +1,4 @@
+import { fetchCategories } from "../client/fetchCategories";
 import { apiRequest } from "../client/mocks/categoriesMock";
 import { create } from "../utils/createStore";
 
@@ -9,7 +10,7 @@ const createCategoriesStore = () =>
 
     fetchData: async () => {
       set((state) => ({ ...state, loading: true }));
-      const response = await apiRequest();
+      const response = await fetchCategories();
       set({ data: response, loaded: true, loading: false });
       return;
     },
