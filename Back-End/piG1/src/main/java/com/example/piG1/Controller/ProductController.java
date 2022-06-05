@@ -1,10 +1,7 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.ProductDTO.ProductCompliteDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductFindByFilterDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductFullDTO;
+import com.example.piG1.Model.DTO.ProductDTO.*;
 import com.example.piG1.Service.IService.IProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +17,7 @@ public class ProductController {
     IProductServices iProductServices;
 
     @GetMapping
-    public ResponseEntity<List<ProductCompliteDTO>> findAll(){
+    public ResponseEntity<List<GetProductsAllDTO>> findAll() throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findAll());
     }
 
