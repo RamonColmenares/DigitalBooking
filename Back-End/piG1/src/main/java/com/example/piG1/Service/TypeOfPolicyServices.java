@@ -54,8 +54,8 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
     @Override
     public TypeOfPolicyDTO save(TypeOfPolicyDTO typeOfPolicyDTO) {
         TypeOfPolicy typeOfPolicy = mapper.convertValue(typeOfPolicyDTO, TypeOfPolicy.class);
-        typeOfPolicyRepository.save(typeOfPolicy);
-        return typeOfPolicyDTO;
+        typeOfPolicy= typeOfPolicyRepository.save(typeOfPolicy);
+        return mapper.convertValue(typeOfPolicy, TypeOfPolicyDTO.class);
     }
 
     @Override

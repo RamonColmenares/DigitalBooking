@@ -44,8 +44,8 @@ public class BookingServices implements IBookingServices {
     @Override
     public BookingDTO save(BookingDTO bookingDTO) {
         Booking booking = mapper.convertValue(bookingDTO, Booking.class);
-        bookingRepository.save(booking);
-        return bookingDTO;
+        booking = bookingRepository.save(booking);
+        return mapper.convertValue(booking, BookingDTO.class);
     }
 
     @Override

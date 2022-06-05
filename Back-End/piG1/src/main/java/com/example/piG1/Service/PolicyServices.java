@@ -41,8 +41,8 @@ public class PolicyServices implements IPolicyServices {
     @Override
     public PolicyDTO save(PolicyDTO policyDTO) {
         Policy policy = mapper.convertValue(policyDTO, Policy.class);
-        policyRepository.save(policy);
-        return policyDTO;
+        policy =  policyRepository.save(policy);
+        return mapper.convertValue(policy,PolicyDTO.class);
     }
 
     @Override

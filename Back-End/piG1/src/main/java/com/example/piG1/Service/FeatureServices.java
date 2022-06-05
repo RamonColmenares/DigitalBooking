@@ -33,8 +33,8 @@ public class FeatureServices implements IFeatureServices {
     @Override
     public FeatureDTO save(FeatureDTO featureDTO) {
         Feature feature = mapper.convertValue(featureDTO, Feature.class);
-        featureRepository.save(feature);
-        return featureDTO;
+        feature = featureRepository.save(feature);
+        return mapper.convertValue(feature, FeatureDTO.class);
     }
 
     @Override
