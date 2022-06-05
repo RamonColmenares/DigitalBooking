@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import Calendar from "./Calendar";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
+import Calendar from "./Calendar";
 import { useCitiesStore } from "../../stores/cities";
 
 //DatePicker Configuration in Spanish
@@ -13,7 +14,19 @@ registerLocale("es", es);
 const SearchSection = () => {
   const classes = useStyles();
 
-  const { data } = useCitiesStore((s) => s.data);
+  const cities = useCitiesStore((s) => s.data);
+
+  const optionComponent = useCallback((option) => {
+    return (
+      <div className={classes.optionCity}>
+        <LocationOnIcon />
+        <div>
+          <p className="city">{option.name}</p>
+          <p>{option.name_country}</p>
+        </div>
+      </div>
+    );
+  }, []);
 
   return (
     <section className={classes.section}>
@@ -22,8 +35,11 @@ const SearchSection = () => {
         <div className={classes.div}>
           <Autocomplete
             id="combo-box-demo"
-            options={data || []}
-            getOptionLabel={(option) => option && option.city}
+            options={cities || []}
+            getOptionLabel={(option) =>
+              option && `${option.name}, ${option.name_country}`
+            }
+            renderOption={optionComponent}
             classes={{
               inputRoot: classes.autocomplete,
             }}
@@ -93,6 +109,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.white,
     borderRadius: "5px",
   },
+  optionCity: {
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    gap: "20px",
+    padding: "10px 0",
+    "& > svg": {
+      color: theme.palette.primary.main,
+    },
+    "& .city": {
+      fontWeight: "bold",
+    },
+  },
+
   submit: {
     color: theme.palette.white,
     fontWeight: "bold",
