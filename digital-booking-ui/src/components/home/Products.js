@@ -49,20 +49,20 @@ const Products = () => {
 
 const ProductCard = ({
   id,
-  title,
+  name,
   description,
   crimg,
   category,
-  location,
+  city,
   className,
   onClick,
 }) => (
   <div className={className} key={id}>
-    <img src={crimg} alt={title} className="card-img" />
+    <img src={crimg} alt={name} className="card-img" />
     <div className="card-text">
       <div className="upper-card">
         <div className="category-wrapper">
-          <p className="category">{CATEGORIES[category]}</p>
+          <p className="category">{CATEGORIES[category.title]}</p>
           <Rating size="small" />
           <div className="punctuation">
             <div className="number">
@@ -71,10 +71,10 @@ const ProductCard = ({
             <p>Very Good</p>
           </div>
         </div>
-        <Tooltip title={title} arrow>
-          <h3 className="title">{title}</h3>
+        <Tooltip title={name} arrow>
+          <h3 className="title">{name}</h3>
         </Tooltip>
-        <LocationDisplayer />
+        <LocationDisplayer city={city} />
         <ServicesDisplayer />
       </div>
       <div className="bottom-card">
@@ -241,3 +241,20 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 }));
+
+// {
+//   "id": 1,
+//   "name": "Trendy Upgraded Studio Apartment in JLT",
+//   "description": "Key View is excited to welcome you to this trendy upgraded studio apartment in JLT. This unique place has a style all its own. Perfectly situated, you are minutes drive away from the lively Dubai Marina, JBR beach and exclusive Palm Jumeirah.",
+//   "city": {
+//       "id": 1,
+//       "name": "Dubai",
+//       "name_country": "United Arab Emirates"
+//   },
+//   "category": {
+//       "id": 2,
+//       "title": "Departments",
+//       "description": "807.105 hoteles",
+//       "urlImage": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+//   }
+// },
