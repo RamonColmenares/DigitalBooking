@@ -11,9 +11,6 @@ public class ProductCompliteDTO {
     private Integer id;
     private String name;
     private String description;
-//    private List<Image> images;
-//    private List<Policy> policies;
     private CityDTO city;
     private CategoryDTO category;
-//    private List<Feature> features;
 }

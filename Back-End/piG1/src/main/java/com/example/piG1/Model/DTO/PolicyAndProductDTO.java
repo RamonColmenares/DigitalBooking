@@ -1,14 +1,14 @@
 package com.example.piG1.Model.DTO;
+
 import lombok.*;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TypeOfPolicyAddPoliciesDTO {
-    private Integer typeOfPolicyId;
+public class PolicyAndProductDTO {
+    private Integer id;
     private Integer productId;
-    private List<PolicyDTO> listPolicies;
+    private String description;
 }

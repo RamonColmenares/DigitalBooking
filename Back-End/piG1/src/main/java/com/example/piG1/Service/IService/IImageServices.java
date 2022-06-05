@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface IImageServices extends  ICheckId<Image> {
     void saveImages(List<Image> imageList);
+    List<ImageDTO> findByProductId(Integer id) throws ResourceNotFoundException;
     ImageDTO save(ImageDTO imageDTO);
     ImageDTO findById(Integer id) throws ResourceNotFoundException;
     List<ImageDTO> findAll();
