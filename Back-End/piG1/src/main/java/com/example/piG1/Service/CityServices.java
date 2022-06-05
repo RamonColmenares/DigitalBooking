@@ -27,8 +27,8 @@ public class CityServices implements ICityServices {
     @Override
     public CityDTO save(CityDTO cityDTO) {
         City city = mapper.convertValue(cityDTO, City.class);
-        cityRepository.save(city);
-        return cityDTO;
+        city = cityRepository.save(city);
+        return mapper.convertValue(city, CityDTO.class);
     }
 
     @Override

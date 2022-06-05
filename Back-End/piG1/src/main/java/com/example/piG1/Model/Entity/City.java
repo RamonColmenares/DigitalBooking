@@ -21,6 +21,6 @@ public class City {
     public Integer id;
     @Column(name="name")
     public String name;
-    @Column(name="nameCountry")
-    public String nameCountry;
+    @Column(name="name_country")
+    public String name_country;
 }

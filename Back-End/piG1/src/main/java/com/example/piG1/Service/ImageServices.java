@@ -28,8 +28,8 @@ public class ImageServices implements IImageServices {
     @Override
     public ImageDTO save(ImageDTO imageDTO) {
         Image image = mapper.convertValue(imageDTO, Image.class);
-        imageRepository.save(image);
-        return imageDTO;
+        image = imageRepository.save(image);
+        return mapper.convertValue(image, ImageDTO.class);
     }
 
     @Override
