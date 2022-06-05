@@ -2,13 +2,13 @@ import React from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { makeStyles } from "@material-ui/core";
 
-const LocationDisplayer = () => {
+const LocationDisplayer = ({ city }) => {
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>
       <LocationOnIcon />
       <p>
-        950 meters from the center. <a href="#">SHOW IN MAP</a>
+        {city.name}, {city.name_country}. <a href="#">SHOW IN MAP</a>
       </p>
     </div>
   );

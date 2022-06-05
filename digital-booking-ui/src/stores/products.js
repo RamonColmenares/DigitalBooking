@@ -1,3 +1,4 @@
+import { fetchProducts } from "../client/fetchProducts";
 import { apiRequest } from "../client/mocks/acommodationList";
 import { create } from "../utils/createStore";
 
@@ -11,7 +12,7 @@ const createProductsStore = () =>
 
     fetchData: async () => {
       set((state) => ({ ...state, loading: true }));
-      const response = await apiRequest();
+      const response = await fetchProducts();
       set({
         data: response,
         dataBackUp: response,
