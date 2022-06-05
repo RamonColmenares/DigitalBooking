@@ -13,9 +13,11 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 public class Category {
+//    @Id
+//    @SequenceGenerator(name = "category_sequence", sequenceName = "category_sequence", allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_sequence")
     @Id
-    @SequenceGenerator(name = "category_sequence", sequenceName = "category_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     @Column(name="title")
     public String title;

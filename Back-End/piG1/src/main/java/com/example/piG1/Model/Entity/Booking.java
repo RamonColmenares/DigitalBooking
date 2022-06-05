@@ -14,9 +14,11 @@ import java.util.Date;
 @Entity
 @Table(name = "bookings")
 public class Booking {
+//    @Id
+//    @SequenceGenerator(name = "booking_sequence", sequenceName = "booking_sequence", allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
     @Id
-    @SequenceGenerator(name = "booking_sequence", sequenceName = "booking_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     @Column(name="startDate")
     public Date startDate;
