@@ -15,7 +15,7 @@ public interface IProductServices extends ICheckId<Product> {
     ProductDTO save(ProductDTO ProductDTO);
     ProductFullDTO findById(Integer id) throws ResourceNotFoundException;
     ProductCompliteDTO findByIdComplite(Integer id) throws ResourceNotFoundException;
-    List<ProductCompliteDTO> findAll();
+    List<GetProductsAllDTO> findAll() throws ResourceNotFoundException;
     void delete(Integer id) throws ResourceNotFoundException;
     List<ProductFindByFilterDTO> findByCityId(Integer cityId) throws ResourceNotFoundException;
     List<ProductFindByFilterDTO> findByCategoryId(Integer categoryId) throws ResourceNotFoundException;

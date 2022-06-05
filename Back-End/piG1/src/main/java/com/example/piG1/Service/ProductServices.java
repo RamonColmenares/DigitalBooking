@@ -133,17 +133,22 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public List<ProductCompliteDTO> findAll() {
-        List<ProductCompliteDTO> productsDTO = new ArrayList<>();
+    public List<GetProductsAllDTO> findAll() throws ResourceNotFoundException {
+        List<GetProductsAllDTO>  getProductsAllDTO= new ArrayList<>();
         List<Product> products = productRepository.findAll();
         for(Product product: products){
-            productsDTO.add(mapper.convertValue(product, ProductCompliteDTO.class));
+            GetProductsAllDTO getProductsAllDTO1 = mapper.convertValue(product, GetProductsAllDTO.class);
+            List<ImageDTO> imagesList = imageServices.findByProductId(product.getId());
+            System.out.println(imagesList);
+//            String url_image = imagesList.get(0).getUrl();
+//            System.out.println(url_image);
+////            getProductsAllDTO1.setImage_url(url_image);
+            getProductsAllDTO.add(getProductsAllDTO1);
         }
-        productsDTO .sort(Comparator.comparing(ProductCompliteDTO::getId)); //
-        logger.info("La busqueda fue exitosa: "+ productsDTO);
-        return productsDTO;
+        getProductsAllDTO .sort(Comparator.comparing(GetProductsAllDTO::getId)); //
+        logger.info("La busqueda fue exitosa: "+ getProductsAllDTO);
+        return getProductsAllDTO;
     }
-
     @Override
     public void delete(Integer id) throws ResourceNotFoundException {
         checkId(id);
