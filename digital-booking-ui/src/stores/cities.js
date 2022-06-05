@@ -1,5 +1,5 @@
 // https://countriesnow.space/api/v0.1/countries/population/cities
-
+import { fetchCities } from "../client/referenceData/fetchCities";
 import { create } from "../utils/createStore";
 
 const createCitiesStore = () =>
@@ -12,12 +12,8 @@ const createCitiesStore = () =>
     fetchData: async () => {
       set((state) => ({ ...state, loading: true }));
       try {
-        const response = await fetch(
-          "https://countriesnow.space/api/v0.1/countries/population/cities"
-        );
-        const data = await response.json();
-
-        set({ data: data, loaded: true, loading: false });
+        const response = await fetchCities();
+        set({ data: response, loaded: true, loading: false });
       } catch (e) {
         console.log("Error while fetching cities: ", e);
         set({
