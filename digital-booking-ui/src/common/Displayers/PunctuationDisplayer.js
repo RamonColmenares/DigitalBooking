@@ -13,7 +13,7 @@ const PunctuationDisplayerWithStars = () => {
       <div className={classes.review}>
         <p>Very Good</p>
         <div className="stars">
-          <Rating size="small" />
+          <Rating name="rating" size="small" />
         </div>
       </div>
       <div className={classes.punctuation}>8</div>

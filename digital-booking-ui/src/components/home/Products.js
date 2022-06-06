@@ -63,7 +63,7 @@ const ProductCard = ({
       <div className="upper-card">
         <div className="category-wrapper">
           <p className="category">{CATEGORIES[category.title]}</p>
-          <Rating size="small" />
+          <Rating name="rating" size="small" />
           <div className="punctuation">
             <div className="number">
               <p>8</p>
