@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
@@ -7,6 +7,8 @@ import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "./Calendar";
 import { useCitiesStore } from "../../stores/cities";
+import { useProductsStore } from "../../stores/products";
+import { useSearchStore } from "../../stores/search";
 
 //DatePicker Configuration in Spanish
 registerLocale("es", es);
@@ -14,7 +16,19 @@ registerLocale("es", es);
 const SearchSection = () => {
   const classes = useStyles();
 
+  const setLocation = useSearchStore((s) => s.setLocation);
+  const location = useSearchStore((s) => s.location);
   const cities = useCitiesStore((s) => s.data);
+  const filterByLocation = useProductsStore((s) => s.filterByLocation);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!location) {
+      console.log("Invalid search");
+      return;
+    }
+    filterByLocation(location);
+  };
 
   const optionComponent = useCallback((option) => {
     return (
@@ -31,7 +45,7 @@ const SearchSection = () => {
   return (
     <section className={classes.section}>
       <h2>Look for offers on hotels, houses and much more</h2>
-      <form className={classes.wrapper} onSubmit={(e) => e.preventDefault()}>
+      <form className={classes.wrapper} onSubmit={handleSearch}>
         <div className={classes.div}>
           <Autocomplete
             id="combo-box-demo"
@@ -43,6 +57,8 @@ const SearchSection = () => {
             classes={{
               inputRoot: classes.autocomplete,
             }}
+            value={location}
+            onChange={(e, newValue) => setLocation(newValue)}
             renderInput={(params) => (
               <TextField
                 {...params}
