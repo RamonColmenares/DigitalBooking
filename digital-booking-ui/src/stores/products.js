@@ -23,7 +23,7 @@ const createProductsStore = () =>
     },
     filterByCategory: (category) => {
       const filteredData = get().dataBackUp.filter(
-        (accomodation) => accomodation.category === category
+        (accomodation) => accomodation.category.title === category
       );
       set({ data: filteredData, filterCategory: category });
     },
