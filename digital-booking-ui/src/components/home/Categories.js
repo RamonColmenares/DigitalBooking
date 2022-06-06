@@ -13,7 +13,7 @@ const Categories = () => {
   const fetchCategories = useCategoriesStore((s) => s.fetchData);
 
   const filterCategory = useProductsStore((s) => s.filterCategory);
-  const setFilter = useProductsStore((s) => s.setFilter);
+  const setFilter = useProductsStore((s) => s.filterByCategory);
   const clearFilter = useProductsStore((s) => s.clearFilter);
 
   useEffect(() => {

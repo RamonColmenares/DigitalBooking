@@ -21,11 +21,17 @@ const createProductsStore = () =>
       });
       return;
     },
-    setFilter: (category) => {
+    filterByCategory: (category) => {
       const filteredData = get().dataBackUp.filter(
         (accomodation) => accomodation.category === category
       );
       set({ data: filteredData, filterCategory: category });
+    },
+    filterByLocation: (location) => {
+      const filteredData = get().dataBackUp.filter(
+        (accomodation) => accomodation.city.name === location.name
+      );
+      set({ data: filteredData });
     },
     clearFilter: () =>
       set((state) => ({
