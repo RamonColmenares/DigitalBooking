@@ -1,19 +1,19 @@
-import { apiRequest } from "../client/mocks/accommodationMock";
-import { create } from "../utils/createStore";
+import { fetchAccommodation } from '../client/fetchAccommodation';
+import { create } from '../utils/createStore';
 
 const createAccommodationStore = () =>
-  create("accommodation")((set, get) => ({
+  create('accommodation')((set, get) => ({
     data: [],
     loading: false,
     loaded: false,
     error: false,
 
-    fetchData: async () => {
+    fetchData: async (id) => {
       try {
         set((state) => ({ ...state, loading: true }));
-        const response = await apiRequest();
-        const [data] = response;
-        set({ data, loaded: true, loading: false });
+        const response = await fetchAccommodation(id);
+        console.log(response);
+        set({ data: response, loaded: true, loading: false });
         return;
       } catch (e) {
         set({ error: true, data: [], loaded: true, loading: false });

@@ -1,19 +1,21 @@
-import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
-import { useAccommodationStore } from "../../stores/accommodation";
-import CenterContainer from "../../common/Displayers/CenterContainer";
-import ErrorSplash from "../../assets/ErrorSplash";
-import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
-import LocationSection from "../../components/accomodation/LocationSection";
-import LikeAndShareSection from "../../components/accomodation/LikeAndShareSection";
-import Gallery from "../../components/accomodation/Gallery";
-import DescriptionSection from "../../components/accomodation/DescriptionSection";
-import ServicesSection from "../../components/accomodation/ServicesSection";
-import Rules from "../../components/accomodation/Rules";
-import CalendarReservations from "../../components/accomodation/CalendarReservations";
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
+import { useAccommodationStore } from '../../stores/accommodation';
+import CenterContainer from '../../common/Displayers/CenterContainer';
+import ErrorSplash from '../../assets/ErrorSplash';
+import HeaderAccommodation from '../../components/accomodation/HeaderAccommodation';
+import LocationSection from '../../components/accomodation/LocationSection';
+import LikeAndShareSection from '../../components/accomodation/LikeAndShareSection';
+import Gallery from '../../components/accomodation/Gallery';
+import DescriptionSection from '../../components/accomodation/DescriptionSection';
+import ServicesSection from '../../components/accomodation/ServicesSection';
+import Rules from '../../components/accomodation/Rules';
+import CalendarReservations from '../../components/accomodation/CalendarReservations';
+import { useParams } from 'react-router-dom';
 
 const AccommodationPage = () => {
+  const { id } = useParams();
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -24,8 +26,8 @@ const AccommodationPage = () => {
   const fetchData = useAccommodationStore((s) => s.fetchData);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchData(id);
+  }, [fetchData, id]);
 
   if (error) {
     return <CenterContainer>{/* <ErrorSplash /> */}</CenterContainer>;
@@ -33,7 +35,7 @@ const AccommodationPage = () => {
 
   return (
     <>
-      {loading && !loaded ? (
+      {loading && !loaded && accommodation ? (
         <h1>Loading..</h1>
       ) : (
         <>
