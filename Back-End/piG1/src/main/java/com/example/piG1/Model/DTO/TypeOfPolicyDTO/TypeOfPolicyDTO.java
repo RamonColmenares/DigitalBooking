@@ -16,5 +16,4 @@ public class TypeOfPolicyDTO {
     private Integer id;
     private String title;
     private String description;
-//    private List<Policy> policiesList;
 }

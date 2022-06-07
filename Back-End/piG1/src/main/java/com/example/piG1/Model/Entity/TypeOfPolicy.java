@@ -13,9 +13,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "typeOfPolicies")
 public class TypeOfPolicy {
-//    @Id
-//    @SequenceGenerator(name = "type_of_policy_sequence", sequenceName = "type_of_policy_sequence", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_of_policy_sequence")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
@@ -23,9 +20,4 @@ public class TypeOfPolicy {
     public String title;
     @Column(name="description")
     public String description;
-
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "policy_id")
-//    @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
-//    private Policy policy;
 }

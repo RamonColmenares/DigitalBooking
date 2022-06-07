@@ -4,8 +4,11 @@ import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyAddPoliciesDTO;
 import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyDTO;
+import com.example.piG1.Model.Entity.Category;
 import com.example.piG1.Model.Entity.Policy;
+import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Model.Entity.TypeOfPolicy;
+import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Repository.ITypeOfPolicyRepository;
 import com.example.piG1.Service.IService.IPolicyServices;
 import com.example.piG1.Service.IService.ITypeOfPolicyServices;
@@ -26,6 +29,8 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
     private ITypeOfPolicyRepository typeOfPolicyRepository;
     @Autowired
     private IPolicyServices policyServices;
+    @Autowired
+    private IProductRepository productRepository;
 
     @Autowired
     ObjectMapper mapper;
@@ -42,9 +47,11 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
     @Override
     public TypeOfPolicyDTO addPolicies(TypeOfPolicyAddPoliciesDTO typeOfPolicyAddPoliciesDTO) {
         Optional <TypeOfPolicy> typeOfPolicy = typeOfPolicyRepository.findById(typeOfPolicyAddPoliciesDTO.getTypeOfPolicyId());
+        Optional <Product> product = productRepository.findById(typeOfPolicyAddPoliciesDTO.getProductId());
         List <Policy> policyList = new ArrayList<>();
         for (PolicyDTO policyDTO: typeOfPolicyAddPoliciesDTO.getListPolicies()){
             Policy  policy = mapper.convertValue(policyDTO, Policy.class);
+            policy.setProduct(product.get());
             policy.setTypeOfPolicy(typeOfPolicy.get());
             policyList.add(policy);
         }

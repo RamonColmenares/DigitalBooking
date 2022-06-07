@@ -12,5 +12,4 @@ public class CategoryDTO {
     private String title;
     private String description;
     private String urlImage;
-//    public List<Product> products;
 }
