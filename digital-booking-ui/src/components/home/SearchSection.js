@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, makeStyles, TextField } from "@material-ui/core";
+import { Button, IconButton, makeStyles, TextField } from "@material-ui/core";
+import ClearIcon from "@material-ui/icons/Clear";
 import { Autocomplete } from "@material-ui/lab";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { registerLocale } from "react-datepicker";
@@ -21,9 +22,14 @@ const SearchSection = () => {
   const clearSearch = useSearchStore((s) => s.resetState);
   const cities = useCitiesStore((s) => s.data);
   const filterByLocation = useProductsStore((s) => s.filterByLocation);
+  const clearFilter = useProductsStore((s) => s.clearFilter);
 
+  const handleClearSearch = () => {
+    clearFilter();
+    clearSearch();
+  };
   useEffect(() => {
-    return () => clearSearch();
+    return () => handleClearSearch();
   }, []);
 
   const handleSearch = (e) => {
@@ -83,6 +89,13 @@ const SearchSection = () => {
         >
           Search
         </Button>
+        <IconButton
+          className={classes.clearSearch}
+          disabled={!location}
+          onClick={() => handleClearSearch()}
+        >
+          <ClearIcon />
+        </IconButton>
       </form>
     </section>
   );
@@ -154,5 +167,8 @@ const useStyles = makeStyles((theme) => ({
     "@media (max-width:500px)": {
       width: "100%",
     },
+  },
+  clearSearch: {
+    color: theme.palette.white,
   },
 }));
