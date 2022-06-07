@@ -24,7 +24,6 @@ const Products = () => {
 
   useEffect(() => {
     fetchProducts();
-    return () => clearFilters();
   }, [fetchProducts]);
 
   return (
