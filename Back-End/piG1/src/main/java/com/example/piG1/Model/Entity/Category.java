@@ -13,9 +13,6 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 public class Category {
-//    @Id
-//    @SequenceGenerator(name = "category_sequence", sequenceName = "category_sequence", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_sequence")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
@@ -25,8 +22,4 @@ public class Category {
     public String description;
     @Column(name="urlImage")
     public String urlImage;
-
-//    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    public List<Product> products = new ArrayList<>();
 }

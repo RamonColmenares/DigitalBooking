@@ -15,9 +15,6 @@ import java.util.List;
 @Entity
 @Table(name = "cities")
 public class City {
-//    @Id
-//    @SequenceGenerator(name = "city_sequence", sequenceName = "city_sequence", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_sequence")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;

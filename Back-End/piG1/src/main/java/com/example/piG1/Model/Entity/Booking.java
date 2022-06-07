@@ -14,9 +14,6 @@ import java.util.Date;
 @Entity
 @Table(name = "bookings")
 public class Booking {
-//    @Id
-//    @SequenceGenerator(name = "booking_sequence", sequenceName = "booking_sequence", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;

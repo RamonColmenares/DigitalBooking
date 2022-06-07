@@ -12,5 +12,5 @@ public class BookingDTO {
     private Integer id;
     private Date startDate;
     private Date endDate;
-//    private List<Product> products;
+
 }
