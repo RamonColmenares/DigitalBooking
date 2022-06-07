@@ -13,7 +13,7 @@ const Products = () => {
   const products = useProductsStore((s) => s.data);
   const loading = useProductsStore((s) => s.loading);
   const loaded = useProductsStore((s) => s.loaded);
-
+  const clearFilters = useProductsStore((s) => s.clearFilter);
   const fetchProducts = useProductsStore((s) => s.fetchData);
 
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const Products = () => {
 
   useEffect(() => {
     fetchProducts();
+    return () => clearFilters();
   }, [fetchProducts]);
 
   return (

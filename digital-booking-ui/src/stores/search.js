@@ -6,7 +6,7 @@ const createSearchStore = () =>
     date: [],
 
     setLocation: (location) => set({ location }),
-    resetState: () => set({ location: {}, date: [] }),
+    resetState: () => set({ location: null, date: [] }),
   }));
 
 export const useSearchStore = createSearchStore();
