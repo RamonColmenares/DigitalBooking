@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
@@ -18,8 +18,13 @@ const SearchSection = () => {
 
   const setLocation = useSearchStore((s) => s.setLocation);
   const location = useSearchStore((s) => s.location);
+  const clearSearch = useSearchStore((s) => s.resetState);
   const cities = useCitiesStore((s) => s.data);
   const filterByLocation = useProductsStore((s) => s.filterByLocation);
+
+  useEffect(() => {
+    return () => clearSearch();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
