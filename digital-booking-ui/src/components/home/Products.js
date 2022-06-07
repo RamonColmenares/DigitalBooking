@@ -51,14 +51,14 @@ const ProductCard = ({
   id,
   name,
   description,
-  crimg,
+  image_url,
   category,
   city,
   className,
   onClick,
 }) => (
   <div className={className} key={id}>
-    <img src={crimg} alt={name} className="card-img" />
+    <img src={image_url} alt={name} className="card-img" />
     <div className="card-text">
       <div className="upper-card">
         <div className="category-wrapper">

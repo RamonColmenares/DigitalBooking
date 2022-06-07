@@ -140,9 +140,9 @@ public class ProductServices implements IProductServices {
             GetProductsAllDTO getProductsAllDTO1 = mapper.convertValue(product, GetProductsAllDTO.class);
             List<ImageDTO> imagesList = imageServices.findByProductId(product.getId());
             System.out.println(imagesList);
-//            String url_image = imagesList.get(0).getUrl();
-//            System.out.println(url_image);
-////            getProductsAllDTO1.setImage_url(url_image);
+            String url_image = imagesList.get(0).getUrl();
+            System.out.println(url_image);
+            getProductsAllDTO1.setImage_url(url_image);
             getProductsAllDTO.add(getProductsAllDTO1);
         }
         getProductsAllDTO .sort(Comparator.comparing(GetProductsAllDTO::getId)); //
