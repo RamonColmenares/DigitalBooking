@@ -2,12 +2,12 @@
 
 variable "AWS_ACCESS_KEY" {
     type = string
-    default = "mock_access_key"
+    default = "AKIASDYGBXDR6XH4ON5C"
 }
 
 variable "AWS_SECRET_KEY" {
     type = string
-    default = "mock_secret_key"
+    default = "WDLhnA+qYLav4cG3Knm3Hs0fa6Cv+c3yOjKekc1k"
 }
 
 variable "AWS_REGION" {
@@ -38,11 +38,18 @@ variable "DATABASE-INSTANCE-CLASS" {
     type = string
 }
 
-variable "DATABASE-INSTANCE-IDENTIFIER" {
-    default = "g1database"
+variable "DATABASE-INSTANCE-IDENTIFIER1" {
+    default = "g1database-master"
     description = "Database instance identifier"
     type = string
 }
+
+variable "DATABASE-INSTANCE-IDENTIFIER2" {
+    default = "g1database-replica"
+    description = "Database instance identifier"
+    type = string
+}
+
 
 variable "DATABASE-MAZ-DEPLOYMENT" {
     default = "false"

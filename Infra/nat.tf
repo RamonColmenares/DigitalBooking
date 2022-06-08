@@ -23,3 +23,8 @@ resource "aws_route_table_association" "g1vpc-private-1-a" {
     subnet_id = aws_subnet.g1vpc-private-1.id
     route_table_id = aws_route_table.g1vpc-private.id
 }
+
+resource "aws_route_table_association" "g1vpc-private-2-a" {
+    subnet_id = aws_subnet.g1vpc-private-2.id
+    route_table_id = aws_route_table.g1vpc-private.id
+}
