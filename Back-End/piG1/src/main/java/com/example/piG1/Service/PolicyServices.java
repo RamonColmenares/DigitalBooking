@@ -1,8 +1,12 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
+import com.example.piG1.Model.DTO.ProductDTO.GetProductsAllDTO;
 import com.example.piG1.Model.Entity.Policy;
+import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Repository.IPolicyRepository;
 import com.example.piG1.Service.IService.IPolicyServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -66,15 +70,15 @@ public class PolicyServices implements IPolicyServices {
     }
 
     @Override
-    public List<PolicyDTO> findAll() {
-        List<PolicyDTO> policiesDTO = new ArrayList<>();
+    public List<PolicyAndTypeOfPolicyDTO> findAll() {
+        List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = new ArrayList<>();
         List<Policy> policies = policyRepository.findAll();
         for(Policy policy: policies){
-            policiesDTO.add(mapper.convertValue(policy, PolicyDTO.class));
+            policyAndTypeOfPolicyDTO.add(mapper.convertValue(policy, PolicyAndTypeOfPolicyDTO.class));
         }
-        policiesDTO .sort(Comparator.comparing(PolicyDTO::getId)); //
-        logger.info("La busqueda fue exitosa: "+ policiesDTO);
-        return policiesDTO;
+        policyAndTypeOfPolicyDTO .sort(Comparator.comparing(PolicyAndTypeOfPolicyDTO::getId)); //
+        logger.info("La busqueda fue exitosa: "+ policyAndTypeOfPolicyDTO);
+        return policyAndTypeOfPolicyDTO;
     }
 
     @Override

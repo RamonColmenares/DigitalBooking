@@ -1,6 +1,7 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import com.example.piG1.Service.IService.IPolicyServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class PolicyController {
     IPolicyServices iPolicyServices;
 
     @GetMapping
-    public ResponseEntity<List<PolicyDTO>> findAll(){
+    public ResponseEntity<List<PolicyAndTypeOfPolicyDTO>> findAll(){
         return ResponseEntity.ok(iPolicyServices.findAll());
     }
 
