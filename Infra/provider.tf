@@ -1,5 +1,5 @@
 provider "aws" {
-    access_key = "AKIASDYGBXDR6XH4ON5C"
-    secret_key = "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"
+    access_key = "mock_access_key"
+    secret_key = "mock_secret_key"
     region = var.AWS_REGION
 }
