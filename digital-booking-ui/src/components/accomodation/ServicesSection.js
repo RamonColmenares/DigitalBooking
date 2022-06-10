@@ -2,7 +2,7 @@ import React from "react";
 import { Divider, makeStyles } from "@material-ui/core";
 import { ServiceDisplayer } from "../../common/Displayers/ServiceDisplayer";
 
-const ServicesSection = ({ accommodation }) => {
+const ServicesSection = ({ accommodation: { features } }) => {
   const classes = useStyles();
 
   return (
@@ -10,10 +10,12 @@ const ServicesSection = ({ accommodation }) => {
       <h2>Services</h2>
       <Divider className={classes.divider} />
       <div className={classes.wrapper}>
-        {!!accommodation.services &&
-          Object.entries(accommodation.services).map(
-            ([service, value]) =>
-              value && <ServiceDisplayer key={service} service={service} />
+        {features &&
+          features.map(
+            (feature) =>
+              feature && (
+                <ServiceDisplayer key={feature.id} service={feature.name} />
+              )
           )}
       </div>
     </section>

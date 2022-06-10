@@ -12,8 +12,10 @@ import DescriptionSection from "../../components/accomodation/DescriptionSection
 import ServicesSection from "../../components/accomodation/ServicesSection";
 import Rules from "../../components/accomodation/Rules";
 import CalendarReservations from "../../components/accomodation/CalendarReservations";
+import { useParams } from "react-router-dom";
 
 const AccommodationPage = () => {
+  const { id } = useParams();
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -24,8 +26,8 @@ const AccommodationPage = () => {
   const fetchData = useAccommodationStore((s) => s.fetchData);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchData(id);
+  }, []);
 
   if (error) {
     return <CenterContainer>{/* <ErrorSplash /> */}</CenterContainer>;
@@ -33,17 +35,17 @@ const AccommodationPage = () => {
 
   return (
     <>
-      {loading && !loaded ? (
+      {!Object.values(accommodation).length > 0 ? (
         <h1>Loading..</h1>
       ) : (
         <>
           <HeaderAccommodation accommodation={accommodation} />
           <LocationSection accommodation={accommodation} />
           <LikeAndShareSection />
-          <Gallery />
+          <Gallery accommodation={accommodation} />
           <DescriptionSection accommodation={accommodation} />
           <ServicesSection accommodation={accommodation} />
-          <Rules accommodation={accommodation} />
+          <Rules /* accommodation={accommodation} */ />
           <CalendarReservations />
         </>
       )}

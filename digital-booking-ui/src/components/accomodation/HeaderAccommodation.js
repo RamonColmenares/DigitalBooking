@@ -13,17 +13,15 @@ const HeaderAccommodation = ({ accommodation }) => {
   };
 
   return (
-    <>
-      <section className={classes.header}>
-        <IconButton onClick={handleGoBack}>
-          <NavigateBeforeIcon fontSize="large" className="back-arrow" />
-        </IconButton>
-        <div className={classes.title}>
-          <p>{CATEGORIES[accommodation.category]}</p>
-          <h3>{accommodation.title}</h3>
-        </div>
-      </section>
-    </>
+    <section className={classes.header}>
+      <IconButton onClick={handleGoBack}>
+        <NavigateBeforeIcon fontSize="large" className="back-arrow" />
+      </IconButton>
+      <div className={classes.title}>
+        <p>{CATEGORIES[accommodation.category.title]}</p>
+        <h3>{accommodation.name}</h3>
+      </div>
+    </section>
   );
 };
 

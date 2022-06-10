@@ -2,14 +2,16 @@ import React from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PunctuationDisplayerWithStars from "../../common/Displayers/PunctuationDisplayer";
 import { makeStyles } from "@material-ui/core";
+import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
+import { useAccommodationStore } from "../../stores/accommodation";
 
-const LocationSection = ({ accommodation: { location } }) => {
+const LocationSection = ({ accommodation: { city } }) => {
   const classes = usestyles();
+
   return (
     <div className={classes.section}>
       <div className={classes.location}>
-        <LocationOnIcon />
-        <p>{location}</p>
+        <LocationDisplayer city={city} />
       </div>
       <PunctuationDisplayerWithStars />
     </div>
