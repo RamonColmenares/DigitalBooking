@@ -1,8 +1,8 @@
-import { fetchAccommodation } from '../client/fetchAccommodation';
-import { create } from '../utils/createStore';
+import { fetchAccommodation } from "../client/fetchAccommodation";
+import { create } from "../utils/createStore";
 
 const createAccommodationStore = () =>
-  create('accommodation')((set, get) => ({
+  create("accommodation")((set, get) => ({
     data: [],
     loading: false,
     loaded: false,
@@ -12,7 +12,7 @@ const createAccommodationStore = () =>
       try {
         set((state) => ({ ...state, loading: true }));
         const response = await fetchAccommodation(id);
-        console.log(response);
+        console.log({ response });
         set({ data: response, loaded: true, loading: false });
         return;
       } catch (e) {

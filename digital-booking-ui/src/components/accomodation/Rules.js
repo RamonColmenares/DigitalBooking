@@ -6,8 +6,25 @@ const ruleNames = {
   healthAndSecurity: "Health and security",
   cancellationPolicy: "Cancellation policy",
 };
+const accommodation = {
+  info: {
+    rules: [
+      "Check-in: De 08:00 a 19:00",
+      "No apto para niños o bebés",
+      "No se permiten fiestas ni eventos",
+    ],
+    healthAndSecurity: [
+      "Se aplican las prácticas de seguridad de Airbnb relacionadas con el COVID-19",
+      "Lago, río u otro cuerpo de agua cercano",
+    ],
+    cancellationPolicy: [
+      "Si cancelás antes del 5 jun., vas a obtener un reembolso parcial.",
+      "Consultá la política de cancelación completa del anfitrión, que se aplica incluso si cancelás por contagio o algún otro problema causado por el COVID-19.",
+    ],
+  },
+};
 
-const Rules = ({ accommodation }) => {
+const Rules = (/* { accommodation } */) => {
   const classes = useStyles();
   return (
     <section className={classes.section}>
