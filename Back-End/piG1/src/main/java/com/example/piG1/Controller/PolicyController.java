@@ -40,4 +40,10 @@ public class PolicyController {
     public ResponseEntity<PolicyDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(iPolicyServices.findById(id));
     }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity <List<PolicyAndTypeOfPolicyDTO>> findByProductId (@PathVariable Integer id) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iPolicyServices.findByProductId(id));
+    }
+
 }

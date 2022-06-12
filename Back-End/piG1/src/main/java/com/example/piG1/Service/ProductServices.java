@@ -3,6 +3,7 @@ package com.example.piG1.Service;
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import com.example.piG1.Model.DTO.ProductDTO.*;
 import com.example.piG1.Model.Entity.*;
@@ -117,8 +118,8 @@ public class ProductServices implements IProductServices {
         List<ImageDTO> imagesList = imageServices.findByProductId(id);
         productFullDTO.setImages(imagesList);
 
-        List<PolicyDTO> policiesDTO = policyServices.findByProductId(id);
-        productFullDTO.setPolicies(policiesDTO);
+        List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(id);
+        productFullDTO.setPolicies(policyAndTypeOfPolicyDTO);
 
         List<FeatureDTO> featuresDTO = featureServices.findByProductId(id);
         productFullDTO.setFeatures(featuresDTO);
@@ -138,11 +139,12 @@ public class ProductServices implements IProductServices {
         List<Product> products = productRepository.findAll();
         for(Product product: products){
             GetProductsAllDTO getProductsAllDTO1 = mapper.convertValue(product, GetProductsAllDTO.class);
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
+            getProductsAllDTO1.setPolicies(policyAndTypeOfPolicyDTO);
+            System.out.println(getProductsAllDTO1);
             List<ImageDTO> imagesList = imageServices.findByProductId(product.getId());
-            System.out.println(imagesList);
             String url_image = imagesList.get(0).getUrl();
-            System.out.println(url_image);
-            getProductsAllDTO1.setImage_url(url_image);
+            getProductsAllDTO1.setImageUrl(url_image);
             getProductsAllDTO.add(getProductsAllDTO1);
         }
         getProductsAllDTO .sort(Comparator.comparing(GetProductsAllDTO::getId)); //
