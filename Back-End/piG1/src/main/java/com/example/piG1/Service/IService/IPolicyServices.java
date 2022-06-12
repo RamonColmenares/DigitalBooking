@@ -9,7 +9,7 @@ import com.example.piG1.Service.ICheckId;
 import java.util.List;
 
 public interface IPolicyServices extends  ICheckId<Policy> {
-    List<PolicyDTO> findByProductId(Integer id) throws ResourceNotFoundException;
+    List<PolicyAndTypeOfPolicyDTO> findByProductId(Integer id) throws ResourceNotFoundException;
     void savePolicies(List<Policy> policiesList);
     PolicyDTO save(PolicyDTO policyDTO);
     PolicyDTO findById(Integer id) throws ResourceNotFoundException;

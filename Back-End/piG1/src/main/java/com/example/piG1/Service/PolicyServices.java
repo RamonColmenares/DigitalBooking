@@ -38,15 +38,15 @@ public class PolicyServices implements IPolicyServices {
     }
 
     @Override
-    public List<PolicyDTO> findByProductId(Integer id) throws ResourceNotFoundException {
-            List<PolicyDTO> policiesDTO = new ArrayList<>();
+    public List<PolicyAndTypeOfPolicyDTO> findByProductId(Integer id) throws ResourceNotFoundException {
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = new ArrayList<>();
             List<Policy> policies = policyRepository.findByProductId(id);
             for(Policy policy: policies){
-                policiesDTO.add(mapper.convertValue(policy, PolicyDTO.class));
+                policyAndTypeOfPolicyDTO.add(mapper.convertValue(policy, PolicyAndTypeOfPolicyDTO.class));
             }
-            policiesDTO .sort(Comparator.comparing(PolicyDTO::getId)); //
-            logger.info("La busqueda fue exitosa: "+ policiesDTO);
-            return policiesDTO;
+        policyAndTypeOfPolicyDTO .sort(Comparator.comparing(PolicyAndTypeOfPolicyDTO::getId)); //
+            logger.info("La busqueda fue exitosa: "+ policyAndTypeOfPolicyDTO);
+            return policyAndTypeOfPolicyDTO;
     }
 
     @Override
