@@ -62,7 +62,11 @@ const SignUpPage = () => {
           <Name value={name.value} onChange={setName} />
           <Surname value={surname.value} onChange={setSurname} />
         </div>
-        <Email value={email.value} onChange={setEmail} />
+        <Email
+          value={email.value}
+          onChange={setEmail}
+          className={classes.textField}
+        />
         <Password value={password.value} onChange={setPassword} />
         <ConfirmPassword value={password2.value} onChange={setPassword2} />
         <Button
@@ -132,5 +136,9 @@ const useStyles = makeStyles((theme) => ({
   errorWrapper: {
     height: "20px",
     marginTop: "16px",
+  },
+  textField: {
+    width: "100%",
+    margin: "18px 0",
   },
 }));

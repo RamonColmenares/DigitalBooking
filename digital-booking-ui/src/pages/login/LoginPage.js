@@ -55,7 +55,11 @@ const LoginPage = () => {
     <FormWrapper>
       <form className={classes.form} onSubmit={handleSubmit}>
         <h2 className="text">Log In</h2>
-        <Email value={email} onChange={setEmail} />
+        <Email
+          value={email}
+          onChange={setEmail}
+          className={classes.textField}
+        />
         <Password value={password} onChange={setPassword} />
         <Button
           type="submit"
@@ -109,5 +113,9 @@ const useStyles = makeStyles((theme) => ({
   errorWrapper: {
     height: "20px",
     marginTop: "16px",
+  },
+  textField: {
+    width: "100%",
+    margin: "18px 0",
   },
 }));

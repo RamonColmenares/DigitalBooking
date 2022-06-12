@@ -3,7 +3,7 @@ import { InputAdornment, makeStyles, TextField } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
-export const Name = ({ value, onChange, error = false }) => {
+export const Name = ({ value, onChange, error = false, className = "" }) => {
   return (
     <TextField
       id="name"
@@ -11,27 +11,28 @@ export const Name = ({ value, onChange, error = false }) => {
       value={value}
       onChange={({ target }) => onChange(target.value)}
       required
+      className={className}
       error={error}
     />
   );
 };
 
-export const Surname = ({ value, onChange, error = false }) => (
+export const Surname = ({ value, onChange, error = false, className = "" }) => (
   <TextField
     id="surname"
     label="Surname"
     value={value}
     onChange={({ target }) => onChange(target.value)}
     required
+    className={className}
     error={error}
   />
 );
 
-export const Email = ({ value, onChange, error = false }) => {
-  const classes = useStyles();
+export const Email = ({ value, onChange, error = false, className = "" }) => {
   return (
     <TextField
-      className={classes.textField}
+      className={className}
       id="email"
       label="Email"
       value={value}
@@ -84,6 +85,32 @@ export const ConfirmPassword = ({ value, onChange, error = false }) => {
     />
   );
 };
+
+export const City = ({ value, onChange, error = false, className = "" }) => {
+  return (
+    <TextField
+      id="city"
+      label="City"
+      value={value}
+      onChange={({ target }) => onChange(target.value)}
+      className={className}
+      error={error}
+    />
+  );
+};
+
+export const Time = ({ value, onChange, className }) => (
+  <TextField
+    label="Choose your arrival time"
+    defaultValue="07:30"
+    id="time"
+    type="time"
+    InputLabelProps={{
+      shrink: true,
+    }}
+    className={className}
+  />
+);
 
 const useStyles = makeStyles(() => ({
   textField: {

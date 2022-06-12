@@ -10,9 +10,12 @@ import { useAuthStore } from "./stores/auth";
 import { useCitiesStore } from "./stores/cities";
 import AccommodationPage from "./pages/accommodation/AccommodationPage";
 import { makeStyles } from "@material-ui/core";
+import Reservation from "./pages/reservation/Reservation";
+import { PrivateRoute } from "./components/routes/PrivateRoute";
 
 const App = () => {
   const user = useAuthStore((s) => s.name);
+  // const user = true;
   const classes = useStyles();
 
   const fetchCities = useCitiesStore((s) => s.fetchData);
@@ -43,6 +46,14 @@ const App = () => {
             }
           />
           <Route path="accommodation/:id" element={<AccommodationPage />} />
+          <Route
+            path="reservation"
+            element={
+              <PrivateRoute user={user}>
+                <Reservation />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />
