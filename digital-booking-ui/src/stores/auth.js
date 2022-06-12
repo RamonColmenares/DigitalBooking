@@ -1,9 +1,9 @@
 import { create } from "../utils/createStore";
 
 const INITIAL_FROM_STATE = {
-  name: "",
-  surname: "",
-  email: "",
+  name: "Adriel",
+  surname: "Gomez",
+  email: "pepe@gmail.com",
 };
 
 const createAuthStore = () =>
@@ -15,6 +15,12 @@ const createAuthStore = () =>
     setName: (name) => set({ name }),
     setSurname: (surname) => set({ surname }),
     setEmail: (email) => set({ email }),
+
+    getValues: () => ({
+      name: get().name,
+      surname: get().surname,
+      email: get().email,
+    }),
 
     resetState: () =>
       set({

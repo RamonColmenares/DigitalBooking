@@ -3,7 +3,14 @@ import { InputAdornment, makeStyles, TextField } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
-export const Name = ({ value, onChange, error = false }) => {
+export const Name = ({
+  value,
+  onChange,
+  error = false,
+  className = "",
+  defaultValue = null,
+  disabled,
+}) => {
   return (
     <TextField
       id="name"
@@ -11,33 +18,54 @@ export const Name = ({ value, onChange, error = false }) => {
       value={value}
       onChange={({ target }) => onChange(target.value)}
       required
+      className={className}
+      defaultValue={defaultValue}
       error={error}
+      disabled={disabled}
     />
   );
 };
 
-export const Surname = ({ value, onChange, error = false }) => (
+export const Surname = ({
+  value,
+  onChange,
+  error = false,
+  className = "",
+  defaultValue,
+  disabled,
+}) => (
   <TextField
     id="surname"
     label="Surname"
     value={value}
     onChange={({ target }) => onChange(target.value)}
     required
+    className={className}
+    defaultValue={defaultValue}
     error={error}
+    disabled={disabled}
   />
 );
 
-export const Email = ({ value, onChange, error = false }) => {
-  const classes = useStyles();
+export const Email = ({
+  value,
+  onChange,
+  error = false,
+  className = "",
+  defaultValue,
+  disabled,
+}) => {
   return (
     <TextField
-      className={classes.textField}
+      className={className}
       id="email"
       label="Email"
       value={value}
       onChange={({ target }) => onChange(target.value)}
       required
+      defaultValue={defaultValue}
       error={error}
+      disabled={disabled}
     />
   );
 };
@@ -81,6 +109,38 @@ export const ConfirmPassword = ({ value, onChange, error = false }) => {
       onChange={({ target }) => onChange(target.value)}
       required
       error={error}
+    />
+  );
+};
+
+export const City = ({ value, onChange, error = false, className = "" }) => {
+  return (
+    <TextField
+      id="city"
+      label="City"
+      value={value}
+      onChange={({ target }) => onChange(target.value)}
+      className={className}
+      required
+      error={error}
+    />
+  );
+};
+
+export const Time = ({ value, onChange, className }) => {
+  console.log({ value });
+  return (
+    <TextField
+      label="Choose your arrival time"
+      id="time"
+      type="time"
+      value={value}
+      onChange={({ target }) => onChange(target.value)}
+      InputLabelProps={{
+        shrink: true,
+      }}
+      className={className}
+      required
     />
   );
 };
