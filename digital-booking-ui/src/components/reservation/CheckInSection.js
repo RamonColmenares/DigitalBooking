@@ -3,9 +3,15 @@ import SectionWrapper from "./SectionWrapper";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Time } from "../../common/inputs/formInputs";
 import { makeStyles } from "@material-ui/core";
+import { useReservationStore } from "../../stores/reservation";
 
 const CheckInSection = () => {
   const classes = useStyles();
+  const setArrivalTime = useReservationStore((s) => s.setArrivalTime);
+  const arrivalTime = useReservationStore((s) => s.arrivalTime);
+
+  console.log({ arrivalTime });
+
   return (
     <SectionWrapper>
       <h2>Your arrival time</h2>
@@ -14,7 +20,11 @@ const CheckInSection = () => {
           <CheckCircleOutlineIcon />
           <p>Your room will be ready between 10.00 AM and 11.00 PM</p>
         </div>
-        <Time className={classes.time} />
+        <Time
+          className={classes.time}
+          value={arrivalTime}
+          onChange={setArrivalTime}
+        />
       </div>
     </SectionWrapper>
   );

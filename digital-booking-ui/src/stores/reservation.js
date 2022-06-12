@@ -5,19 +5,24 @@ const INITIAL_STATE = {
   surname: "",
   email: "",
   city: "",
-  startDate: "",
-  endDate: "",
-  arriveTime: "",
+  dateRange: [null, null],
+  arrivalTime: "07:30",
 };
 
 const createReservationSotre = () =>
   create("reservation")((set, get) => ({
     ...INITIAL_STATE,
+
     setName: (name) => set({ name }),
     setSurname: (surname) => set({ surname }),
     setEmail: (email) => set({ email }),
     setCity: (city) => set({ city }),
-    setArriveTime: (arriveTime) => set({ arriveTime }),
+    setArrivalTime: (arrivalTime) => set({ arrivalTime }),
+
+    setDateRange: (dateRange) => set({ dateRange }),
+
+    setDefaultValues: ({ name, surname, email }) =>
+      set({ name, surname, email }),
   }));
 
 export const useReservationStore = createReservationSotre();

@@ -1,10 +1,13 @@
+import React, { useCallback } from "react";
 import { Button, Divider, makeStyles } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
-import React from "react";
 import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
+import { useReservationStore } from "../../stores/reservation";
 
 const ReservationDetail = () => {
   const classes = useStyles();
+  const [startDate, endDate] = useReservationStore((s) => s.dateRange);
+
   return (
     <div className={classes.container}>
       <h2 className="title">Reserve's details</h2>
@@ -23,12 +26,12 @@ const ReservationDetail = () => {
         <Divider />
         <div className="check">
           <p>Check In</p>
-          <p>23/16/11</p>
+          <p>{startDate ? startDate.toLocaleDateString() : "- / - / -"}</p>
         </div>
         <Divider />
         <div className="check">
           <p>Check Out</p>
-          <p>28/16/11</p>
+          <p>{endDate ? endDate.toLocaleDateString() : "- / - / -"}</p>
         </div>
         <Divider />
       </div>

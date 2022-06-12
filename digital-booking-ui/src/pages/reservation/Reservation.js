@@ -1,14 +1,26 @@
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
-import React from "react";
 import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
 import Rules from "../../components/accomodation/Rules";
 import Calendar from "../../components/reservation/Calendar";
 import CheckInSection from "../../components/reservation/CheckInSection";
 import FormReservation from "../../components/reservation/FormReservation";
 import ReservationDetail from "../../components/reservation/ReservationDetail";
+import { useAuthStore } from "../../stores/auth";
+import { useReservationStore } from "../../stores/reservation";
 
 const Reservation = () => {
   const classes = useStyles();
+
+  const authValues = useAuthStore((s) => s.getValues());
+
+  const setDefaultValues = useReservationStore((s) => s.setDefaultValues);
+  const reservationName = useReservationStore((s) => s.name);
+
+  useEffect(() => {
+    setDefaultValues(authValues);
+  }, []);
+
   return (
     <>
       {/* <HeaderAccommodation accommodation={} /> */}

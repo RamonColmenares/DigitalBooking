@@ -16,6 +16,12 @@ const createAuthStore = () =>
     setSurname: (surname) => set({ surname }),
     setEmail: (email) => set({ email }),
 
+    getValues: () => ({
+      name: get().name,
+      surname: get().surname,
+      email: get().email,
+    }),
+
     resetState: () =>
       set({
         ...INITIAL_FROM_STATE,

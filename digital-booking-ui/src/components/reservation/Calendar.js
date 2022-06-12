@@ -5,6 +5,7 @@ import es from "date-fns/locale/es";
 import { makeStyles } from "@material-ui/core";
 import SectionWrapper from "./SectionWrapper";
 import { useCurrentWidth } from "../../hooks/useRezise";
+import { useReservationStore } from "../../stores/reservation";
 
 registerLocale("es", es);
 
@@ -12,9 +13,12 @@ const Calendar = () => {
   const classes = useStyles();
   const calendarClasses = useCalendarStyles();
   const widthScreen = useCurrentWidth();
-  const [dateRange, setDateRange] = useState([null, null]);
+  const setDateRange = useReservationStore((s) => s.setDateRange);
+  const dateRange = useReservationStore((s) => s.dateRange);
   const [startDate, endDate] = dateRange;
   const today = new Date();
+
+  console.log(dateRange);
 
   useEffect(() => {
     setDateRange([null, null]);
@@ -35,7 +39,7 @@ const Calendar = () => {
           selectsRange={true}
           monthsShown={widthScreen > 500 ? 2 : 1}
           dateFormat="dd 'de' MMM. 'de' yyyy"
-          closeOnScroll={true}
+          closeOnScroll={false}
           minDate={today}
           onChange={(dates) => handleSelection(dates)}
           startDate={startDate}

@@ -3,7 +3,13 @@ import { InputAdornment, makeStyles, TextField } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
-export const Name = ({ value, onChange, error = false, className = "" }) => {
+export const Name = ({
+  value,
+  onChange,
+  error = false,
+  className = "",
+  defaultValue = null,
+}) => {
   return (
     <TextField
       id="name"
@@ -12,12 +18,19 @@ export const Name = ({ value, onChange, error = false, className = "" }) => {
       onChange={({ target }) => onChange(target.value)}
       required
       className={className}
+      defaultValue={defaultValue}
       error={error}
     />
   );
 };
 
-export const Surname = ({ value, onChange, error = false, className = "" }) => (
+export const Surname = ({
+  value,
+  onChange,
+  error = false,
+  className = "",
+  defaultValue,
+}) => (
   <TextField
     id="surname"
     label="Surname"
@@ -25,11 +38,18 @@ export const Surname = ({ value, onChange, error = false, className = "" }) => (
     onChange={({ target }) => onChange(target.value)}
     required
     className={className}
+    defaultValue={defaultValue}
     error={error}
   />
 );
 
-export const Email = ({ value, onChange, error = false, className = "" }) => {
+export const Email = ({
+  value,
+  onChange,
+  error = false,
+  className = "",
+  defaultValue,
+}) => {
   return (
     <TextField
       className={className}
@@ -38,6 +58,7 @@ export const Email = ({ value, onChange, error = false, className = "" }) => {
       value={value}
       onChange={({ target }) => onChange(target.value)}
       required
+      defaultValue={defaultValue}
       error={error}
     />
   );
@@ -94,23 +115,28 @@ export const City = ({ value, onChange, error = false, className = "" }) => {
       value={value}
       onChange={({ target }) => onChange(target.value)}
       className={className}
+      required
       error={error}
     />
   );
 };
 
-export const Time = ({ value, onChange, className }) => (
-  <TextField
-    label="Choose your arrival time"
-    defaultValue="07:30"
-    id="time"
-    type="time"
-    InputLabelProps={{
-      shrink: true,
-    }}
-    className={className}
-  />
-);
+export const Time = ({ value, onChange, className }) => {
+  console.log({ value });
+  return (
+    <TextField
+      label="Choose your arrival time"
+      id="time"
+      type="time"
+      value={value}
+      onChange={({ target }) => onChange(target.value)}
+      InputLabelProps={{
+        shrink: true,
+      }}
+      className={className}
+    />
+  );
+};
 
 const useStyles = makeStyles(() => ({
   textField: {
