@@ -23,11 +23,17 @@ const FormReservation = () => {
       <h2>Complete your data</h2>
       <form className={classes.form}>
         <div>
-          <Name value={name} onChange={setName} className={classes.textField} />
+          <Name
+            value={name}
+            onChange={setName}
+            className={classes.textField}
+            disabled
+          />
           <Surname
             value={surname}
             onChange={setSurname}
             className={classes.textField}
+            disabled
           />
         </div>
         <div>
@@ -35,6 +41,7 @@ const FormReservation = () => {
             value={email}
             onChange={setEmail}
             className={classes.textField}
+            disabled
           />
           <City value={city} onChange={setCity} className={classes.textField} />
         </div>

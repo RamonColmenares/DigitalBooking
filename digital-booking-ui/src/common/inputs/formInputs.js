@@ -9,6 +9,7 @@ export const Name = ({
   error = false,
   className = "",
   defaultValue = null,
+  disabled,
 }) => {
   return (
     <TextField
@@ -20,6 +21,7 @@ export const Name = ({
       className={className}
       defaultValue={defaultValue}
       error={error}
+      disabled={disabled}
     />
   );
 };
@@ -30,6 +32,7 @@ export const Surname = ({
   error = false,
   className = "",
   defaultValue,
+  disabled,
 }) => (
   <TextField
     id="surname"
@@ -40,6 +43,7 @@ export const Surname = ({
     className={className}
     defaultValue={defaultValue}
     error={error}
+    disabled={disabled}
   />
 );
 
@@ -49,6 +53,7 @@ export const Email = ({
   error = false,
   className = "",
   defaultValue,
+  disabled,
 }) => {
   return (
     <TextField
@@ -60,6 +65,7 @@ export const Email = ({
       required
       defaultValue={defaultValue}
       error={error}
+      disabled={disabled}
     />
   );
 };
@@ -134,6 +140,7 @@ export const Time = ({ value, onChange, className }) => {
         shrink: true,
       }}
       className={className}
+      required
     />
   );
 };
