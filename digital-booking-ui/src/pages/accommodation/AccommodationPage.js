@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
 import { useAccommodationStore } from "../../stores/accommodation";
 import CenterContainer from "../../common/Displayers/CenterContainer";
-import ErrorSplash from "../../assets/ErrorSplash";
 import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
 import LocationSection from "../../components/accomodation/LocationSection";
 import LikeAndShareSection from "../../components/accomodation/LikeAndShareSection";
@@ -16,8 +13,6 @@ import { useParams } from "react-router-dom";
 
 const AccommodationPage = () => {
   const { id } = useParams();
-  const classes = useStyles();
-  const navigate = useNavigate();
 
   const accommodation = useAccommodationStore((s) => s.data);
   const loading = useAccommodationStore((s) => s.loading);
@@ -29,9 +24,7 @@ const AccommodationPage = () => {
     fetchData(id);
   }, []);
 
-  if (error) {
-    return <CenterContainer>{/* <ErrorSplash /> */}</CenterContainer>;
-  }
+  if (error) return <h1>Upps</h1>;
 
   return (
     <>
@@ -54,5 +47,3 @@ const AccommodationPage = () => {
 };
 
 export default AccommodationPage;
-
-const useStyles = makeStyles((theme) => ({}));
