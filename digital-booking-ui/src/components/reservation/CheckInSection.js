@@ -10,8 +10,6 @@ const CheckInSection = () => {
   const setArrivalTime = useReservationStore((s) => s.setArrivalTime);
   const arrivalTime = useReservationStore((s) => s.arrivalTime);
 
-  console.log({ arrivalTime });
-
   return (
     <SectionWrapper>
       <h2>Your arrival time</h2>

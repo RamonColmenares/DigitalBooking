@@ -128,7 +128,6 @@ export const City = ({ value, onChange, error = false, className = "" }) => {
 };
 
 export const Time = ({ value, onChange, className }) => {
-  console.log({ value });
   return (
     <TextField
       label="Choose your arrival time"

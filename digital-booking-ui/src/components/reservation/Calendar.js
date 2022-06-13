@@ -18,7 +18,10 @@ const Calendar = () => {
   const [startDate, endDate] = dateRange;
   const today = new Date();
 
-  console.log(dateRange);
+  const one = Date.parse("2022-08-10T03:00:00.000Z");
+  const two = Date.parse("2022-08-17T03:00:00.000Z");
+  const three = Date.parse("2022-09-15T03:00:00.000Z");
+  const four = Date.parse("2022-09-22T03:00:00.000Z");
 
   useEffect(() => {
     setDateRange([null, null]);
@@ -27,6 +30,7 @@ const Calendar = () => {
   const handleSelection = (dates) => {
     setDateRange(dates);
   };
+
   return (
     <SectionWrapper>
       <h2>Select the reservation date</h2>
@@ -34,7 +38,6 @@ const Calendar = () => {
         <DatePicker
           showPopperArrow={false}
           locale="es"
-          placeholderText="Check in - Check out"
           selected={startDate}
           selectsRange={true}
           monthsShown={widthScreen > 500 ? 2 : 1}
@@ -45,6 +48,10 @@ const Calendar = () => {
           startDate={startDate}
           endDate={endDate}
           inline
+          excludeDateIntervals={[
+            { start: one, end: two },
+            { start: three, end: four },
+          ]}
         />
       </div>
     </SectionWrapper>
