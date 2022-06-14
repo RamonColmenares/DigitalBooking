@@ -3,25 +3,22 @@ import { Button, Divider, makeStyles } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
 import { useReservationStore } from "../../stores/reservation";
+import { CATEGORIES } from "../../models/business/categories";
 
-const ReservationDetail = () => {
+const ReservationDetail = ({ accommodation }) => {
   const classes = useStyles();
   const [startDate, endDate] = useReservationStore((s) => s.dateRange);
+
+  const { images, category, name, city } = accommodation;
 
   return (
     <div className={classes.container}>
       <h2 className="title">Reserve's details</h2>
-      <img
-        className="img"
-        src="https://images.unsplash.com/photo-1618773928121-c32242e63f39"
-        alt=""
-      />
-      <p className="category">HOTEL</p>
-      <h3 className="name">Hermitage Hotel</h3>
+      <img className="img" src={images[0].url} alt="" />
+      <p className="category">{CATEGORIES[category.title]}</p>
+      <h3 className="name">{name}</h3>
       <Rating name="rating" size="small" />
-      <LocationDisplayer
-        city={{ name: "Dubai", name_country: "United Arab Emirates" }}
-      />
+      <LocationDisplayer city={city} />
       <div className="check-wrapper">
         <Divider />
         <div className="check">

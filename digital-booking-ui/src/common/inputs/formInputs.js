@@ -8,7 +8,6 @@ export const Name = ({
   onChange,
   error = false,
   className = "",
-  defaultValue = null,
   disabled,
 }) => {
   return (
@@ -19,7 +18,6 @@ export const Name = ({
       onChange={({ target }) => onChange(target.value)}
       required
       className={className}
-      defaultValue={defaultValue}
       error={error}
       disabled={disabled}
     />
@@ -31,7 +29,6 @@ export const Surname = ({
   onChange,
   error = false,
   className = "",
-  defaultValue,
   disabled,
 }) => (
   <TextField
@@ -41,7 +38,6 @@ export const Surname = ({
     onChange={({ target }) => onChange(target.value)}
     required
     className={className}
-    defaultValue={defaultValue}
     error={error}
     disabled={disabled}
   />
@@ -52,7 +48,6 @@ export const Email = ({
   onChange,
   error = false,
   className = "",
-  defaultValue,
   disabled,
 }) => {
   return (
@@ -63,7 +58,6 @@ export const Email = ({
       value={value}
       onChange={({ target }) => onChange(target.value)}
       required
-      defaultValue={defaultValue}
       error={error}
       disabled={disabled}
     />

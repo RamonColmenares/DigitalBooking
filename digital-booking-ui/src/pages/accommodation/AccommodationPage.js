@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useAccommodationStore } from "../../stores/accommodation";
-import CenterContainer from "../../common/Displayers/CenterContainer";
 import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
 import LocationSection from "../../components/accomodation/LocationSection";
 import LikeAndShareSection from "../../components/accomodation/LikeAndShareSection";
@@ -38,7 +37,7 @@ const AccommodationPage = () => {
           <Gallery accommodation={accommodation} />
           <DescriptionSection accommodation={accommodation} />
           <ServicesSection accommodation={accommodation} />
-          <Rules /* accommodation={accommodation} */ />
+          <Rules policies={accommodation.policies} />
           <CalendarReservations />
         </>
       )}
