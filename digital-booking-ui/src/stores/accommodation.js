@@ -3,16 +3,15 @@ import { create } from "../utils/createStore";
 
 const createAccommodationStore = () =>
   create("accommodation")((set, get) => ({
-    data: [],
+    data: {},
     loading: false,
     loaded: false,
     error: false,
 
     fetchData: async (id) => {
       try {
-        set((state) => ({ ...state, loading: true }));
+        set((state) => ({ ...state, loading: true, data: {} }));
         const response = await fetchAccommodation(id);
-        console.log({ response });
         set({ data: response, loaded: true, loading: false });
         return;
       } catch (e) {
