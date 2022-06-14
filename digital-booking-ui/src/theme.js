@@ -25,7 +25,7 @@ export default createTheme({
 
   success: "rgb(89,157,38)",
   warning: "rgb(255,160,0)",
-  error: "rgb(156,63,1)",
+  error: "rgb(200,63,1)",
 
   mixins: {
     textOverflow: {

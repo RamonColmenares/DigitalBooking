@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Tooltip } from "@material-ui/core";
 import SectionWrapper from "./SectionWrapper";
 import { useCurrentWidth } from "../../hooks/useRezise";
 import { useReservationStore } from "../../stores/reservation";
@@ -15,6 +15,7 @@ const Calendar = () => {
   const widthScreen = useCurrentWidth();
   const setDateRange = useReservationStore((s) => s.setDateRange);
   const dateRange = useReservationStore((s) => s.dateRange);
+  const error = useReservationStore((s) => s.error);
   const [startDate, endDate] = dateRange;
   const today = new Date();
 
@@ -22,6 +23,8 @@ const Calendar = () => {
   const two = Date.parse("2022-08-17T03:00:00.000Z");
   const three = Date.parse("2022-09-15T03:00:00.000Z");
   const four = Date.parse("2022-09-22T03:00:00.000Z");
+
+  const isCalendarError = error.includes("dates");
 
   useEffect(() => {
     setDateRange([null, null]);
@@ -34,26 +37,35 @@ const Calendar = () => {
   return (
     <SectionWrapper>
       <h2>Select the reservation date</h2>
-      <div className={classes.calendar}>
-        <DatePicker
-          showPopperArrow={false}
-          locale="es"
-          selected={startDate}
-          selectsRange={true}
-          monthsShown={widthScreen > 500 ? 2 : 1}
-          dateFormat="dd 'de' MMM. 'de' yyyy"
-          closeOnScroll={false}
-          minDate={today}
-          onChange={(dates) => handleSelection(dates)}
-          startDate={startDate}
-          endDate={endDate}
-          inline
-          excludeDateIntervals={[
-            { start: one, end: two },
-            { start: three, end: four },
-          ]}
-        />
-      </div>
+      <Tooltip
+        classes={{ tooltip: classes.tooltip, arrow: classes.arrow }}
+        title={error}
+        placement="top"
+        arrow
+        open={isCalendarError}
+      >
+        <div className={classes.calendar}>
+          <DatePicker
+            showPopperArrow={false}
+            locale="es"
+            selected={startDate}
+            selectsRange={true}
+            monthsShown={widthScreen > 500 ? 2 : 1}
+            dateFormat="dd 'de' MMM. 'de' yyyy"
+            closeOnScroll={false}
+            minDate={today}
+            onChange={(dates) => handleSelection(dates)}
+            startDate={startDate}
+            endDate={endDate}
+            required
+            inline
+            excludeDateIntervals={[
+              { start: one, end: two },
+              { start: three, end: four },
+            ]}
+          />
+        </div>
+      </Tooltip>
     </SectionWrapper>
   );
 };
@@ -66,6 +78,14 @@ const useStyles = makeStyles((theme) => ({
     "& > h2": {
       marginBottom: "15px",
     },
+  },
+  tooltip: {
+    fontSize: "14px",
+    backgroundColor: theme.error,
+    fontWeight: "bold",
+  },
+  arrow: {
+    color: theme.error,
   },
   calendar: {
     textAlign: "center",
