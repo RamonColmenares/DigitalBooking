@@ -6,6 +6,12 @@ const INITIAL_FROM_STATE = {
   email: "pepe@gmail.com",
 };
 
+// const INITIAL_FROM_STATE = {
+//   name: "",
+//   surname: "",
+//   email: "",
+// };
+
 const createAuthStore = () =>
   create("auth")((set, get) => ({
     ...INITIAL_FROM_STATE,
