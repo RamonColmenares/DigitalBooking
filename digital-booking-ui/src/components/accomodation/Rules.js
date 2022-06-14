@@ -31,7 +31,7 @@ const Rules = ({ policies }) => {
         {orderPolicies &&
           Object.entries(orderPolicies).map(([ruleType, rules], i) => (
             <div className={classes.ruleContainer} key={i}>
-              <h4>{ruleNames[ruleType]}</h4>
+              <h4>{ruleType}</h4>
               {rules.map((rule, index) => (
                 <p key={index}>{rule}</p>
               ))}
