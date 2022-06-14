@@ -5,6 +5,8 @@ import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import { useCurrentWidth } from "../../hooks/useRezise";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../stores/auth";
+import { useLoginStore } from "../../stores/login";
 
 registerLocale("es", es);
 
@@ -13,6 +15,8 @@ const CalendarReservations = () => {
   const calendarClasses = useCalendarStyles();
   const navigate = useNavigate();
   const widthScreen = useCurrentWidth();
+  const auth = useAuthStore((s) => s.name);
+  const setNeedAuth = useLoginStore((s) => s.setNeedAuth);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const today = new Date();
@@ -26,7 +30,12 @@ const CalendarReservations = () => {
   };
 
   const handleReservation = () => {
-    navigate(`reservation`);
+    if (auth) {
+      navigate(`reservation`);
+      return;
+    }
+    setNeedAuth();
+    navigate("/login");
   };
 
   return (

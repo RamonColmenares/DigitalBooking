@@ -20,6 +20,7 @@ const LoginPage = () => {
   const error = useLoginStore((state) => state.error);
   const setError = useLoginStore((state) => state.setError);
   const resetState = useLoginStore((state) => state.resetState);
+  const needAuth = useLoginStore((state) => state.needAuth);
 
   const name = useSignUpStore((s) => s.name);
   const surname = useSignUpStore((s) => s.surname);
@@ -45,6 +46,10 @@ const LoginPage = () => {
       return;
     }
 
+    if (needAuth) {
+      navigate(-1);
+    }
+
     navigate("/");
     resetState();
     setAuthName(name);
@@ -54,6 +59,13 @@ const LoginPage = () => {
   return (
     <FormWrapper>
       <form className={classes.form} onSubmit={handleSubmit}>
+        {needAuth && (
+          <Alert severity="error" className={classes.alertLogin}>
+            You need to be Logged In to make a reservation. In case you don't
+            have an account create one
+            <Link to="/signup"> HERE</Link>
+          </Alert>
+        )}
         <h2 className="text">Log In</h2>
         <Email
           value={email}
@@ -117,5 +129,8 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: "100%",
     margin: "18px 0",
+  },
+  alertLogin: {
+    marginBottom: "40px",
   },
 }));
