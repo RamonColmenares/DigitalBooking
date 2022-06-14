@@ -21,7 +21,7 @@ const FormReservation = () => {
   return (
     <SectionWrapper>
       <h2>Complete your data</h2>
-      <form className={classes.form}>
+      <div className={classes.form}>
         <div>
           <Name
             value={name}
@@ -45,7 +45,7 @@ const FormReservation = () => {
           />
           <City value={city} onChange={setCity} className={classes.textField} />
         </div>
-      </form>
+      </div>
     </SectionWrapper>
   );
 };

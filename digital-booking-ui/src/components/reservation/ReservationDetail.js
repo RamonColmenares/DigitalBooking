@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Button, Divider, makeStyles } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
@@ -35,7 +35,12 @@ const ReservationDetail = () => {
         </div>
         <Divider />
       </div>
-      <Button className={classes.button} color="primary" variant="contained">
+      <Button
+        className={classes.button}
+        color="primary"
+        variant="contained"
+        type="submit"
+      >
         Confirm reservation
       </Button>
     </div>

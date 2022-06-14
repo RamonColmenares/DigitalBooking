@@ -15,23 +15,39 @@ const Reservation = () => {
   const authValues = useAuthStore((s) => s.getValues());
 
   const setDefaultValues = useReservationStore((s) => s.setDefaultValues);
-  const reservationName = useReservationStore((s) => s.name);
+  const setError = useReservationStore((s) => s.setError);
+  const errorDates = useReservationStore((s) => s.getErrorDates());
+  const dateRange = useReservationStore((s) => s.dateRange);
 
   useEffect(() => {
     setDefaultValues(authValues);
   }, []);
 
+  const getFormValues = useReservationStore((s) => s.getFormValues);
+
+  const handleSubmitReservation = (e) => {
+    setError("");
+    e.preventDefault();
+    console.log({ dateRange });
+    console.log({ errorDates });
+    console.log(getFormValues());
+    if (errorDates) {
+      setError("You must choose the Check In and Check Out dates");
+      return;
+    }
+  };
+
   return (
     <>
       {/* <HeaderAccommodation accommodation={} /> */}
-      <div className={classes.container}>
+      <form className={classes.container} onSubmit={handleSubmitReservation}>
         <div className="left-side">
           <FormReservation />
           <Calendar />
           <CheckInSection />
         </div>
         <ReservationDetail />
-      </div>
+      </form>
       <Rules />
     </>
   );
