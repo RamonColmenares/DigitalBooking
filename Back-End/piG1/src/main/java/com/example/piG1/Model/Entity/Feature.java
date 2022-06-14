@@ -15,14 +15,14 @@ import javax.persistence.*;
 public class Feature {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
     @Column(name="name")
-    public String name;
+    private String name;
     @Column(name="icon")
-    public String icon;
+    private String icon;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
-    public Product product;
+    private Product product;
 }

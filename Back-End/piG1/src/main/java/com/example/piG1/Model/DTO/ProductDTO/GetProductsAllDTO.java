@@ -20,4 +20,7 @@ public class GetProductsAllDTO {
         private CategoryDTO category;
         private String imageUrl;
         private List<PolicyAndTypeOfPolicyDTO> policies;
+        private String latitude;
+        private String longitude;
+        private String reference;
 }

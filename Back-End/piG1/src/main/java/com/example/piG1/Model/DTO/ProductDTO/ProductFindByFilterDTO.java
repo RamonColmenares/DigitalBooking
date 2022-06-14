@@ -20,4 +20,7 @@ public class ProductFindByFilterDTO {
     private CityDTO city;
     private CategoryDTO category;
     private List<ImageDTO> images;
+    private String latitude;
+    private String longitude;
+    private String reference;
 }

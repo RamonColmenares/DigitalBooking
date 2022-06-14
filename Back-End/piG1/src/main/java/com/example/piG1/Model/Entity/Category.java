@@ -15,11 +15,11 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
     @Column(name="title")
-    public String title;
+    private String title;
     @Column(name="description")
-    public String description;
+    private String description;
     @Column(name="urlImage")
-    public String urlImage;
+    private String urlImage;
 }

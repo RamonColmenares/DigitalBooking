@@ -1,5 +1,7 @@
 package com.example.piG1.Model.DTO.BookingDTO;
 import lombok.*;
+
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -12,5 +14,6 @@ public class BookingDTO {
     private Integer id;
     private Date startDate;
     private Date endDate;
-
+    private Time hour;
+//    private Integer produtctId;
 }

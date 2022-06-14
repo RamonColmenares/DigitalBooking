@@ -22,4 +22,8 @@ public class ProductFullDTO {
     private City city;
     private Category category;
     private List<FeatureDTO> features;
+    private String latitude;
+    private String longitude;
+    private String reference;
+    private String address;
 }

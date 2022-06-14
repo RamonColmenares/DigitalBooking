@@ -17,19 +17,27 @@ import javax.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
     @Column(name="name")
-    public String name;
+    private String name;
     @Column(name="description")
-    public String description;
+    private String description;
+    @Column(name="latitude")
+    private String latitude;
+    @Column(name="longitude")
+    private String longitude;
+    @Column(name="reference")
+    private String reference;
+    @Column(name="address")
+    private String address;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    public Category category;
+    private Category category;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "city_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    public City city;
+    private City city;
 }
