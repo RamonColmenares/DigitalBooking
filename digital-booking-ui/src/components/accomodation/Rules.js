@@ -2,41 +2,38 @@ import React from "react";
 import { Divider, makeStyles } from "@material-ui/core";
 
 const ruleNames = {
-  rules: "House's rules",
-  healthAndSecurity: "Health and security",
-  cancellationPolicy: "Cancellation policy",
-};
-const accommodation = {
-  info: {
-    rules: [
-      "Check-in: De 08:00 a 19:00",
-      "No apto para niños o bebés",
-      "No se permiten fiestas ni eventos",
-    ],
-    healthAndSecurity: [
-      "Se aplican las prácticas de seguridad de Airbnb relacionadas con el COVID-19",
-      "Lago, río u otro cuerpo de agua cercano",
-    ],
-    cancellationPolicy: [
-      "Si cancelás antes del 5 jun., vas a obtener un reembolso parcial.",
-      "Consultá la política de cancelación completa del anfitrión, que se aplica incluso si cancelás por contagio o algún otro problema causado por el COVID-19.",
-    ],
-  },
+  "Health and security policy": [],
+  "Rules and Policy": [],
+  "Cancelation policy": [],
 };
 
-const Rules = (/* { accommodation } */) => {
+const Rules = ({ policies }) => {
   const classes = useStyles();
+
+  const orderPolicies = policies.reduce(
+    (acc, policy) => {
+      const policyTitle = policy.typeOfPolicy.description;
+      return {
+        ...acc,
+        [policyTitle]: [...acc[policyTitle], policy.description],
+      };
+    },
+    {
+      ...ruleNames,
+    }
+  );
+
   return (
     <section className={classes.section}>
       <h2>What do you have to know</h2>
       <Divider className={classes.divider} />
       <div className={classes.wrapper}>
-        {accommodation.info &&
-          Object.entries(accommodation.info).map(([ruleType, rules]) => (
-            <div className={classes.ruleContainer}>
-              <h4>{ruleNames[ruleType]}</h4>
-              {rules.map((rule) => (
-                <p>{rule}</p>
+        {orderPolicies &&
+          Object.entries(orderPolicies).map(([ruleType, rules], i) => (
+            <div className={classes.ruleContainer} key={i}>
+              <h4>{ruleType}</h4>
+              {rules.map((rule, index) => (
+                <p key={index}>{rule}</p>
               ))}
             </div>
           ))}

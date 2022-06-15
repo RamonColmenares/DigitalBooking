@@ -47,7 +47,7 @@ const App = () => {
           />
           <Route path="accommodation/:id" element={<AccommodationPage />} />
           <Route
-            path="reservation"
+            path="accommodation/:id/reservation"
             element={
               <PrivateRoute user={user}>
                 <Reservation />

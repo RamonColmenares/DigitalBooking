@@ -4,13 +4,19 @@ import DatePicker from "react-datepicker";
 import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import { useCurrentWidth } from "../../hooks/useRezise";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../stores/auth";
+import { useLoginStore } from "../../stores/login";
 
 registerLocale("es", es);
 
 const CalendarReservations = () => {
   const classes = useStyles();
   const calendarClasses = useCalendarStyles();
+  const navigate = useNavigate();
   const widthScreen = useCurrentWidth();
+  const auth = useAuthStore((s) => s.name);
+  const setNeedAuth = useLoginStore((s) => s.setNeedAuth);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const today = new Date();
@@ -21,6 +27,15 @@ const CalendarReservations = () => {
 
   const handleSelection = (dates) => {
     setDateRange(dates);
+  };
+
+  const handleReservation = () => {
+    if (auth) {
+      navigate(`reservation`);
+      return;
+    }
+    setNeedAuth();
+    navigate("/login");
   };
 
   return (
@@ -45,7 +60,11 @@ const CalendarReservations = () => {
         />
         <div className={classes.reservation}>
           <h4>Add your travel dates to get the best prices</h4>
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleReservation}
+          >
             Start Reservation
           </Button>
         </div>
