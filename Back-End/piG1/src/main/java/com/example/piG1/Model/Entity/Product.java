@@ -20,11 +20,11 @@ public class Product {
     private Integer id;
     @Column(name="name")
     private String name;
-    @Column(name="description")
+    @Column(name="description", columnDefinition = "text")
     private String description;
-    @Column(name="latitude")
+    @Column(name="latitude", length = 20)
     private String latitude;
-    @Column(name="longitude")
+    @Column(name="longitude", length = 20)
     private String longitude;
     @Column(name="reference")
     private String reference;

@@ -1,6 +1,7 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.DTO.CityDTO.CityDTO;
 import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
@@ -15,10 +16,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 @Log4j
 @Service
 public class ProductServices implements IProductServices {
@@ -38,6 +37,8 @@ public class ProductServices implements IProductServices {
     private IPolicyServices policyServices;
     @Autowired
     private IFeatureServices featureServices;
+    @Autowired
+    private ICityServices cityServices;
 
     @Autowired
     ObjectMapper mapper;
@@ -175,7 +176,8 @@ public class ProductServices implements IProductServices {
             ProductFindByFilterDTO productFindByFilterDTO = mapper.convertValue(product, ProductFindByFilterDTO.class);
             Integer productId = product.getId();
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
-            productFindByFilterDTO.setImages(imagesList);
+            String url_image = imagesList.get(0).getUrl();
+            productFindByFilterDTO.setImageUrl(url_image);
             productsFindByFilterDTO.add(productFindByFilterDTO);
         }
         productsFindByFilterDTO .sort(Comparator.comparing(ProductFindByFilterDTO::getId)); //
@@ -191,11 +193,58 @@ public class ProductServices implements IProductServices {
             ProductFindByFilterDTO productFindByFilterDTO = mapper.convertValue(product, ProductFindByFilterDTO.class);
             Integer productId = product.getId();
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
-            productFindByFilterDTO.setImages(imagesList);
+            String url_image = imagesList.get(0).getUrl();
+            productFindByFilterDTO.setImageUrl(url_image);
             productsFindByFilterDTO.add(productFindByFilterDTO);
         }
         productsFindByFilterDTO .sort(Comparator.comparing(ProductFindByFilterDTO::getId)); //
         logger.info("La busqueda fue exitosa: "+ productsFindByFilterDTO);
         return productsFindByFilterDTO;
+    }
+
+    //ProductFindByFilterDTO
+    @Override
+    public List<ProductFindByFilterDTO> findByQueryParams(Set<String> city, Set<String> category) throws ResourceNotFoundException {
+        List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
+
+        if (city == null && category == null){
+            List<GetProductsAllDTO> products = findAll();
+            products.forEach(product ->
+                    productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
+        }
+
+        if (city == null && category != null){
+            List<Product> products = productRepository.findByCategoryTitleIn(category);
+            products.forEach(product ->
+                    productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
+        }
+
+        if (city != null && category == null){
+            List<Product> products = productRepository.findByCityNameIn(city);
+            products.forEach(product ->
+                    productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
+        }
+
+        if (city != null && category != null){
+            List<Product> products = productRepository.findByCityNameInAndCategoryTitleIn(city, category);
+            products.forEach(product ->
+                    productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
+        }
+
+        for(ProductFindByFilterDTO product: productsFiltered){
+            Integer productId = product.getId();
+            List<ImageDTO> imagesList = imageServices.findByProductId(productId);
+            String url_image = imagesList.get(0).getUrl();
+            product.setImageUrl(url_image);
+
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
+            product.setPolicies(policyAndTypeOfPolicyDTO);
+
+            List<FeatureDTO> featureDTOS = featureServices.findByProductId(product.getId());
+            product.setFeatures(featureDTOS);
+        }
+
+        productsFiltered .sort(Comparator.comparing(ProductFindByFilterDTO::getId));
+        return productsFiltered;
     }
 }

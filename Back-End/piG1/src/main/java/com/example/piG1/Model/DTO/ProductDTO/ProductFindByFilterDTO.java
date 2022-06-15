@@ -2,7 +2,9 @@ package com.example.piG1.Model.DTO.ProductDTO;
 
 import com.example.piG1.Model.DTO.CategoryDTO.CategoryDTO;
 import com.example.piG1.Model.DTO.CityDTO.CityDTO;
+import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.Entity.Image;
 import lombok.*;
 
@@ -19,8 +21,11 @@ public class ProductFindByFilterDTO {
     private String description;
     private CityDTO city;
     private CategoryDTO category;
-    private List<ImageDTO> images;
-    private String latitude;
-    private String longitude;
-    private String reference;
+    private String imageUrl;
+    private List<PolicyAndTypeOfPolicyDTO> policies;
+    private List<FeatureDTO> features;
+
+    //Volverlo un objeto tipo mapa
+    //private String latitude;
+    //private String longitude;
 }
