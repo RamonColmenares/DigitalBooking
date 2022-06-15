@@ -5,11 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product,Integer> {
+
     List<Product> findByCityId(Integer cityId);
     List<Product> findByCityName(String cityName);
     List<Product> findByCategoryId(Integer categoryId);
     List<Product> findByCategoryTitle(String categoryTitle);
+    List<Product> findByCityNameIn(Set<String> city);
+    List<Product> findByCategoryTitleIn(Set<String> category);
+    List<Product> findByCityNameInAndCategoryTitleIn(Set<String> city, Set<String> category);
 }
