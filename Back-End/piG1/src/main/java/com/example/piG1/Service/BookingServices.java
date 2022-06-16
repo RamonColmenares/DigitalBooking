@@ -4,6 +4,7 @@ import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.BookingDTO.BookingCompliteDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
+import com.example.piG1.Model.DTO.ProductDTO.ProductFindByFilterDTO;
 import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Repository.IBookingRepository;
@@ -14,10 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BookingServices implements IBookingServices {
@@ -87,5 +85,21 @@ public class BookingServices implements IBookingServices {
         booking.setProduct(product.get());
         booking = bookingRepository.save(booking);
         return  mapper.convertValue(booking, BookingCompliteDTO.class);
+    }
+
+    @Override
+    public List <BookingDTO> findBeetwenTwoDates(Date startDate, Date endDate) throws ResourceNotFoundException {
+        List <Booking> bookings = bookingRepository.findDatesBetween(startDate, endDate);
+        List <BookingDTO> bookingDTOList = new ArrayList<>();
+
+        bookings.forEach(booking ->
+                bookingDTOList.add(mapper.convertValue(booking, BookingDTO.class)));
+
+        for (BookingDTO bookingDTO : bookingDTOList) {
+            Booking booking = checkId(bookingDTO.getId());
+            bookingDTO.setProdutctId(booking.getProduct().getId());
+        }
+
+        return bookingDTOList;
     }
 }

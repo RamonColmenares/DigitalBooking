@@ -1,6 +1,7 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
 import com.example.piG1.Model.DTO.CityDTO.CityDTO;
 import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
@@ -245,6 +246,66 @@ public class ProductServices implements IProductServices {
         }
 
         productsFiltered .sort(Comparator.comparing(ProductFindByFilterDTO::getId));
+        return productsFiltered;
+    }
+
+    @Override
+    public List <ProductFindByFilterDTO> findBeetwenTwoDates(Date startDate, Date endDate) throws ResourceNotFoundException {
+        List <BookingDTO> bookingDTOList = bookingServices.findBeetwenTwoDates(startDate, endDate);
+        List<Product> products = productRepository.findAll();
+        List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
+
+        for (BookingDTO bookingDTO: bookingDTOList) {
+            Product product = checkId(bookingDTO.getProdutctId());
+            products.remove(product);
+        }
+
+        products.forEach(product ->
+                productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
+
+        for(ProductFindByFilterDTO product: productsFiltered){
+            Integer productId = product.getId();
+            List<ImageDTO> imagesList = imageServices.findByProductId(productId);
+            String url_image = imagesList.get(0).getUrl();
+            product.setImageUrl(url_image);
+
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
+            product.setPolicies(policyAndTypeOfPolicyDTO);
+
+            List<FeatureDTO> featureDTOS = featureServices.findByProductId(product.getId());
+            product.setFeatures(featureDTOS);
+        }
+
+        return productsFiltered;
+    }
+
+    @Override
+    public List <ProductFindByFilterDTO> findBeetwenTwoDatesAndCity(Date startDate, Date endDate, String city) throws ResourceNotFoundException {
+        List <BookingDTO> bookingDTOList = bookingServices.findBeetwenTwoDates(startDate, endDate);
+        List<Product> products = productRepository.findByCityName(city);
+        List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
+
+        for (BookingDTO bookingDTO: bookingDTOList) {
+            Product product = checkId(bookingDTO.getProdutctId());
+            products.remove(product);
+        }
+
+        products.forEach(product ->
+                productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
+
+        for(ProductFindByFilterDTO product: productsFiltered){
+            Integer productId = product.getId();
+            List<ImageDTO> imagesList = imageServices.findByProductId(productId);
+            String url_image = imagesList.get(0).getUrl();
+            product.setImageUrl(url_image);
+
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
+            product.setPolicies(policyAndTypeOfPolicyDTO);
+
+            List<FeatureDTO> featureDTOS = featureServices.findByProductId(product.getId());
+            product.setFeatures(featureDTOS);
+        }
+
         return productsFiltered;
     }
 }

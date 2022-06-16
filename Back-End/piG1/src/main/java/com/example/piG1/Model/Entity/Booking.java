@@ -18,9 +18,11 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Temporal(TemporalType.DATE)
     @Column(name="startDate")
     private Date startDate;
     @Column(name="endDate")
+    @Temporal(TemporalType.DATE)
     private Date endDate;
     @Column(name= "hour")
     private Time hour;

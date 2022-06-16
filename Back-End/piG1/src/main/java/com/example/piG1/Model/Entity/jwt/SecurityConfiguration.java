@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //http.sessionManagement().sessionCreationPolicy(STATELESS);
 //        http.authorizeRequests().antMatchers("/categories/**").permitAll();
         http.authorizeRequests().antMatchers("/products/**").permitAll();
+        http.authorizeRequests().antMatchers("/bookings/**").permitAll();
 //        http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/**").hasAuthority("ADMIN");
 //        http.authorizeRequests().antMatchers("/cities/**").permitAll();
 //        http.authorizeRequests().antMatchers("/features/**").permitAll();
