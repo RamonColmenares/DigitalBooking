@@ -9,6 +9,7 @@ import ServicesSection from "../../components/accomodation/ServicesSection";
 import Rules from "../../components/accomodation/Rules";
 import CalendarReservations from "../../components/accomodation/CalendarReservations";
 import { useParams } from "react-router-dom";
+import Map from "../../components/accomodation/Map";
 
 const AccommodationPage = () => {
   const { id } = useParams();
@@ -37,6 +38,7 @@ const AccommodationPage = () => {
           <Gallery accommodation={accommodation} />
           <DescriptionSection accommodation={accommodation} />
           <ServicesSection accommodation={accommodation} />
+          <Map />
           <Rules policies={accommodation.policies} />
           <CalendarReservations />
         </>
