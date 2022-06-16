@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
+import { useNavigate, useParams } from "react-router-dom";
 import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
 import Rules from "../../components/accomodation/Rules";
 import Calendar from "../../components/reservation/Calendar";
@@ -9,13 +10,14 @@ import ReservationDetail from "../../components/reservation/ReservationDetail";
 import { useAuthStore } from "../../stores/auth";
 import { useReservationStore } from "../../stores/reservation";
 import { useAccommodationStore } from "../../stores/accommodation";
-import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Reservation = () => {
   const classes = useStyles();
   const { id } = useParams();
 
   const authValues = useAuthStore((s) => s.getValues());
+  const navigate = useNavigate();
 
   const accommodation = useAccommodationStore((s) => s.data);
   const fetchData = useAccommodationStore((s) => s.fetchData);
@@ -39,6 +41,14 @@ const Reservation = () => {
       setError("You must choose the Check In and Check Out dates");
       return;
     }
+    Swal.fire({
+      title: "The reservation has been made successfully",
+      icon: "success",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "OK",
+    }).then(() => {
+      navigate("/");
+    });
   };
 
   return (
