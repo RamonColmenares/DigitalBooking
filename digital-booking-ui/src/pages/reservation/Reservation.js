@@ -88,9 +88,13 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
+      "@media (max-width:950px)": {
+        order: 2,
+      },
     },
-    "@media (max-width:930px)": {
+    "@media (max-width:950px)": {
       padding: "30px 10px",
+      flexDirection: "column",
     },
   },
 }));
