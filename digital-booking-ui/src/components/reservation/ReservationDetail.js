@@ -54,9 +54,6 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.cardShadow,
     padding: "30px 20px",
     borderRadius: "5px",
-    "@media (max-width:930px)": {
-      display: "none",
-    },
     "& .img": {
       margin: "15px 0 30px 0",
       display: "block",
@@ -80,6 +77,10 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       justifyContent: "space-between",
       padding: "25px 0px",
+    },
+    "@media (max-width:950px)": {
+      order: 1,
+      width: "100%",
     },
   },
   button: {
