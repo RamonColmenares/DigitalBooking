@@ -43,20 +43,12 @@ const CalendarReservations = () => {
       <h2>Available dates</h2>
       <div className={classes.container}>
         <DatePicker
-          showPopperArrow={false}
           className={calendarClasses.calendar}
           locale="es"
-          placeholderText="Check in - Check out"
-          selected={startDate}
-          selectsRange={true}
           monthsShown={widthScreen > 620 ? 2 : 1}
-          dateFormat="dd 'de' MMM. 'de' yyyy"
-          closeOnScroll={true}
           minDate={today}
-          onChange={(dates) => handleSelection(dates)}
-          startDate={startDate}
-          endDate={endDate}
           inline
+          disabledKeyboardNavigation
         />
         <div className={classes.reservation}>
           <h4>Add your travel dates to get the best prices</h4>
