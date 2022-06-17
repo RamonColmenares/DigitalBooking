@@ -7,6 +7,7 @@ import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Service.ICheckId;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface IBookingServices extends  ICheckId<Booking> {
     List<BookingDTO> findAll();
     void delete(Integer id) throws ResourceNotFoundException;
     BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO);
-    List <BookingDTO> findBeetwenTwoDates(Date startDate, Date endDate) throws ResourceNotFoundException;
+    List <BookingDTO> findBetweenTwoDates(LocalDate startDate, LocalDate endDate) throws ResourceNotFoundException;
 }

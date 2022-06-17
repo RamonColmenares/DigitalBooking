@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -18,12 +19,10 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Temporal(TemporalType.DATE)
     @Column(name="startDate")
-    private Date startDate;
+    private LocalDate startDate;
     @Column(name="endDate")
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private LocalDate endDate;
     @Column(name= "hour")
     private Time hour;
     @Column(name= "vaccinated")

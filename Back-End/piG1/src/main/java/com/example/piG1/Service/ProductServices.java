@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Log4j
@@ -203,34 +204,13 @@ public class ProductServices implements IProductServices {
         return productsFindByFilterDTO;
     }
 
-    //ProductFindByFilterDTO
     @Override
-    public List<ProductFindByFilterDTO> findByQueryParams(Set<String> city, Set<String> category) throws ResourceNotFoundException {
+    public List<ProductFindByFilterDTO> findByCityIdAndCategoryId(ProductFindByCategoryCityDTO productFindByCategoryCityDTO) throws ResourceNotFoundException {
         List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
+        List<Product> products = productRepository.findByCategoryIdAndCityId(productFindByCategoryCityDTO.getCategoryId(), productFindByCategoryCityDTO.getCityId());
 
-        if (city == null && category == null){
-            List<GetProductsAllDTO> products = findAll();
-            products.forEach(product ->
-                    productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
-        }
-
-        if (city == null && category != null){
-            List<Product> products = productRepository.findByCategoryTitleIn(category);
-            products.forEach(product ->
-                    productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
-        }
-
-        if (city != null && category == null){
-            List<Product> products = productRepository.findByCityNameIn(city);
-            products.forEach(product ->
-                    productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
-        }
-
-        if (city != null && category != null){
-            List<Product> products = productRepository.findByCityNameInAndCategoryTitleIn(city, category);
-            products.forEach(product ->
-                    productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
-        }
+        products.forEach(product ->
+                productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
 
         for(ProductFindByFilterDTO product: productsFiltered){
             Integer productId = product.getId();
@@ -250,8 +230,8 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public List <ProductFindByFilterDTO> findBeetwenTwoDates(Date startDate, Date endDate) throws ResourceNotFoundException {
-        List <BookingDTO> bookingDTOList = bookingServices.findBeetwenTwoDates(startDate, endDate);
+    public List <ProductFindByFilterDTO> findBeetwenTwoDates(ProductBetweenTwoDatesDTO productBetweenTwoDatesDTO) throws ResourceNotFoundException {
+        List <BookingDTO> bookingDTOList = bookingServices.findBetweenTwoDates(productBetweenTwoDatesDTO.getStartDate(), productBetweenTwoDatesDTO.getEndDate());
         List<Product> products = productRepository.findAll();
         List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
 
@@ -280,9 +260,9 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public List <ProductFindByFilterDTO> findBeetwenTwoDatesAndCity(Date startDate, Date endDate, String city) throws ResourceNotFoundException {
-        List <BookingDTO> bookingDTOList = bookingServices.findBeetwenTwoDates(startDate, endDate);
-        List<Product> products = productRepository.findByCityName(city);
+    public List <ProductFindByFilterDTO> findBeetwenTwoDatesAndCity(ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException {
+        List <BookingDTO> bookingDTOList = bookingServices.findBetweenTwoDates(productBetweenDatesAndCityDTO.getStartDate(), productBetweenDatesAndCityDTO.getEndDate());
+        List<Product> products = productRepository.findByCityId(productBetweenDatesAndCityDTO.getCityId());
         List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
 
         for (BookingDTO bookingDTO: bookingDTOList) {

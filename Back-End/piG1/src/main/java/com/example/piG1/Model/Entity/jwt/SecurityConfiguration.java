@@ -36,11 +36,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         //http.sessionManagement().sessionCreationPolicy(STATELESS);
-//        http.authorizeRequests().antMatchers("/categories/**").permitAll();
+        http.authorizeRequests().antMatchers("/categories/**").permitAll();
         http.authorizeRequests().antMatchers("/products/**").permitAll();
         http.authorizeRequests().antMatchers("/bookings/**").permitAll();
 //        http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/**").hasAuthority("ADMIN");
-//        http.authorizeRequests().antMatchers("/cities/**").permitAll();
+        http.authorizeRequests().antMatchers("/cities/**").permitAll();
 //        http.authorizeRequests().antMatchers("/features/**").permitAll();
 //        http.authorizeRequests().antMatchers("/images/**").permitAll();
 //        http.authorizeRequests().antMatchers("/bookings/**").authenticated();

@@ -5,6 +5,7 @@ import com.example.piG1.Model.DTO.ProductDTO.ProductFullDTO;
 import lombok.*;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -14,8 +15,8 @@ import java.util.Date;
 @ToString
 public class BookingCompliteDTO {
     private Integer id;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Time hour;
     private ProductFullDTO product;
 }

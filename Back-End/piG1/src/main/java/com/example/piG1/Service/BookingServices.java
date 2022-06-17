@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -88,8 +89,8 @@ public class BookingServices implements IBookingServices {
     }
 
     @Override
-    public List <BookingDTO> findBeetwenTwoDates(Date startDate, Date endDate) throws ResourceNotFoundException {
-        List <Booking> bookings = bookingRepository.findDatesBetween(startDate, endDate);
+    public List <BookingDTO> findBetweenTwoDates(LocalDate startDate, LocalDate endDate) throws ResourceNotFoundException {
+        List <Booking> bookings = bookingRepository.findByDatesBetween(startDate, endDate);
         List <BookingDTO> bookingDTOList = new ArrayList<>();
 
         bookings.forEach(booking ->
