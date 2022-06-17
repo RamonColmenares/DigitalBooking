@@ -5,6 +5,8 @@ import com.example.piG1.Model.DTO.ProductDTO.*;
 import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Service.ICheckId;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public interface IProductServices extends ICheckId<Product> {
     void delete(Integer id) throws ResourceNotFoundException;
     List<ProductFindByFilterDTO> findByCityId(Integer cityId) throws ResourceNotFoundException;
     List<ProductFindByFilterDTO> findByCategoryId(Integer categoryId) throws ResourceNotFoundException;
-    List<ProductFindByFilterDTO> findByQueryParams(Set<String> cityName, Set<String> categoryTitle) throws ResourceNotFoundException;
-
+    List<ProductFindByFilterDTO> findByCityIdAndCategoryId(ProductFindByCategoryCityDTO productFindByCategoryCityDTO) throws ResourceNotFoundException;
+    List <ProductFindByFilterDTO> findBeetwenTwoDates(ProductBetweenTwoDatesDTO productBetweenTwoDatesDTO) throws ResourceNotFoundException;
+    List <ProductFindByFilterDTO> findBeetwenTwoDatesAndCity(ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException;
 }

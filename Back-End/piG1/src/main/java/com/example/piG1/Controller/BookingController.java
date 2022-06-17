@@ -3,14 +3,20 @@ package com.example.piG1.Controller;
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.BookingDTO.BookingCompliteDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
+import com.example.piG1.Model.DTO.BookingDTO.BookingFindBetweenDatesDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
+import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Service.IService.IBookingServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/bookings")
 @CrossOrigin(origins = "*")
@@ -46,4 +52,9 @@ public class BookingController {
     public ResponseEntity<BookingDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(iBookingServices.findById(id));
     }
+
+   @PostMapping("/findBetweenDates")
+   public ResponseEntity<List<BookingDTO>> findByDate(@RequestBody BookingFindBetweenDatesDTO bookingFindBetweenDatesDTO) throws ResourceNotFoundException {
+       return ResponseEntity.ok(iBookingServices.findBetweenTwoDates(bookingFindBetweenDatesDTO.getStartDate(), bookingFindBetweenDatesDTO.getEndDate()));
+   }
 }
