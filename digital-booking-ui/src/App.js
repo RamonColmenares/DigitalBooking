@@ -12,6 +12,7 @@ import AccommodationPage from "./pages/accommodation/AccommodationPage";
 import { makeStyles } from "@material-ui/core";
 import Reservation from "./pages/reservation/Reservation";
 import { PrivateRoute } from "./components/routes/PrivateRoute";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 const App = () => {
   const user = useAuthStore((s) => s.name);
@@ -54,6 +55,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>
       <Footer />
