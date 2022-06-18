@@ -197,6 +197,12 @@ public class ProductServices implements IProductServices {
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
             String url_image = imagesList.get(0).getUrl();
             productFindByFilterDTO.setImageUrl(url_image);
+
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
+            productFindByFilterDTO.setPolicies(policyAndTypeOfPolicyDTO);
+
+            List<FeatureDTO> featureDTOS = featureServices.findByProductId(product.getId());
+            productFindByFilterDTO.setFeatures(featureDTOS);
             productsFindByFilterDTO.add(productFindByFilterDTO);
         }
         productsFindByFilterDTO .sort(Comparator.comparing(ProductFindByFilterDTO::getId)); //
