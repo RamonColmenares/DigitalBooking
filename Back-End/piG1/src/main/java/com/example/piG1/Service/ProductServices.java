@@ -190,7 +190,7 @@ public class ProductServices implements IProductServices {
     @Override
     public List<ProductFindByFilterDTO> findByCategoryId(Integer categoryId) throws ResourceNotFoundException {
         List<ProductFindByFilterDTO> productsFindByFilterDTO = new ArrayList<>();
-        List<Product> products = productRepository.findByCityId(categoryId);
+        List<Product> products = productRepository.findByCategoryId(categoryId);
         for(Product product: products){
             ProductFindByFilterDTO productFindByFilterDTO = mapper.convertValue(product, ProductFindByFilterDTO.class);
             Integer productId = product.getId();
