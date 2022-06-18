@@ -96,30 +96,10 @@ const SkeletonCategoryCards = () => {
   const classes = useStyles();
   return (
     <>
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
     </>
   );
 };
@@ -226,34 +206,17 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       fontWeight: "bold",
     },
-
-    // "@media (max-width:1200px)": {
-    //   width: "45%",
-    // },
-    // "@media (max-width:490px)": {
-    //   width: "100%",
-    // },
   },
 
   skeletonCard: {
     borderRadius: "10px",
-    width: "100%",
+    width: "47vw",
+    height: "300px",
+    "@media (max-width:1200px)": {
+      width: "100%",
+    },
+    "@media (max-width:600px)": {
+      height: "500px",
+    },
   },
 }));
-
-// {
-//   "id": 1,
-//   "name": "Trendy Upgraded Studio Apartment in JLT",
-//   "description": "Key View is excited to welcome you to this trendy upgraded studio apartment in JLT. This unique place has a style all its own. Perfectly situated, you are minutes drive away from the lively Dubai Marina, JBR beach and exclusive Palm Jumeirah.",
-//   "city": {
-//       "id": 1,
-//       "name": "Dubai",
-//       "name_country": "United Arab Emirates"
-//   },
-//   "category": {
-//       "id": 2,
-//       "title": "Departments",
-//       "description": "807.105 hoteles",
-//       "urlImage": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
-//   }
-// },
