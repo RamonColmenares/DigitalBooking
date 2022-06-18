@@ -4,6 +4,7 @@ import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.BookingDTO.BookingCompliteDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingFindBetweenDatesDTO;
+import com.example.piG1.Model.DTO.BookingDTO.BookingSaveDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Service.IService.IBookingServices;
@@ -30,15 +31,15 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<BookingDTO> save(@RequestBody BookingDTO bookingDTO){
-        if(bookingDTO.getId() == null)
-            return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.save(bookingDTO));
+    public ResponseEntity<BookingDTO> save(@RequestBody BookingSaveDTO bookingSaveDTO) throws ResourceNotFoundException {
+        if(bookingSaveDTO.getId() == null)
+            return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.save(bookingSaveDTO));
         else
-            return ResponseEntity.ok(iBookingServices.save(bookingDTO));
+            return ResponseEntity.ok(iBookingServices.save(bookingSaveDTO));
     }
 
     @PostMapping ("/add")
-    public ResponseEntity<BookingCompliteDTO> addBookings (@RequestBody ProductAddBookingDTO productAddBookingDTO){
+    public ResponseEntity<BookingCompliteDTO> addBookings (@RequestBody ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.addBooking(productAddBookingDTO));
     }
 

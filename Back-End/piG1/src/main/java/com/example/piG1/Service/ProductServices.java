@@ -236,7 +236,7 @@ public class ProductServices implements IProductServices {
         List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
 
         for (BookingDTO bookingDTO: bookingDTOList) {
-            Product product = checkId(bookingDTO.getProdutctId());
+            Product product = checkId(bookingDTO.getProductId());
             products.remove(product);
         }
 
@@ -266,7 +266,7 @@ public class ProductServices implements IProductServices {
         List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
 
         for (BookingDTO bookingDTO: bookingDTOList) {
-            Product product = checkId(bookingDTO.getProdutctId());
+            Product product = checkId(bookingDTO.getProductId());
             products.remove(product);
         }
 

@@ -3,13 +3,21 @@ package com.example.piG1.Service;
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.BookingDTO.BookingCompliteDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
+import com.example.piG1.Model.DTO.BookingDTO.BookingSaveDTO;
+import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
+import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductFindByFilterDTO;
 import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Repository.IBookingRepository;
 import com.example.piG1.Repository.IProductRepository;
+import com.example.piG1.Repository.IUserRepository;
 import com.example.piG1.Service.IService.IBookingServices;
+import com.example.piG1.Service.IService.IFeatureServices;
+import com.example.piG1.Service.IService.IImageServices;
+import com.example.piG1.Service.IService.IPolicyServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +35,14 @@ public class BookingServices implements IBookingServices {
     private IBookingRepository bookingRepository;
     @Autowired
     private IProductRepository productRepository;
+    @Autowired
+    private IUserRepository userRepository;
+    @Autowired
+    private IImageServices imageServices;
+    @Autowired
+    private IPolicyServices policyServices;
+    @Autowired
+    private IFeatureServices featureServices;
 
     @Autowired
     ObjectMapper mapper;
@@ -41,16 +57,21 @@ public class BookingServices implements IBookingServices {
     }
 
     @Override
-    public BookingDTO save(BookingDTO bookingDTO) {
-        Booking booking = mapper.convertValue(bookingDTO, Booking.class);
+    public BookingDTO save(BookingSaveDTO bookingSaveDTO) {
+        Booking booking = mapper.convertValue(bookingSaveDTO, Booking.class);
+        booking.setProduct(productRepository.findById(bookingSaveDTO.getProductId()).get());
+        booking.setUser(userRepository.findById(bookingSaveDTO.getUserId()).get());
         booking = bookingRepository.save(booking);
-        return mapper.convertValue(booking, BookingDTO.class);
+        BookingDTO bookingDTO = mapper.convertValue(booking, BookingDTO.class);
+        bookingDTO.setProductId(booking.getProduct().getId());
+        return bookingDTO;
     }
 
     @Override
     public BookingDTO findById(Integer id) throws ResourceNotFoundException {
         Booking booking = checkId(id);
         BookingDTO bookingDTO = mapper.convertValue(booking, BookingDTO.class);
+        bookingDTO.setProductId(booking.getProduct().getId());
         logger.info("La busqueda fue exitosa: id " + id);
         return bookingDTO;
     }
@@ -60,7 +81,9 @@ public class BookingServices implements IBookingServices {
         List<BookingDTO> bookingsDTO = new ArrayList<>();
         List<Booking> bookings = bookingRepository.findAll();
         for(Booking booking: bookings){
-            bookingsDTO.add(mapper.convertValue(booking, BookingDTO.class));
+            BookingDTO bookingDTO = mapper.convertValue(booking, BookingDTO.class);
+            bookingDTO.setProductId(booking.getProduct().getId());
+            bookingsDTO.add(bookingDTO);
         }
         bookingsDTO .sort(Comparator.comparing(BookingDTO::getId)); //
         logger.info("La busqueda fue exitosa: "+ bookings);
@@ -79,13 +102,26 @@ public class BookingServices implements IBookingServices {
     }
 
     @Override
-    public BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO) {
+    public BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException {
         //obtengo el producto
         Optional <Product> product = productRepository.findById(productAddBookingDTO.getProductId());
-        Booking  booking = mapper.convertValue(productAddBookingDTO, Booking.class);
-        booking.setProduct(product.get());
+        Product product1 = product.get();
+        Booking  booking = mapper.convertValue(productAddBookingDTO.getBooking(), Booking.class);
+
         booking = bookingRepository.save(booking);
-        return  mapper.convertValue(booking, BookingCompliteDTO.class);
+        booking.setProduct(product1);
+        BookingCompliteDTO bookingCompliteDTO = mapper.convertValue(booking, BookingCompliteDTO.class);
+
+        List<ImageDTO> imagesList = imageServices.findByProductId(product1.getId());
+        bookingCompliteDTO.getProduct().setImages(imagesList);
+
+        List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product1.getId());
+        bookingCompliteDTO.getProduct().setPolicies(policyAndTypeOfPolicyDTO);
+
+        List<FeatureDTO> featureDTOS = featureServices.findByProductId(product1.getId());
+        bookingCompliteDTO.getProduct().setFeatures(featureDTOS);
+
+        return  bookingCompliteDTO;
     }
 
     @Override
@@ -98,7 +134,7 @@ public class BookingServices implements IBookingServices {
 
         for (BookingDTO bookingDTO : bookingDTOList) {
             Booking booking = checkId(bookingDTO.getId());
-            bookingDTO.setProdutctId(booking.getProduct().getId());
+            bookingDTO.setProductId(booking.getProduct().getId());
         }
 
         return bookingDTOList;
