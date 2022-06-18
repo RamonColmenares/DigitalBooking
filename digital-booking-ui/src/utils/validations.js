@@ -4,3 +4,7 @@ const regexEmail = new RegExp(
 export const isValidEmail = (email) => {
   return regexEmail.test(email);
 };
+
+export const isEmptyObject = (obj) => {
+  return !Object.values(obj).length > 0;
+};

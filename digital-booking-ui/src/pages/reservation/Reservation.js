@@ -11,6 +11,7 @@ import { useAuthStore } from "../../stores/auth";
 import { useReservationStore } from "../../stores/reservation";
 import { useAccommodationStore } from "../../stores/accommodation";
 import Swal from "sweetalert2";
+import { isEmptyObject } from "../../utils/validations";
 
 const Reservation = () => {
   const classes = useStyles();
@@ -53,7 +54,7 @@ const Reservation = () => {
 
   return (
     <>
-      {!Object.values(accommodation).length > 0 ? (
+      {isEmptyObject(accommodation) ? (
         <h1>Loading..</h1>
       ) : (
         <>

@@ -10,6 +10,8 @@ import Rules from "../../components/accomodation/Rules";
 import CalendarReservations from "../../components/accomodation/CalendarReservations";
 import { useParams } from "react-router-dom";
 import Map from "../../components/accomodation/Map";
+import { Loading } from "../../components/Loading";
+import { isEmptyObject } from "../../utils/validations";
 
 const AccommodationPage = () => {
   const { id } = useParams();
@@ -28,8 +30,8 @@ const AccommodationPage = () => {
 
   return (
     <>
-      {!Object.values(accommodation).length > 0 ? (
-        <h1>Loading..</h1>
+      {isEmptyObject(accommodation) ? (
+        <Loading />
       ) : (
         <>
           <HeaderAccommodation accommodation={accommodation} />
