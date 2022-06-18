@@ -1,4 +1,5 @@
 import { fetchProducts } from "../client/fetchProducts";
+import { fetchProductsByCategory } from "../client/fetchProductsByCategory";
 import { apiRequest } from "../client/mocks/acommodationList";
 import { create } from "../utils/createStore";
 
@@ -8,7 +9,6 @@ const createProductsStore = () =>
     dataBackUp: [],
     loading: false,
     loaded: false,
-    filterCategory: "",
 
     fetchData: async () => {
       set((state) => ({ ...state, loading: true }));
@@ -21,11 +21,15 @@ const createProductsStore = () =>
       });
       return;
     },
-    filterByCategory: (category) => {
-      const filteredData = get().dataBackUp.filter(
-        (accomodation) => accomodation.category.title === category
-      );
-      set({ data: filteredData, filterCategory: category });
+    fetchDataByCategory: async (id) => {
+      set((state) => ({ ...state, loading: true }));
+      const response = await fetchProductsByCategory(id);
+      set({
+        data: response,
+        loaded: true,
+        loading: false,
+      });
+      return;
     },
     filterByLocation: (location) => {
       const filteredData = get().dataBackUp.filter(
@@ -37,7 +41,6 @@ const createProductsStore = () =>
       set((state) => ({
         ...state,
         data: state.dataBackUp,
-        filterCategory: "",
       })),
   }));
 
