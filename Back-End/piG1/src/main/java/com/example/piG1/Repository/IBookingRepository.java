@@ -14,7 +14,9 @@ import java.util.Optional;
 @Repository
 public interface IBookingRepository extends JpaRepository<Booking,Integer> {
     @Query("select b from Booking b where " +
-            "start_date <= :startDate AND end_date >= :endDate")
+            "(start_date between :startDate AND :endDate) " +
+            "OR (end_date between :startDate AND :endDate) " +
+            "OR ((:endDate between start_date AND end_date) AND (:startDate between start_date AND end_date))")
     List<Booking> findByDatesBetween(
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);

@@ -107,6 +107,8 @@ public class BookingServices implements IBookingServices {
         Optional <Product> product = productRepository.findById(productAddBookingDTO.getProductId());
         Product product1 = product.get();
         Booking  booking = mapper.convertValue(productAddBookingDTO.getBooking(), Booking.class);
+        booking.setProduct(productRepository.findById(productAddBookingDTO.getBooking().getProductId()).get());
+        booking.setUser(userRepository.findById(productAddBookingDTO.getBooking().getUserId()).get());
 
         booking = bookingRepository.save(booking);
         booking.setProduct(product1);
