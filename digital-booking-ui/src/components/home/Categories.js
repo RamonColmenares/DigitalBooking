@@ -4,6 +4,7 @@ import { Skeleton } from "@material-ui/lab";
 import { useCategoriesStore } from "../../stores/categories";
 import { useProductsStore } from "../../stores/products";
 import BackspaceIcon from "@material-ui/icons/Backspace";
+import { isEmptyArray } from "../../utils/validations";
 
 const Categories = () => {
   const classes = useStyles();
@@ -11,20 +12,28 @@ const Categories = () => {
   const loading = useCategoriesStore((s) => s.loading);
   const loaded = useCategoriesStore((s) => s.loaded);
   const fetchCategories = useCategoriesStore((s) => s.fetchData);
+  const filteredCategories = useCategoriesStore((s) => s.filtered);
+  const setFilteredCategories = useCategoriesStore(
+    (s) => s.setFilteredByCategory
+  );
 
-  const filterCategory = useProductsStore((s) => s.filterCategory);
-  const setFilter = useProductsStore((s) => s.filterByCategory);
+  const fetchByCategory = useProductsStore((s) => s.fetchDataByCategory);
   const clearFilter = useProductsStore((s) => s.clearFilter);
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
+  const handleFilterByCategory = (category) => {
+    fetchByCategory(category.id);
+    setFilteredCategories(category);
+  };
+
   return (
     <section className={classes.section}>
       <div className={classes.titleWrapper}>
         <h2>Search by Category</h2>
-        {filterCategory && (
+        {filteredCategories && (
           <Button
             color="secondary"
             variant="contained"
@@ -36,17 +45,17 @@ const Categories = () => {
         )}
       </div>
       <div className={classes.cardWrapper}>
-        {categories && loaded ? (
+        {loading ? (
+          <SkeletonCategoryCards />
+        ) : (
           categories.map((category) => (
             <CategoryCard
               key={category.id}
               className={classes.card}
-              onClick={setFilter}
+              onClick={() => handleFilterByCategory(category)}
               {...category}
             />
           ))
-        ) : (
-          <SkeletonCategoryCards />
         )}
       </div>
     </section>
@@ -74,30 +83,10 @@ const SkeletonCategoryCards = () => {
   const classes = useStyles();
   return (
     <>
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
     </>
   );
 };
@@ -112,13 +101,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   titleWrapper: {
+    height: "35px",
     display: "flex",
     alignItems: "center",
     marginBottom: "15px",
     gap: "20px",
     "@media (max-width:480px)": {
-      flexDirection: "column",
-      alignItems: "start",
+      "& button": {
+        fontSize: "12px",
+        "& svg": {
+          display: "none",
+        },
+      },
     },
   },
   cardWrapper: {
@@ -159,6 +153,15 @@ const useStyles = makeStyles((theme) => ({
   },
   skeletonCard: {
     borderRadius: "10px",
-    width: "100%",
+    width: "22vw",
+    height: "350px",
+    "@media (max-width:1200px)": {
+      width: "45%",
+      height: "350px",
+    },
+    "@media (max-width:490px)": {
+      width: "100%",
+      height: "300px",
+    },
   },
 }));

@@ -7,6 +7,9 @@ const createCategoriesStore = () =>
     data: [],
     loading: false,
     loaded: false,
+    filtered: null,
+
+    setFilteredByCategory: (filtered) => set({ filtered }),
 
     fetchData: async () => {
       set((state) => ({ ...state, loading: true }));
