@@ -92,13 +92,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   titleWrapper: {
+    height: "35px",
     display: "flex",
     alignItems: "center",
     marginBottom: "15px",
     gap: "20px",
     "@media (max-width:480px)": {
-      flexDirection: "column",
-      alignItems: "start",
+      "& button": {
+        fontSize: "12px",
+        "& svg": {
+          display: "none",
+        },
+      },
     },
   },
   cardWrapper: {
