@@ -74,30 +74,10 @@ const SkeletonCategoryCards = () => {
   const classes = useStyles();
   return (
     <>
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
-      <Skeleton
-        className={classes.skeletonCard}
-        variant="rect"
-        width={"20vw"}
-        height={300}
-      />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
+      <Skeleton classes={{ root: classes.skeletonCard }} variant="rect" />
     </>
   );
 };
@@ -159,6 +139,15 @@ const useStyles = makeStyles((theme) => ({
   },
   skeletonCard: {
     borderRadius: "10px",
-    width: "100%",
+    width: "23vw",
+    height: "350px",
+    "@media (max-width:1200px)": {
+      width: "45%",
+      height: "350px",
+    },
+    "@media (max-width:490px)": {
+      width: "100%",
+      height: "300px",
+    },
   },
 }));
