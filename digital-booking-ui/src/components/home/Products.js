@@ -5,7 +5,7 @@ import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
 import { useNavigate } from "react-router-dom";
 
 import { useProductsStore } from "../../stores/products";
-import { ServicesDisplayer } from "../../common/Displayers/ServicesDisplayer";
+import { ServicesDisplayer } from "./ServicesDisplayer";
 import { CATEGORIES } from "../../models/business/categories";
 
 const Products = () => {
