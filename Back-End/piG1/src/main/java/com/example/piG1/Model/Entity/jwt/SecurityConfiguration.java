@@ -34,23 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
-        //http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/categories/**").permitAll();
-        http.authorizeRequests().antMatchers("/products/**").permitAll();
-        http.authorizeRequests().antMatchers("/bookings/**").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/**").hasAuthority("ADMIN");
-        http.authorizeRequests().antMatchers("/cities/**").permitAll();
-//        http.authorizeRequests().antMatchers("/features/**").permitAll();
-//        http.authorizeRequests().antMatchers("/images/**").permitAll();
-//        http.authorizeRequests().antMatchers("/bookings/**").authenticated();
-//        http.authorizeRequests().antMatchers("/users/**").permitAll();
-//        http.authorizeRequests().antMatchers("/typeOfPolicies/**").permitAll();//SOLO ADMIN
-//        http.authorizeRequests().antMatchers("/policies/**").permitAll(); //SOLO ADMIN
-//        http.authorizeRequests().antMatchers("/administration/**").permitAll(); //SOLO ADMIN
-        http.csrf().disable().authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest().authenticated()
-        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
     }
 
     @Override
