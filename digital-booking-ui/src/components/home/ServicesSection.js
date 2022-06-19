@@ -8,7 +8,7 @@ const SERVICES = {
   wifi: WifiIcon,
 };
 
-export const ServicesDisplayer = ({ services }) => {
+export const ServicesSection = ({ services }) => {
   const classes = useStyles();
   return (
     <div>

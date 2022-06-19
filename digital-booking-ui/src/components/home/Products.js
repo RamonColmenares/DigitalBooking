@@ -5,7 +5,7 @@ import LocationDisplayer from "../../common/Displayers/LocationDisplayer";
 import { useNavigate } from "react-router-dom";
 
 import { useProductsStore } from "../../stores/products";
-import { ServicesDisplayer } from "./ServicesDisplayer";
+import { ServicesSection } from "./ServicesSection";
 import { CATEGORIES } from "../../models/business/categories";
 
 const Products = () => {
@@ -74,7 +74,7 @@ const ProductCard = ({
           <h3 className="title">{name}</h3>
         </Tooltip>
         <LocationDisplayer city={city} />
-        <ServicesDisplayer />
+        <ServicesSection />
       </div>
       <div className="bottom-card">
         <p className="description">{description}</p>
