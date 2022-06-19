@@ -236,7 +236,7 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public List <ProductFindByFilterDTO> findBeetwenTwoDates(ProductBetweenTwoDatesDTO productBetweenTwoDatesDTO) throws ResourceNotFoundException {
+    public List <ProductFindByFilterDTO> findBetweenTwoDates(ProductBetweenTwoDatesDTO productBetweenTwoDatesDTO) throws ResourceNotFoundException {
         List <BookingDTO> bookingDTOList = bookingServices.findBetweenTwoDates(productBetweenTwoDatesDTO.getStartDate(), productBetweenTwoDatesDTO.getEndDate());
         List<Product> products = productRepository.findAll();
         List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
@@ -266,9 +266,40 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public List <ProductFindByFilterDTO> findBeetwenTwoDatesAndCity(ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException {
+    public List <ProductFindByFilterDTO> findBetweenTwoDatesAndCity(ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException {
         List <BookingDTO> bookingDTOList = bookingServices.findBetweenTwoDates(productBetweenDatesAndCityDTO.getStartDate(), productBetweenDatesAndCityDTO.getEndDate());
         List<Product> products = productRepository.findByCityId(productBetweenDatesAndCityDTO.getCityId());
+        List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
+
+        for (BookingDTO bookingDTO: bookingDTOList) {
+            Product product = checkId(bookingDTO.getProductId());
+            products.remove(product);
+        }
+
+        products.forEach(product ->
+                productsFiltered.add(mapper.convertValue(product, ProductFindByFilterDTO.class)));
+
+        for(ProductFindByFilterDTO product: productsFiltered){
+            Integer productId = product.getId();
+            List<ImageDTO> imagesList = imageServices.findByProductId(productId);
+            String url_image = imagesList.get(0).getUrl();
+            product.setImageUrl(url_image);
+
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
+            product.setPolicies(policyAndTypeOfPolicyDTO);
+
+            List<FeatureDTO> featureDTOS = featureServices.findByProductId(product.getId());
+            product.setFeatures(featureDTOS);
+        }
+
+        return productsFiltered;
+    }
+
+    @Override
+    public List <ProductFindByFilterDTO> findBetweenTwoDatesAndCityAndCategory(ProductByDatesCityCategoryDTO  productByDatesCityCategoryDTO) throws ResourceNotFoundException {
+        List <BookingDTO> bookingDTOList = bookingServices.findBetweenTwoDates(productByDatesCityCategoryDTO.getStartDate(),
+                productByDatesCityCategoryDTO.getEndDate());
+        List<Product> products = productRepository.findByCityId(productByDatesCityCategoryDTO.getCityId());
         List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
 
         for (BookingDTO bookingDTO: bookingDTOList) {
