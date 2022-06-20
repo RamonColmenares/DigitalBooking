@@ -299,7 +299,7 @@ public class ProductServices implements IProductServices {
     public List <ProductFindByFilterDTO> findBetweenTwoDatesAndCityAndCategory(ProductByDatesCityCategoryDTO  productByDatesCityCategoryDTO) throws ResourceNotFoundException {
         List <BookingDTO> bookingDTOList = bookingServices.findBetweenTwoDates(productByDatesCityCategoryDTO.getStartDate(),
                 productByDatesCityCategoryDTO.getEndDate());
-        List<Product> products = productRepository.findByCityId(productByDatesCityCategoryDTO.getCityId());
+        List<Product> products = productRepository.findByCategoryIdAndCityId(productByDatesCityCategoryDTO.getCategoryId(),productByDatesCityCategoryDTO.getCityId());
         List<ProductFindByFilterDTO> productsFiltered = new ArrayList<>();
 
         for (BookingDTO bookingDTO: bookingDTOList) {
