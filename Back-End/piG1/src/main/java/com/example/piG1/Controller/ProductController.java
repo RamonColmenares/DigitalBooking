@@ -72,11 +72,16 @@ public class ProductController {
 
     @PostMapping("/allAvailableDates")
     public ResponseEntity<List<ProductFindByFilterDTO>> findByDate(@RequestBody ProductBetweenTwoDatesDTO productBetweenTwoDatesDTO) throws ResourceNotFoundException {
-        return ResponseEntity.ok(iProductServices.findBeetwenTwoDates(productBetweenTwoDatesDTO));
+        return ResponseEntity.ok(iProductServices.findBetweenTwoDates(productBetweenTwoDatesDTO));
     }
 
     @PostMapping("/allAvailableDates/city")
-    public ResponseEntity<List<ProductFindByFilterDTO>> findByDate(@RequestBody ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException {
-        return ResponseEntity.ok(iProductServices.findBeetwenTwoDatesAndCity(productBetweenDatesAndCityDTO));
+    public ResponseEntity<List<ProductFindByFilterDTO>> findByDateAndCity(@RequestBody ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iProductServices.findBetweenTwoDatesAndCity(productBetweenDatesAndCityDTO));
+    }
+
+    @PostMapping("/allAvailableDates/city/category")
+    public ResponseEntity<List<ProductFindByFilterDTO>> findByDateAndCityAndCategory(@RequestBody ProductByDatesCityCategoryDTO productByDatesCityCategoryDTO) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iProductServices.findBetweenTwoDatesAndCityAndCategory(productByDatesCityCategoryDTO));
     }
 }

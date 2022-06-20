@@ -23,6 +23,7 @@ public interface IProductServices extends ICheckId<Product> {
     List<ProductFindByFilterDTO> findByCityId(Integer cityId) throws ResourceNotFoundException;
     List<ProductFindByFilterDTO> findByCategoryId(Integer categoryId) throws ResourceNotFoundException;
     List<ProductFindByFilterDTO> findByCityIdAndCategoryId(ProductFindByCategoryCityDTO productFindByCategoryCityDTO) throws ResourceNotFoundException;
-    List <ProductFindByFilterDTO> findBeetwenTwoDates(ProductBetweenTwoDatesDTO productBetweenTwoDatesDTO) throws ResourceNotFoundException;
-    List <ProductFindByFilterDTO> findBeetwenTwoDatesAndCity(ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException;
+    List <ProductFindByFilterDTO> findBetweenTwoDates(ProductBetweenTwoDatesDTO productBetweenTwoDatesDTO) throws ResourceNotFoundException;
+    List <ProductFindByFilterDTO> findBetweenTwoDatesAndCity(ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException;
+    List <ProductFindByFilterDTO> findBetweenTwoDatesAndCityAndCategory(ProductByDatesCityCategoryDTO  productByDatesCityCategoryDTO) throws ResourceNotFoundException;
 }
