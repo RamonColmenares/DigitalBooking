@@ -1,6 +1,7 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyAddPoliciesDTO;
 import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyDTO;
 import com.example.piG1.Service.IService.ITypeOfPolicyServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,10 @@ public class TypeOfPolicyController {
     @GetMapping("/{id}")
     public ResponseEntity<TypeOfPolicyDTO> findById(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(iTypeOfPolicyServices.findById(id));
+    }
+
+    @PostMapping("/add/policies")
+    public ResponseEntity<TypeOfPolicyDTO> addPolicies (@RequestBody TypeOfPolicyAddPoliciesDTO typeOfPolicyAddPoliciesDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(iTypeOfPolicyServices.addPolicies(typeOfPolicyAddPoliciesDTO));
     }
 }
