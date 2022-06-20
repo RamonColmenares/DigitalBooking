@@ -146,7 +146,10 @@ public class ProductServices implements IProductServices {
             getProductsAllDTO1.setPolicies(policyAndTypeOfPolicyDTO);
             System.out.println(getProductsAllDTO1);
             List<ImageDTO> imagesList = imageServices.findByProductId(product.getId());
-            String url_image = imagesList.get(0).getUrl();
+            String url_image = "";
+            if (imagesList.size() > 0){
+                url_image = imagesList.get(0).getUrl();
+            }
             getProductsAllDTO1.setImageUrl(url_image);
             getProductsAllDTO.add(getProductsAllDTO1);
         }

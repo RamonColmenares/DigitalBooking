@@ -28,24 +28,24 @@ public class ProductController {
     @Autowired
     IProductRepository iProductRepository;
 
-    @GetMapping
+    @GetMapping("/findAll")
     public ResponseEntity<List<GetProductsAllDTO>> findAll() throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findAll());
     }
 
-    @PostMapping
+    @PostMapping("/saveProduct")
     public ResponseEntity<ProductCompliteDTO> saveComplite (@RequestBody ProductDTO productDTO){
-            return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.saveComplite(productDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.saveComplite(productDTO));
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteProduct/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
         iProductServices.delete(id);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<ProductFullDTO>findById(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findById(id));
     }
@@ -84,4 +84,20 @@ public class ProductController {
     public ResponseEntity<List<ProductFindByFilterDTO>> findByDateAndCityAndCategory(@RequestBody ProductByDatesCityCategoryDTO productByDatesCityCategoryDTO) throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findBetweenTwoDatesAndCityAndCategory(productByDatesCityCategoryDTO));
     }
+
+    @PostMapping("/add/policies")
+    public ResponseEntity<ProductCompliteDTO> addPolicies(@RequestBody ProductAddPoliciesDTO productAddPoliciesDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.addPolicies(productAddPoliciesDTO));
+    }
+
+    @PostMapping("/add/images")
+    public ResponseEntity<ProductCompliteDTO> addImages(@RequestBody ProductAddImagesDTO productAddImagesDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.addImages(productAddImagesDTO));
+    }
+
+    @PostMapping("/add/features")
+    public ResponseEntity<ProductCompliteDTO> addFeatures(@RequestBody ProductAddFeaturesDTO productAddFeaturesDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.addFeatures(productAddFeaturesDTO));
+    }
+
 }
