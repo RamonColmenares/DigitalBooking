@@ -42,11 +42,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/configuration/security",
                 "/swagger-ui.html",
                 "/webjars/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/getAll/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/add/**",
+                "/products/saveProduct").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/findById/{id}",
+                "/products/findAll",
+                "/products/allData",
+                "/products/allCity/{id}",
+                "/products/allCategory/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/allCategoryAndCity",
+                "/products/allAvailableDates",
+                "/products/allAvailableDates/city",
+                "/products/allAvailableDates/category").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/typeOfPolicies/add/policies",
+                "/typeOfPolicies").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/typeOfPolicies/{id}",
+                "/typeOfPolicies").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/policies").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/policies",
+                "/policies/{id}",
+                "/policies/product/{id}").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/images").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/images","images/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/cities").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cities","cities/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/categories").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/categories","categories/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/bookings","booking/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "bookings/findBetweenDates").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/bookings", "bookings/add").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users").hasAnyAuthority("CLIENT");
-//        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/user").hasAnyAuthority("ADMIN");
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/user").hasAnyAuthority("CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/rol/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/user/save").hasAnyAuthority("ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);

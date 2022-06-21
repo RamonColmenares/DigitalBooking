@@ -6,18 +6,13 @@ import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingFindBetweenDatesDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingSaveDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
-import com.example.piG1.Model.Entity.Booking;
-import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Service.IService.IBookingServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/bookings")
@@ -33,7 +28,7 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<BookingDTO> save(@RequestBody BookingSaveDTO bookingSaveDTO) throws ResourceNotFoundException {
-        if(bookingSaveDTO.getId() == null)
+         if(bookingSaveDTO.getId() == null)
             return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.save(bookingSaveDTO));
         else
             return ResponseEntity.ok(iBookingServices.save(bookingSaveDTO));
