@@ -32,25 +32,28 @@ const SignUpPage = () => {
   const setError = useSignUpStore((s) => s.setError);
   const resetState = useSignUpStore((s) => s.resetState);
 
+  const signUp = useSignUpStore((s) => s.fetchSignUp);
+
   useEffect(() => {
     return () => setError("");
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password.trim().length < 6 || password2.trim().length < 6) {
-      setError("The password should be longer than 6");
-      return;
-    }
-    if (password !== password2) {
-      setError("The passwords should match");
-      return;
-    }
-    if (!isValidEmail(email)) {
-      setError("The email is not valid");
-      return;
-    }
+    // if (password.trim().length < 6 || password2.trim().length < 6) {
+    //   setError("The password should be longer than 6");
+    //   return;
+    // }
+    // if (password !== password2) {
+    //   setError("The passwords should match");
+    //   return;
+    // }
+    // if (!isValidEmail(email)) {
+    //   setError("The email is not valid");
+    //   return;
+    // }
     // resetState();
+    signUp();
     navigate("/login");
   };
 

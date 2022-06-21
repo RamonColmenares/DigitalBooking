@@ -21,6 +21,7 @@ const LoginPage = () => {
   const setError = useLoginStore((state) => state.setError);
   const resetState = useLoginStore((state) => state.resetState);
   const needAuth = useLoginStore((state) => state.needAuth);
+  const login = useLoginStore((s) => s.fetchLogin);
 
   const name = useSignUpStore((s) => s.name);
   const surname = useSignUpStore((s) => s.surname);
@@ -37,23 +38,24 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (email.trim() !== emailSignUp.trim()) {
-      setError("The email doesn't exist");
-      return;
-    }
-    if (password.trim() !== passwordSignUp.trim()) {
-      setError("Invalid password");
-      return;
-    }
+    // if (email.trim() !== emailSignUp.trim()) {
+    //   setError("The email doesn't exist");
+    //   return;
+    // }
+    // if (password.trim() !== passwordSignUp.trim()) {
+    //   setError("Invalid password");
+    //   return;
+    // }
 
-    if (needAuth) {
-      navigate(-1);
-    }
+    // if (needAuth) {
+    //   navigate(-1);
+    // }
 
-    navigate("/");
+    // navigate("/");
+    login();
     resetState();
-    setAuthName(name);
-    setAuthSurname(surname);
+    // setAuthName(name);
+    // setAuthSurname(surname);
   };
 
   return (
