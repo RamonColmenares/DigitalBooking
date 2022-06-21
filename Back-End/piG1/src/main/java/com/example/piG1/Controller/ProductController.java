@@ -1,22 +1,15 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
-import com.example.piG1.Model.DTO.BookingDTO.BookingFindBetweenDatesDTO;
 import com.example.piG1.Model.DTO.ProductDTO.*;
-import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Service.IService.IProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/products")
@@ -29,7 +22,7 @@ public class ProductController {
     IProductRepository iProductRepository;
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<GetProductsAllDTO>> findAll() throws ResourceNotFoundException {
+    public ResponseEntity<List<GetAllProductsDTO>> findAll() throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findAll());
     }
 

@@ -2,14 +2,15 @@ package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
-import com.example.piG1.Model.DTO.CityDTO.CityDTO;
 import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import com.example.piG1.Model.DTO.ProductDTO.*;
 import com.example.piG1.Model.Entity.*;
-import com.example.piG1.Repository.*;
+import com.example.piG1.Repository.ICategoryRepository;
+import com.example.piG1.Repository.ICityRepository;
+import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Service.IService.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j;
@@ -17,8 +18,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @Log4j
 @Service
@@ -137,13 +140,13 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public List<GetProductsAllDTO> findAll() throws ResourceNotFoundException {
-        List<GetProductsAllDTO>  getProductsAllDTO= new ArrayList<>();
+    public List<GetAllProductsDTO> findAll() throws ResourceNotFoundException {
+        List<GetAllProductsDTO>  getProductsAllDTO= new ArrayList<>();
         List<Product> products = productRepository.findAll();
         for(Product product: products){
-            GetProductsAllDTO getProductsAllDTO1 = mapper.convertValue(product, GetProductsAllDTO.class);
-            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
-            getProductsAllDTO1.setPolicies(policyAndTypeOfPolicyDTO);
+            GetAllProductsDTO getProductsAllDTO1 = mapper.convertValue(product, GetAllProductsDTO.class);
+            List<FeatureDTO> features = featureServices.findByProductId(product.getId());
+            getProductsAllDTO1.setFeatures(features);
             System.out.println(getProductsAllDTO1);
             List<ImageDTO> imagesList = imageServices.findByProductId(product.getId());
             String url_image = "";
@@ -153,7 +156,7 @@ public class ProductServices implements IProductServices {
             getProductsAllDTO1.setImageUrl(url_image);
             getProductsAllDTO.add(getProductsAllDTO1);
         }
-        getProductsAllDTO .sort(Comparator.comparing(GetProductsAllDTO::getId)); //
+        getProductsAllDTO .sort(Comparator.comparing(GetAllProductsDTO::getId)); //
         logger.info("La busqueda fue exitosa: "+ getProductsAllDTO);
         return getProductsAllDTO;
     }

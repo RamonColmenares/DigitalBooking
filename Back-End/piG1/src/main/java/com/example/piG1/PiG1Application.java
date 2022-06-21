@@ -30,11 +30,11 @@ public class PiG1Application {
 			userServices.saveRole(new Role(null,"ADMIN"));
 			userServices.saveRole(new Role(null,"CLIENT"));
 
-			userServices.saveUser(new User(null, "Flor ","Garcia","flor","1234", new ArrayList<>()));
-			userServices.saveUser(new User(null, "Eze ","Mardaras","eze","1234", new ArrayList<>()));
+			userServices.saveUser(new User(null, "Flor ","Garcia","flor@mail.com","1234", new ArrayList<>()));
+			userServices.saveUser(new User(null, "Eze ","Mardaras","eze@mail.com","1234", new ArrayList<>()));
 
-			userServices.addRoleToUser("flor", "ADMIN");
-			userServices.addRoleToUser("eze", "CLIENT");
+			userServices.addRoleToUser("flor@mail.com", "ADMIN");
+			userServices.addRoleToUser("eze@mail.com", "CLIENT");
 		};
 	}
 }

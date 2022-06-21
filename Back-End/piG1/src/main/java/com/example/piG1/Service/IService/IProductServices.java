@@ -5,10 +5,7 @@ import com.example.piG1.Model.DTO.ProductDTO.*;
 import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Service.ICheckId;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public interface IProductServices extends ICheckId<Product> {
     ProductCompliteDTO saveComplite(ProductDTO productDTO);
@@ -18,7 +15,7 @@ public interface IProductServices extends ICheckId<Product> {
     ProductDTO save(ProductDTO ProductDTO);
     ProductFullDTO findById(Integer id) throws ResourceNotFoundException;
     ProductCompliteDTO findByIdComplite(Integer id) throws ResourceNotFoundException;
-    List<GetProductsAllDTO> findAll() throws ResourceNotFoundException;
+    List<GetAllProductsDTO> findAll() throws ResourceNotFoundException;
     void delete(Integer id) throws ResourceNotFoundException;
     List<ProductFindByFilterDTO> findByCityId(Integer cityId) throws ResourceNotFoundException;
     List<ProductFindByFilterDTO> findByCategoryId(Integer categoryId) throws ResourceNotFoundException;

@@ -54,4 +54,9 @@ public class BookingController {
    public ResponseEntity<List<BookingDTO>> findByDate(@RequestBody BookingFindBetweenDatesDTO bookingFindBetweenDatesDTO) throws ResourceNotFoundException {
        return ResponseEntity.ok(iBookingServices.findBetweenTwoDates(bookingFindBetweenDatesDTO.getStartDate(), bookingFindBetweenDatesDTO.getEndDate()));
    }
+
+    @GetMapping("/findByProductId/{productId}")
+    public ResponseEntity<List<BookingDTO>> findByProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iBookingServices.findByProductId(productId));
+    }
 }

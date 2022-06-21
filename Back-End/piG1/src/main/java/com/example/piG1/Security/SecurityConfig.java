@@ -36,14 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/swagger-ui/**", "/swagger", "/api-docs/**", "/v2/api-docs",
+        http.authorizeRequests().antMatchers("/swagger-ui/**", "/swagger", "/api-docs/**", "/v3/api-docs/**", "/v2/api-docs/**",
                 "/configuration/ui",
                 "/swagger-resources/**",
                 "/configuration/security",
                 "/swagger-ui.html",
                 "/webjars/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/add/**",
-                "/products/saveProduct").hasAnyAuthority("ADMIN", "CLIENT");
+                "/products/saveProducts").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/findById/{id}",
                 "/products/findAll",
                 "/products/allData",
@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/cities","cities/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/categories").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/categories","categories/{id}").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/bookings","booking/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/bookings","/bookings/{id}", "/bookings/findByProductId/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "bookings/findBetweenDates").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/bookings", "bookings/add").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh").permitAll();
