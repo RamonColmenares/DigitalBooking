@@ -35,6 +35,7 @@ resource "aws_db_instance" "g1database-Master-instance" {
   db_subnet_group_name    = aws_db_subnet_group.g1database-Master-subnet-group.name
   multi_az                = var.DATABASE-MAZ-DEPLOYMENT
   vpc_security_group_ids  = [aws_security_group.validate-g1database.id]
+  publicly_accessible     = true
 }
 
 resource "aws_db_instance" "g1database-Replica-instance" {
@@ -46,4 +47,5 @@ resource "aws_db_instance" "g1database-Replica-instance" {
   db_subnet_group_name    = aws_db_subnet_group.g1database-Replica-subnet-group.name
   multi_az                = var.DATABASE-MAZ-DEPLOYMENT
   vpc_security_group_ids  = [aws_security_group.validate-g1database.id]
+  publicly_accessible     = true
 }
