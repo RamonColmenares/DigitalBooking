@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/products/saveProducts").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/{id}",
                 "/products",
+                "/products/{id}",
                 "/products/allData",
                 "/products/allCity/{id}",
                 "/products/allCategory/{id}").permitAll();

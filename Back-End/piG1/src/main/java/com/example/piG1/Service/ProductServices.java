@@ -129,6 +129,9 @@ public class ProductServices implements IProductServices {
 
         List<FeatureDTO> featuresDTO = featureServices.findByProductId(id);
         productFullDTO.setFeatures(featuresDTO);
+
+        List<BookingDTO> bookingDTOList = bookingServices.findByProductId(id);
+        productFullDTO.setBookings(bookingDTOList);
         return productFullDTO;
     }
 
