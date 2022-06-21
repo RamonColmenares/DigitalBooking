@@ -10,6 +10,7 @@ const createCategoriesStore = () =>
     filtered: null,
 
     setFilteredByCategory: (filtered) => set({ filtered }),
+    clearFilter: () => set({ filtered: null }),
 
     fetchData: async () => {
       set((state) => ({ ...state, loading: true }));

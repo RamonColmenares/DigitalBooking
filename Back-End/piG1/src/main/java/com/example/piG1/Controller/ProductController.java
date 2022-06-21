@@ -21,7 +21,7 @@ public class ProductController {
     @Autowired
     IProductRepository iProductRepository;
 
-    @GetMapping("/findAll")
+    @GetMapping
     public ResponseEntity<List<GetAllProductsDTO>> findAll() throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findAll());
     }
@@ -38,7 +38,7 @@ public class ProductController {
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProductFullDTO>findById(@PathVariable Integer id) throws ResourceNotFoundException {
         return ResponseEntity.ok(iProductServices.findById(id));
     }

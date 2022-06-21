@@ -10,6 +10,7 @@ import Calendar from "./Calendar";
 import { useCitiesStore } from "../../stores/cities";
 import { useProductsStore } from "../../stores/products";
 import { useSearchStore } from "../../stores/search";
+import { useCategoriesStore } from "../../stores/categories";
 
 //DatePicker Configuration in Spanish
 registerLocale("es", es);
@@ -23,10 +24,12 @@ const SearchSection = () => {
   const cities = useCitiesStore((s) => s.data);
   const filterByLocation = useProductsStore((s) => s.filterByLocation);
   const clearFilter = useProductsStore((s) => s.clearFilter);
+  const cleanFiltered = useCategoriesStore((s) => s.clearFilter);
 
   const handleClearSearch = () => {
     clearFilter();
     clearSearch();
+    cleanFiltered();
   };
   useEffect(() => {
     return () => handleClearSearch();
