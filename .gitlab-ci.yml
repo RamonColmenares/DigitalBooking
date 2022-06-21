@@ -1,0 +1,33 @@
+stages:
+  - build
+  - deploy
+
+Deploy: 
+  stage: deploy
+  before_script:
+  - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan $EC2_IPADDRESS >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
+  script:
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+    - zip -r public.zip public
+
+#    - scp -o StrictHostKeyChecking=no public.zip ubuntu@10.0.3.69:~/
+#    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/; unzip -o public.zip"
+#    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/public/Back-End/piG1; chmod +x mvnw; ./mvnw install; nohup ./mvnw spring-boot:run &"
+#    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/; mysql -h g1database-master.ckiqtgesdyez.us-east-1.rds.amazonaws.com -P 3306 -u admin -ppassword piG1 < ~/public/Back-End/cargainicial.sql"
+
+
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "cd ~/; sudo rm -rf public.zip"
+    - scp -o StrictHostKeyChecking=no public.zip ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com:~/
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "cd ~/; sudo rm -rf ~/public; unzip public.zip"
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "cd ~/public/digital-booking-ui/; npm install --legacy-peer-deps; npm run build"
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "cd ~/public/digital-booking-ui/; sudo rm -rf /var/www/front; sudo mkdir /var/www/front; sudo chown -R $USER:$USER /var/www/front; sudo cp -r build/* /var/www/front/;"
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "sudo chown -R $USER:$USER /etc/nginx/sites-available/; sudo cp ~/public/digital-booking-ui/default /etc/nginx/sites-available/default; sudo systemctl restart nginx"
