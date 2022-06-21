@@ -11,12 +11,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.*;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
@@ -37,6 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
+        http.authorizeRequests().antMatchers("/swagger-ui/**", "/swagger", "/api-docs/**", "/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/getAll/**").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users").hasAnyAuthority("CLIENT");
