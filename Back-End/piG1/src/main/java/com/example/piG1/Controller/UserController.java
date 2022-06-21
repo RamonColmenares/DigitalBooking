@@ -53,7 +53,7 @@ public class UserController {
     @PostMapping("/user/save")
     public ResponseEntity<User>saveUser(@Valid @RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userServices.saveUser(user));
+        return ResponseEntity.created(uri).body(userServices.registerUser(user));
     }
     @PostMapping("/role/save")
     public ResponseEntity<Role>saveUser(@RequestBody Role role){

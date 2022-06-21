@@ -8,6 +8,7 @@ import com.example.piG1.Repository.IUserRepository;
 import com.example.piG1.Service.IService.IUserServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,10 +29,21 @@ public class UserServices implements IUserServices , UserDetailsService {
     private final IRoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailSenderService emailSenderService;
+
     @Override
     public User saveUser(User user) {
         log.info("Saving new user to the database");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User registerUser(User user) {
+        log.info("Saving new user to the database");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        emailSenderService.sendSimpleMessage(user.getUserName(), "Thank you", "Thank you for your registration");
         return userRepository.save(user);
     }
 
