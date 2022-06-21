@@ -1,6 +1,4 @@
 package com.example.piG1.Model.DTO.UserDTO;
-
-import com.example.piG1.Model.DTO.RoleDTO.RoleBasicDTO;
 import lombok.*;
 
 @Getter
@@ -9,11 +7,11 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 
-public class UserBasicDTO {
+public class UserDTO {
     private Integer id;
     private String userName;
     private String lastName;
     private String mail;
     private String password;
-    private RoleBasicDTO roleBasicDTO;
+    private Integer roleId;
 }
