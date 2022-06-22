@@ -8,6 +8,7 @@ import com.example.piG1.Model.Entity.Role;
 import com.example.piG1.Model.Entity.User;
 import com.example.piG1.Service.IService.IUserServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import freemarker.template.TemplateException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -18,6 +19,7 @@ import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -51,9 +53,9 @@ public class UserController {
     }
 
     @PostMapping("/user/save")
-    public ResponseEntity<User>saveUser(@Valid @RequestBody User user){
+    public ResponseEntity<User>saveUser(@Valid @RequestBody User user) throws MessagingException, IOException, TemplateException {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userServices.saveUser(user));
+        return ResponseEntity.created(uri).body(userServices.registerUser(user));
     }
     @PostMapping("/role/save")
     public ResponseEntity<Role>saveUser(@RequestBody Role role){

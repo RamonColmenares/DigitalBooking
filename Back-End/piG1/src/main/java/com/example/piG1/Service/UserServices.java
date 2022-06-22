@@ -6,8 +6,10 @@ import com.example.piG1.Model.Entity.User;
 import com.example.piG1.Repository.IRoleRepository;
 import com.example.piG1.Repository.IUserRepository;
 import com.example.piG1.Service.IService.IUserServices;
+import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,10 +17,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -28,10 +31,24 @@ public class UserServices implements IUserServices , UserDetailsService {
     private final IRoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailSenderService emailSenderService;
+
     @Override
     public User saveUser(User user) {
         log.info("Saving new user to the database");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User registerUser(User user) throws MessagingException, IOException, TemplateException {
+        log.info("Saving new user to the database");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("recipientName", user.getName());
+        emailSenderService.sendWelcomeTemplate(user.getUserName(), "Welcome to DBooking!", templateModel);
         return userRepository.save(user);
     }
 
