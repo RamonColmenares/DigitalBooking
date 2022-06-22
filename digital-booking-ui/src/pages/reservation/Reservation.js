@@ -18,6 +18,7 @@ const Reservation = () => {
   const { id } = useParams();
 
   const authValues = useAuthStore((s) => s.getValues());
+  const authId = useAuthStore((s) => s.id);
   const navigate = useNavigate();
 
   const accommodation = useAccommodationStore((s) => s.data);
@@ -27,6 +28,10 @@ const Reservation = () => {
   const setError = useReservationStore((s) => s.setError);
   const errorDates = useReservationStore((s) => s.getErrorDates());
   const dateRange = useReservationStore((s) => s.dateRange);
+  const setProductId = useReservationStore((s) => s.setProductId);
+  const doReservation = useReservationStore((s) => s.doReservation);
+
+  console.log({ dateRange });
 
   useEffect(() => {
     setDefaultValues(authValues);
@@ -35,13 +40,17 @@ const Reservation = () => {
 
   const getFormValues = useReservationStore((s) => s.getFormValues);
 
-  const handleSubmitReservation = (e) => {
+  const handleSubmitReservation = async (e) => {
+    setProductId(accommodation.id);
     setError("");
     e.preventDefault();
     if (errorDates) {
       setError("You must choose the Check In and Check Out dates");
       return;
     }
+
+    const response = await doReservation(authId);
+
     Swal.fire({
       title: "The reservation has been made successfully",
       icon: "success",

@@ -26,6 +26,7 @@ const LoginPage = () => {
   const setAuthName = useAuthStore((s) => s.setName);
   const setAuthSurname = useAuthStore((s) => s.setSurname);
   const setAuthEmail = useAuthStore((s) => s.setEmail);
+  const setAuthId = useAuthStore((s) => s.setId);
 
   useEffect(() => {
     return () => setError("");
@@ -45,7 +46,8 @@ const LoginPage = () => {
     }
 
     navigate("/");
-    setAuthEmail(email);
+    setAuthId(credentials.user_id);
+    setAuthEmail(credentials.email);
     setAuthName(credentials.name);
     setAuthSurname(credentials.lastName);
     resetState();

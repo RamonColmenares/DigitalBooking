@@ -11,6 +11,7 @@ const INITIAL_FROM_STATE = {
   name: "",
   surname: "",
   email: "",
+  id: null,
 };
 
 const createAuthStore = () =>
@@ -22,6 +23,7 @@ const createAuthStore = () =>
     setName: (name) => set({ name }),
     setSurname: (surname) => set({ surname }),
     setEmail: (email) => set({ email }),
+    setId: (id) => set({ id }),
 
     getValues: () => ({
       name: get().name,

@@ -23,9 +23,10 @@ const createLoginStore = () =>
       };
       const response = await fetchLogin(credentials);
       if (response?.access_token) {
-        const { access_token, name, lastName } = response;
+        console.log({ response });
+        const { access_token, name, lastName, email, user_id } = response;
         saveAuthToken(access_token);
-        return { name, lastName };
+        return { name, lastName, email, user_id };
       } else {
         set({ error: "An error ocurred while trying to log in" });
       }
