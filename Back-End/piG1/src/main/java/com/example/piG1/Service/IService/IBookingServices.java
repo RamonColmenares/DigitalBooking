@@ -8,12 +8,14 @@ import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Service.ICheckId;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface IBookingServices extends  ICheckId<Booking> {
     public void saveBookings(List<Booking> bookingsList);
-    BookingDTO save(BookingSaveDTO bookingSaveDTO);
+    BookingDTO save(BookingSaveDTO bookingSaveDTO) throws MessagingException, UnsupportedEncodingException;
     BookingDTO findById(Integer id) throws ResourceNotFoundException;
     List<BookingDTO> findAll();
     void delete(Integer id) throws ResourceNotFoundException;

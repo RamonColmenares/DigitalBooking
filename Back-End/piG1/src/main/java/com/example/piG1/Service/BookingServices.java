@@ -10,23 +10,20 @@ import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Model.Entity.Product;
+import com.example.piG1.Model.Entity.User;
 import com.example.piG1.Repository.IBookingRepository;
 import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Repository.IUserRepository;
-import com.example.piG1.Service.IService.IBookingServices;
-import com.example.piG1.Service.IService.IFeatureServices;
-import com.example.piG1.Service.IService.IImageServices;
-import com.example.piG1.Service.IService.IPolicyServices;
+import com.example.piG1.Service.IService.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BookingServices implements IBookingServices {
@@ -45,6 +42,10 @@ public class BookingServices implements IBookingServices {
     private IPolicyServices policyServices;
     @Autowired
     private IFeatureServices featureServices;
+    @Autowired
+    private IEmailSenderService emailSenderService;
+    @Autowired
+    private  IUserServices userServices;
 
     @Autowired
     ObjectMapper mapper;
@@ -59,13 +60,17 @@ public class BookingServices implements IBookingServices {
     }
 
     @Override
-    public BookingDTO save(BookingSaveDTO bookingSaveDTO) {
+    public BookingDTO save(BookingSaveDTO bookingSaveDTO) throws MessagingException, UnsupportedEncodingException {
         Booking booking = mapper.convertValue(bookingSaveDTO, Booking.class);
         booking.setProduct(productRepository.findById(bookingSaveDTO.getProductId()).get());
         booking.setUser(userRepository.findById(bookingSaveDTO.getUserId()).get());
         booking = bookingRepository.save(booking);
         BookingDTO bookingDTO = mapper.convertValue(booking, BookingDTO.class);
         bookingDTO.setProductId(booking.getProduct().getId());
+        User user = userRepository.findById(bookingSaveDTO.getUserId()).get();
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("recipientName", user.getName());
+        emailSenderService.sendBookingConfirmation(user.getUserName(), "New Reservation!", templateModel);
         return bookingDTO;
     }
 

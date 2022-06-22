@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
@@ -27,7 +29,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<BookingDTO> save(@RequestBody BookingSaveDTO bookingSaveDTO) throws ResourceNotFoundException {
+    public ResponseEntity<BookingDTO> save(@RequestBody BookingSaveDTO bookingSaveDTO) throws ResourceNotFoundException, MessagingException, UnsupportedEncodingException {
          if(bookingSaveDTO.getId() == null)
             return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.save(bookingSaveDTO));
         else
