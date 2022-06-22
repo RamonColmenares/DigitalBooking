@@ -21,7 +21,7 @@ Deploy:
 
     - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/; sudo rm -rf public.zip;"
     - scp -o StrictHostKeyChecking=no public.zip ubuntu@10.0.3.69:~/
-    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/public/Back-End/piG1; pidof java; kill < /dev/null &> /dev/null $(ps aux | grep '[j]ava' | awk '{print $2}')"
+    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/public/Back-End/piG1; echo ps aux; echo grep '[j]ava'; pidof java; kill < /dev/null &> /dev/null $(ps aux | grep '[j]ava' | awk '{print $2}')"
     - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/; sudo rm -rf ~/public; unzip public.zip"
     - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/public/Back-End/piG1;  chmod +x mvnw; ./mvnw install; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &"
     - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/; mysql -h g1database-master.ckiqtgesdyez.us-east-1.rds.amazonaws.com -P 3306 -u admin -ppassword piG1 < ~/public/Back-End/cargainicial.sql"
