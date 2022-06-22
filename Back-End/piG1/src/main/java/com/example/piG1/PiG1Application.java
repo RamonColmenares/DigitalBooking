@@ -27,14 +27,14 @@ public class PiG1Application {
 	@Bean
 	CommandLineRunner run(UserServices userServices) {
 		return args -> {
-			userServices.saveRole(new Role(null,"ADMIN"));
-			userServices.saveRole(new Role(null,"CLIENT"));
-
-			userServices.saveUser(new User(null, "Flor ","Garcia","flor@mail.com","1234", new ArrayList<>()));
-			userServices.saveUser(new User(null, "Eze ","Mardaras","eze@mail.com","1234", new ArrayList<>()));
-
-			userServices.addRoleToUser("flor@mail.com", "ADMIN");
-			userServices.addRoleToUser("eze@mail.com", "CLIENT");
+//			userServices.saveRole(new Role(null,"ADMIN"));
+//			userServices.saveRole(new Role(null,"CLIENT"));
+//
+//			userServices.saveUser(new User(null, "Flor ","Garcia","flor@mail.com","1234", new ArrayList<>()));
+//			userServices.saveUser(new User(null, "Eze ","Mardaras","eze@mail.com","1234", new ArrayList<>()));
+//
+//			userServices.addRoleToUser("flor@mail.com", "ADMIN");
+//			userServices.addRoleToUser("eze@mail.com", "CLIENT");
 		};
 	}
 }

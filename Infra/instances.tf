@@ -1,3 +1,11 @@
+data "template_file" "script1" {
+    template = "${file("${path.module}/scripts/init1.sh")}"
+}
+
+data "template_file" "script3" {
+    template = "${file("${path.module}/scripts/init3.sh")}"
+}
+
 data "aws_availability_zones" "available" {}
 
 // según la documentación de amazon, el siguiente bloque de data es así para la imagen de ubuntu server
@@ -7,7 +15,7 @@ data "aws_ami" "ubuntu" {
     owners = ["099720109477"]
     filter {
         name = "name"
-        values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
+        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
     }
 }
 
@@ -23,21 +31,22 @@ resource "aws_instance" "instance1" {
     key_name = aws_key_pair.mykey.key_name
     vpc_security_group_ids = [ aws_security_group.validate-g1vpc-ssh.id, aws_security_group.validate-g1vpc-http.id ]
     subnet_id = aws_subnet.g1vpc-public-1.id
+    depends_on = [aws_s3_bucket.g1bucket]
     tags = {
         Name = "g1_instance1"
     }
 
-    // según la documentación de terraform, provisioner copia los scripts a mi instancia y las ejecuta.
-    // ejecuto el script que instala Nginx tras la configuración inline de los permisos.
+    user_data = "${data.template_file.script1.rendered}"
 
-
-/*    provisioner "remote-exec" {
+/*       
+    provisioner "remote-exec" {
         inline = [
             "sudo apt-get -y update",
             "sudo apt-get -y install nginx",
             "sudo service nginx start",
         ]
     }
+
 */
 
     // según la documentación de terraform, coalesce es una función que devuelve el primer valor que no es nulo.
@@ -72,6 +81,9 @@ resource "aws_instance" "instance3" {
     tags = {
         Name = "g1_instance3"
     }
+
+    user_data = "${data.template_file.script3.rendered}"
+    
 }
 
 resource "aws_instance" "instance4" {

@@ -1,13 +1,7 @@
-/*
-resource "aws_s3_bucket" "g1bucket" {
-    bucket = "g1bucket-001"
-}
-
-*/
-
 resource "aws_s3_bucket" "g1bucket" {
 
   bucket = "g1bucket-01"
+  force_destroy = true
 
 
   tags   = {
@@ -45,11 +39,31 @@ resource "aws_s3_bucket_policy" "s3_policy" {
 }
 EOF
 }
+/*
 
 
-resource "aws_s3_object" "object" {
+resource "aws_s3_object" "script1" {
   bucket = "g1bucket-01"
-  key    = "scripts/init.sh"
-  source = "scripts/init.sh"
-  etag = "${filemd5("scripts/init.sh")}"
+  key    = "scripts/init1.sh"
+  source = "scripts/init1.sh"
+  etag = "${filemd5("scripts/init1.sh")}"
 }
+
+resource "aws_s3_object" "script2" {
+  bucket = "g1bucket-01"
+  key    = "scripts/init3.sh"
+  source = "scripts/init3.sh"
+  etag = "${filemd5("scripts/init3.sh")}"
+}
+
+*/
+
+resource "aws_s3_object" "imgs" {
+  for_each = fileset("/img/", "*")
+
+  bucket = "g1bucket-01"
+  key    = "img/${each.value}"
+  source = "img/${each.value}"
+  etag   = filemd5("img/${each.value}")
+}
+

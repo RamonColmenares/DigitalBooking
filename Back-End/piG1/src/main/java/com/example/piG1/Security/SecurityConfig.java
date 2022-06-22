@@ -44,8 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/add/**",
                 "/products/saveProducts").hasAnyAuthority("ADMIN", "CLIENT");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/findById/{id}",
-                "/products/findAll",
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/{id}",
+                "/products",
+                "/products/{id}",
                 "/products/allData",
                 "/products/allCity/{id}",
                 "/products/allCategory/{id}").permitAll();
