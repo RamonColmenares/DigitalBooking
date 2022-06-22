@@ -13,6 +13,7 @@ const Categories = () => {
   const loaded = useCategoriesStore((s) => s.loaded);
   const fetchCategories = useCategoriesStore((s) => s.fetchData);
   const filteredCategories = useCategoriesStore((s) => s.filtered);
+  const clearFilterCategories = useCategoriesStore((s) => s.clearFilter);
   const setFilteredCategories = useCategoriesStore(
     (s) => s.setFilteredByCategory
   );
@@ -23,6 +24,11 @@ const Categories = () => {
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+
+  const handleClearFilter = () => {
+    clearFilter();
+    clearFilterCategories();
+  };
 
   const handleFilterByCategory = (category) => {
     fetchByCategory(category.id);
@@ -38,7 +44,7 @@ const Categories = () => {
             color="secondary"
             variant="contained"
             endIcon={<BackspaceIcon fontSize="small" />}
-            onClick={clearFilter}
+            onClick={handleClearFilter}
           >
             Clear Filters
           </Button>
