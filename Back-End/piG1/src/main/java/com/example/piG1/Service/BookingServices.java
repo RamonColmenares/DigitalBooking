@@ -45,7 +45,7 @@ public class BookingServices implements IBookingServices {
     @Autowired
     private IEmailSenderService emailSenderService;
     @Autowired
-    private  IUserServices userServices;
+    private IUserServices userServices;
 
     @Autowired
     ObjectMapper mapper;

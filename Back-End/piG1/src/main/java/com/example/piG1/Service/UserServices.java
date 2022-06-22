@@ -22,14 +22,20 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.*;
 
-@Service
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class UserServices implements IUserServices , UserDetailsService {
-    private final IUserRepository userRepository;
-    private final IRoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
+@Service
+public class UserServices implements IUserServices, UserDetailsService {
+
+    @Autowired
+    IUserRepository userRepository;
+
+    @Autowired
+    IRoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private EmailSenderService emailSenderService;
@@ -46,10 +52,17 @@ public class UserServices implements IUserServices , UserDetailsService {
         log.info("Saving new user to the database");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
+        User user1 = userRepository.save(user);
+
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("recipientName", user.getName());
         emailSenderService.sendWelcomeTemplate(user.getUserName(), "Welcome to DBooking!", templateModel);
-        return userRepository.save(user);
+
+        Collection<Role> roles = new ArrayList<>();
+        Role role = roleRepository.findByName("ADMIN");
+        roles.add(role);
+        user.setRoles(roles);
+        return user1;
     }
 
     @Override

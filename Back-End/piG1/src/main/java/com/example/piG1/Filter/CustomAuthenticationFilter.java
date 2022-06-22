@@ -2,6 +2,7 @@ package com.example.piG1.Filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.piG1.Service.UserServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,9 +25,14 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+    private UserServices userServices;
+
+    public void setUserServices(UserServices userServices) {
+        this.userServices = userServices;
+    }
 
     private final AuthenticationManager authenticationManager;
     public  CustomAuthenticationFilter(AuthenticationManager authenticationManager){
@@ -65,9 +71,12 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .sign(algorithm);
 //        response.setHeader("access_token", access_token);
 //        response.setHeader("refresh_token", refresh_token);
+        com.example.piG1.Model.Entity.User user1 = userServices.getUser(user.getUsername());
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);
         tokens.put("refresh_token", refresh_token);
+        tokens.put("name", user1.getName());
+        tokens.put("lastName", user1.getLastName());
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(),tokens);
     }

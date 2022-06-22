@@ -22,7 +22,7 @@ public class User {
     private String name;
     private String lastName;
     @Column(unique = true)
-    @Email(message = "El email debe tener el formato ramon@mail.com")
+    @Email(message = "El email debe tener el formato nombre@mail.com")
     private String userName;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)

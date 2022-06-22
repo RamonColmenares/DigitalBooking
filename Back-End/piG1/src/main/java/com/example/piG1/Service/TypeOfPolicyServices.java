@@ -1,17 +1,16 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Service.IService.IPolicyServices;
+import com.example.piG1.Service.IService.ITypeOfPolicyServices;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyAddPoliciesDTO;
 import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyDTO;
-import com.example.piG1.Model.Entity.Category;
 import com.example.piG1.Model.Entity.Policy;
 import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Model.Entity.TypeOfPolicy;
 import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Repository.ITypeOfPolicyRepository;
-import com.example.piG1.Service.IService.IPolicyServices;
-import com.example.piG1.Service.IService.ITypeOfPolicyServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

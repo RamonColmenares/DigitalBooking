@@ -2,6 +2,7 @@ package com.example.piG1;
 
 import com.example.piG1.Model.Entity.Role;
 import com.example.piG1.Service.UserServices;
+import com.example.piG1.Service.RoleServices;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,16 +23,12 @@ public class PiG1Application {
 	}
 
 	@Bean
-	CommandLineRunner run(UserServices userServices) {
+	CommandLineRunner run(UserServices userServices, RoleServices roleServices) {
 		return args -> {
+			if (roleServices.findRoleByName("ADMIN") == null || roleServices.findRoleByName("CLIENT") == null){
 			userServices.saveRole(new Role(null,"ADMIN"));
 			userServices.saveRole(new Role(null,"CLIENT"));
-//
-//			userServices.saveUser(new User(null, "Flor ","Garcia","flor@mail.com","1234", new ArrayList<>()));
-//			userServices.saveUser(new User(null, "Eze ","Mardaras","eze@mail.com","1234", new ArrayList<>()));
-//
-//			userServices.addRoleToUser("flor@mail.com", "ADMIN");
-//			userServices.addRoleToUser("eze@mail.com", "CLIENT");
+			}
 		};
 	}
 }

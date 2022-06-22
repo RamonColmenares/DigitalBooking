@@ -1,10 +1,10 @@
 package com.example.piG1.Service;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Service.IService.IImageServices;
 import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
 import com.example.piG1.Model.Entity.Image;
 import com.example.piG1.Repository.IImageRepository;
-import com.example.piG1.Service.IService.IImageServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +64,7 @@ public class ImageServices implements IImageServices {
     public Image checkId(Integer id) throws ResourceNotFoundException {
         Optional<Image> image = imageRepository.findById(id);
         if (image.isEmpty()) {
-            throw new ResourceNotFoundException(messageError + id);
+            throw new ResourceNotFoundException(ICheckId.messageError + id);
         }
         return image.get();
     }

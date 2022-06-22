@@ -7,7 +7,6 @@ import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface IUserServices extends ICheckId<User> {
