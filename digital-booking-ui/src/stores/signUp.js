@@ -30,6 +30,12 @@ const createSignUpStore = () =>
         lastName: surname,
         userName: email,
         password: password,
+        roles: [
+          {
+            id: 1,
+            name: "ADMIN",
+          },
+        ],
       };
       await fetchSignUp(credentials);
     },
