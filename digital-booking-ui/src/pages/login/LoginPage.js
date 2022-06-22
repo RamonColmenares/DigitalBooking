@@ -21,11 +21,7 @@ const LoginPage = () => {
   const setError = useLoginStore((state) => state.setError);
   const resetState = useLoginStore((state) => state.resetState);
   const needAuth = useLoginStore((state) => state.needAuth);
-
-  const name = useSignUpStore((s) => s.name);
-  const surname = useSignUpStore((s) => s.surname);
-  const emailSignUp = useSignUpStore((s) => s.email);
-  const passwordSignUp = useSignUpStore((s) => s.password);
+  const login = useLoginStore((s) => s.fetchLogin);
 
   const setAuthName = useAuthStore((s) => s.setName);
   const setAuthSurname = useAuthStore((s) => s.setSurname);
@@ -37,23 +33,15 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (email.trim() !== emailSignUp.trim()) {
-      setError("The email doesn't exist");
-      return;
-    }
-    if (password.trim() !== passwordSignUp.trim()) {
-      setError("Invalid password");
-      return;
-    }
-
     if (needAuth) {
       navigate(-1);
     }
 
     navigate("/");
+    login();
     resetState();
-    setAuthName(name);
-    setAuthSurname(surname);
+    setAuthName("Test");
+    setAuthSurname("Testo");
   };
 
   return (

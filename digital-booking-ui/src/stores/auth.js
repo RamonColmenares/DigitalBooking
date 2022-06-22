@@ -1,16 +1,17 @@
 import { create } from "../utils/createStore";
-
-const INITIAL_FROM_STATE = {
-  name: "Adriel",
-  surname: "Gomez",
-  email: "pepe@gmail.com",
-};
+import { getAuthToken, saveAuthToken } from "../utils/LocalStorage";
 
 // const INITIAL_FROM_STATE = {
-//   name: "",
-//   surname: "",
-//   email: "",
+//   name: "Adriel",
+//   surname: "Gomez",
+//   email: "pepe@gmail.com",
 // };
+
+const INITIAL_FROM_STATE = {
+  name: "",
+  surname: "",
+  email: "",
+};
 
 const createAuthStore = () =>
   create("auth")((set, get) => ({
@@ -27,6 +28,10 @@ const createAuthStore = () =>
       surname: get().surname,
       email: get().email,
     }),
+
+    saveToken: (token) => saveAuthToken(token),
+
+    getToken: () => getAuthToken(),
 
     resetState: () =>
       set({

@@ -1,3 +1,4 @@
+import { fetchSignUp } from "../client/auth/fetchSignUp";
 import { create } from "../utils/createStore";
 
 const INITIAL_FROM_STATE = {
@@ -21,6 +22,17 @@ const createSignUpStore = () =>
     setPassword: (password) => set({ password }),
     setPassword2: (password2) => set({ password2 }),
     setError: (error) => set({ error }),
+
+    fetchSignUp: async () => {
+      const { name, surname, email, password } = get();
+      const credentials = {
+        name: name,
+        lastName: surname,
+        userName: email,
+        password: password,
+      };
+      await fetchSignUp(credentials);
+    },
 
     resetState: () =>
       set({
