@@ -12,6 +12,7 @@ import {
 import { useSignUpStore } from "../../stores/signUp";
 import FormWrapper from "../../components/auth/FormWrapper";
 import { isValidEmail } from "../../utils/validations";
+import Swal from "sweetalert2";
 
 const SignUpPage = () => {
   const classes = useStyles();
@@ -38,23 +39,34 @@ const SignUpPage = () => {
     return () => setError("");
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (password.trim().length < 6 || password2.trim().length < 6) {
-    //   setError("The password should be longer than 6");
-    //   return;
-    // }
-    // if (password !== password2) {
-    //   setError("The passwords should match");
-    //   return;
-    // }
-    // if (!isValidEmail(email)) {
-    //   setError("The email is not valid");
-    //   return;
-    // }
-    // resetState();
-    signUp();
-    navigate("/login");
+    if (password.trim().length < 6 || password2.trim().length < 6) {
+      setError("The password should be longer than 6");
+      return;
+    }
+    if (password !== password2) {
+      setError("The passwords should match");
+      return;
+    }
+    if (!isValidEmail(email)) {
+      setError("The email is not valid");
+      return;
+    }
+    const couldSignUp = await signUp();
+
+    if (couldSignUp) {
+      Swal.fire({
+        title: "The account has been created successfully",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Go to Login",
+      }).then(() => {
+        resetState();
+        navigate("/login");
+      });
+    }
+    return;
   };
 
   return (

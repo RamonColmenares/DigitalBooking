@@ -37,7 +37,12 @@ const createSignUpStore = () =>
           },
         ],
       };
-      await fetchSignUp(credentials);
+      const response = await fetchSignUp(credentials);
+      if (!response?.name) {
+        set({ error: "An error ocurred while creating your account" });
+        return false;
+      }
+      return true;
     },
 
     resetState: () =>

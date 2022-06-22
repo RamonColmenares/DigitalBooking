@@ -21,9 +21,14 @@ const createLoginStore = () =>
         username: email,
         password,
       };
-      const { access_token, refresh_token } = await fetchLogin(credentials);
-      console.log(access_token);
-      saveAuthToken(access_token);
+      const response = await fetchLogin(credentials);
+      if (response?.access_token) {
+        const { access_token, name, lastName } = response;
+        saveAuthToken(access_token);
+        return { name, lastName };
+      } else {
+        set({ error: "An error ocurred while trying to log in" });
+      }
       return;
     },
 
