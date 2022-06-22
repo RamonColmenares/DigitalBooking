@@ -1,4 +1,5 @@
 import { create } from "../utils/createStore";
+import { getAuthToken, saveAuthToken } from "../utils/LocalStorage";
 
 // const INITIAL_FROM_STATE = {
 //   name: "Adriel",
@@ -27,6 +28,10 @@ const createAuthStore = () =>
       surname: get().surname,
       email: get().email,
     }),
+
+    saveToken: (token) => saveAuthToken(token),
+
+    getToken: () => getAuthToken(),
 
     resetState: () =>
       set({

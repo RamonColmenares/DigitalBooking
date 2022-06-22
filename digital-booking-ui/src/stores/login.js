@@ -1,5 +1,6 @@
 import { create } from "../utils/createStore";
 import { fetchLogin } from "../client/auth/fetchLogin";
+import { saveAuthToken } from "../utils/LocalStorage";
 
 const createLoginStore = () =>
   create("login")((set, get) => ({
@@ -20,15 +21,10 @@ const createLoginStore = () =>
         username: email,
         password,
       };
-      let formBody = [];
-      for (const property in credentials) {
-        const encodedKey = encodeURIComponent(property);
-        const encodedValue = encodeURIComponent(credentials[property]);
-        formBody.push(encodedKey + "=" + encodedValue);
-      }
-      formBody = formBody.join("&");
-
-      await fetchLogin(formBody);
+      const { access_token, refresh_token } = await fetchLogin(credentials);
+      console.log(access_token);
+      saveAuthToken(access_token);
+      return;
     },
 
     resetState: () =>

@@ -5,10 +5,9 @@ export const fetchLogin = async (credentials) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: credentials,
+      body: new URLSearchParams(credentials),
     });
     const data = await response.json();
-    console.log({ data });
     return data;
   } catch (e) {
     console.log(e);
