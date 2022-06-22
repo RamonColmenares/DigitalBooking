@@ -25,23 +25,30 @@ const LoginPage = () => {
 
   const setAuthName = useAuthStore((s) => s.setName);
   const setAuthSurname = useAuthStore((s) => s.setSurname);
+  const setAuthEmail = useAuthStore((s) => s.setEmail);
 
   useEffect(() => {
     return () => setError("");
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const credentials = await login();
+
+    if (!credentials) {
+      return;
+    }
 
     if (needAuth) {
       navigate(-1);
     }
 
     navigate("/");
-    login();
+    setAuthEmail(email);
+    setAuthName(credentials.name);
+    setAuthSurname(credentials.lastName);
     resetState();
-    setAuthName("Test");
-    setAuthSurname("Testo");
   };
 
   return (
