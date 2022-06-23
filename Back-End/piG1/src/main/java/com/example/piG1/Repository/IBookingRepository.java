@@ -22,10 +22,10 @@ public interface IBookingRepository extends JpaRepository<Booking,Integer> {
     List<Booking> findByProductId(Integer productId);
 
     @Query("select b from Booking b where " +
-            "(start_date between :startDate AND :endDate) " +
+            "((start_date between :startDate AND :endDate) " +
             "OR (end_date between :startDate AND :endDate) " +
             "OR ((:endDate between start_date AND end_date) AND (:startDate between start_date AND end_date)) "+
-            "AND product_id = :productId")
+            ") AND product_id = :productId")
     List<Booking> findByDatesBetweenAndProductId(
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate,
