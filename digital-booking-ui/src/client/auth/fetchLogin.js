@@ -1,7 +1,8 @@
+import { url_base } from "../fetchLink";
 export const fetchLogin = async (credentials) => {
   try {
     const response = await fetch(
-      "http://my-alb-1936629616.us-east-1.elb.amazonaws.com/api/login",
+      `${url_base}/api/login`,
       {
         method: "POST",
         headers: {

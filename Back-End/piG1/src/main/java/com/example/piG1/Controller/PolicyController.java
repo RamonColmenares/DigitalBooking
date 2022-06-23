@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/policies")
-@CrossOrigin(origins = "*")
 public class PolicyController {
     @Autowired
     IPolicyServices iPolicyServices;

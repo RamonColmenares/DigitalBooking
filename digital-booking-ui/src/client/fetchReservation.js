@@ -1,17 +1,19 @@
 import { getAuthToken } from "../utils/LocalStorage";
+import { url_base } from "./fetchLink";
 
 export const fetchReservation = async (booking) => {
+  console.log(JSON.stringify(booking));
+  console.log(getAuthToken);
   try {
     const response = await fetch(
-      "http://my-alb-1936629616.us-east-1.elb.amazonaws.com/bookings",
+      `${url_base}/bookings`,
       {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Authorization: getAuthToken(),
-        },
-        body: JSON.stringify(booking),
+          "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYW1vbkBsbWFpbC5jb20iLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODEvYXBpL2xvZ2luIiwiZXhwIjoxNjU1OTUwMDQxfQ.XK1VXxDhA_Q7T_gvlxndJpt3vYRFIKaPed6gI6JOfEg"
+          },
+        body: JSON.stringify(booking)
       }
     );
     const data = await response.json();
