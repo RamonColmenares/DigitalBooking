@@ -42,17 +42,50 @@ const createReservationSotre = () =>
 
     doReservation: async (userId) => {
       const { dateRange, arrivalTime, productId } = get();
+      //       var dateObj = new Date();
+      // var month = dateObj.getUTCMonth() + 1; //months from 1-12
+      // var day = dateObj.getUTCDate();
+      // var year = dateObj.getUTCFullYear();
+
+      // newdate = year + "/" + month + "/" + day;
+      let startDay = dateRange[0].getUTCDate();
+      let startMonth = dateRange[0].getUTCMonth() + 1;
+      const startYear = dateRange[0].getUTCFullYear();
+
+      if (startMonth < 10) {
+        startMonth = `0${startMonth}`;
+      }
+      if (startDay < 10) {
+        startDay = `0${startDay}`;
+      }
+
+      let endDay = dateRange[1].getUTCDate();
+      let endMonth = dateRange[1].getUTCMonth() + 1;
+      const endYear = dateRange[1].getUTCFullYear();
+
+      const startDate = `${startYear}-${startMonth}-${startDay}`;
+
+      if (endMonth < 10) {
+        endMonth = `0${endMonth}`;
+      }
+      if (endDay < 10) {
+        endDay = `0${endDay}`;
+      }
+
+      const endDate = `${endYear}-${endMonth}-${endDay}`;
+
+      const hour = `${arrivalTime}:00`;
+
       const data = {
-        startDate: "2022-06-10",
-        endDate: "2022-06-14",
-        hour: "00:00:00",
+        startDate,
+        endDate,
+        hour,
         vaccinated: true,
         productId,
         userId: userId,
       };
 
       const response = await fetchReservation(data);
-      console.log({ response });
       //   {
       //     "startDate":"2022-06-10",
       //     "endDate":"2022-06-14",
@@ -61,6 +94,7 @@ const createReservationSotre = () =>
       //     "productId":1,
       //     "userId":1
       // }
+      return response;
     },
 
     getFormValues: () => {

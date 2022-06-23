@@ -9,7 +9,7 @@ import { useReservationStore } from "../../stores/reservation";
 
 registerLocale("es", es);
 
-const Calendar = () => {
+const Calendar = ({ bookings }) => {
   const classes = useStyles();
   const calendarClasses = useCalendarStyles();
   const widthScreen = useCurrentWidth();
@@ -19,12 +19,14 @@ const Calendar = () => {
   const [startDate, endDate] = dateRange;
   const today = new Date();
 
-  const one = Date.parse("2022-08-10T03:00:00.000Z");
-  const two = Date.parse("2022-08-17T03:00:00.000Z");
-  const three = Date.parse("2022-09-15T03:00:00.000Z");
-  const four = Date.parse("2022-09-22T03:00:00.000Z");
-
   const isCalendarError = error.includes("dates");
+
+  const reservatedDates =
+    !!bookings.length &&
+    bookings.map((booking) => ({
+      start: Date.parse(booking.startDate),
+      end: Date.parse(booking.endDate),
+    }));
 
   useEffect(() => {
     setDateRange([null, null]);
@@ -59,10 +61,11 @@ const Calendar = () => {
             endDate={endDate}
             required
             inline
-            excludeDateIntervals={[
-              { start: one, end: two },
-              { start: three, end: four },
-            ]}
+            excludeDateIntervals={reservatedDates}
+            // excludeDateIntervals={[
+            //   { start: one, end: two },
+            //   { start: three, end: four },
+            // ]}
           />
         </div>
       </Tooltip>

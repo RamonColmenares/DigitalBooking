@@ -20,7 +20,6 @@ const Products = () => {
   const handleGoAccommodation = (id) => {
     navigate(`/accommodation/${id}`);
   };
-  console.log({ products });
 
   useEffect(() => {
     fetchProducts();
