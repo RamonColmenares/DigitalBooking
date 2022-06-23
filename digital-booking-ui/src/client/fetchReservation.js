@@ -3,7 +3,7 @@ import { url_base } from "./fetchLink";
 
 export const fetchReservation = async (booking) => {
   console.log(JSON.stringify(booking));
-  console.log(getAuthToken);
+  console.log(getAuthToken());
   try {
     const response = await fetch(
       `${url_base}/bookings`,
@@ -11,7 +11,7 @@ export const fetchReservation = async (booking) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYW1vbkBsbWFpbC5jb20iLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODEvYXBpL2xvZ2luIiwiZXhwIjoxNjU1OTUwMDQxfQ.XK1VXxDhA_Q7T_gvlxndJpt3vYRFIKaPed6gI6JOfEg"
+          "Authorization": `Bearer ${getAuthToken()}`
           },
         body: JSON.stringify(booking)
       }

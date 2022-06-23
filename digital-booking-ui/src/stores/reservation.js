@@ -45,7 +45,7 @@ const createReservationSotre = () =>
       const data = {
         startDate: "2022-06-10",
         endDate: "2022-06-14",
-        hour: arrivalTime,
+        hour: "00:00:00",
         vaccinated: true,
         productId,
         userId: userId,

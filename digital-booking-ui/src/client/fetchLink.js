@@ -1,1 +1,1 @@
-export const url_base = "http://my-alb-1936629616.us-east-1.elb.amazonaws.com";
+export const url_base = "http://localhost:8081";

@@ -1,7 +1,8 @@
+import { url_base } from "./fetchLink";
 export const fetchAccommodation = async (id) => {
   try {
     const response = await fetch(
-      `http://my-alb-1936629616.us-east-1.elb.amazonaws.com/products/${id}`
+      `${url_base}/products/${id}`
     );
     const data = await response.json();
     return data;
