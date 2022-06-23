@@ -20,6 +20,7 @@ const Products = () => {
   const handleGoAccommodation = (id) => {
     navigate(`/accommodation/${id}`);
   };
+  console.log({ products });
 
   useEffect(() => {
     fetchProducts();
@@ -54,6 +55,7 @@ const ProductCard = ({
   category,
   city,
   className,
+  features,
   onClick,
 }) => (
   <div className={className} key={id}>
@@ -74,7 +76,7 @@ const ProductCard = ({
           <h3 className="title">{name}</h3>
         </Tooltip>
         <LocationDisplayer city={city} />
-        <ServicesSection />
+        <ServicesSection services={features} />
       </div>
       <div className="bottom-card">
         <p className="description">{description}</p>

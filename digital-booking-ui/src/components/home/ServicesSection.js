@@ -1,25 +1,24 @@
 import React from "react";
-import WifiIcon from "@material-ui/icons/Wifi";
-import PoolIcon from "@material-ui/icons/Pool";
 import { makeStyles } from "@material-ui/core";
-
-const SERVICES = {
-  pool: PoolIcon,
-  wifi: WifiIcon,
-};
+import { SERVICES } from "../../models/business/servicesIcons";
 
 export const ServicesSection = ({ services }) => {
   const classes = useStyles();
   return (
-    <div>
-      {Object.values(SERVICES).map((Service, index) => (
-        <Service key={index} className={classes.icon} />
+    <div className={classes.container}>
+      {services.map((service, index) => (
+        <p key={index} className={classes.icon}>
+          {SERVICES[service.name].icon}
+        </p>
       ))}
     </div>
   );
 };
 
 const useStyles = makeStyles(() => ({
+  container: {
+    display: "flex",
+  },
   icon: {
     marginRight: "5px",
   },

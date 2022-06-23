@@ -2,13 +2,13 @@ import React from "react";
 import { SERVICES } from "../../models/business/servicesIcons";
 import { makeStyles } from "@material-ui/core";
 
-export const ServiceDisplayer = ({ service }) => {
-  const classes = useStyles();
+export const ServiceDisplayer = ({ service, showName = true }) => {
+  const classes = useStyles({ showName });
 
   return (
     <div className={classes.wrapper}>
       {SERVICES[service].icon}
-      <p>{SERVICES[service].text}</p>
+      {showName && <p>{SERVICES[service].text}</p>}
     </div>
   );
 };

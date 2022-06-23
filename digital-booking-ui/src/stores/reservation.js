@@ -43,8 +43,8 @@ const createReservationSotre = () =>
     doReservation: async (userId) => {
       const { dateRange, arrivalTime, productId } = get();
       const data = {
-        startDate: dateRange[0],
-        endDate: dateRange[1],
+        startDate: "2022-06-10",
+        endDate: "2022-06-14",
         hour: arrivalTime,
         vaccinated: true,
         productId,
