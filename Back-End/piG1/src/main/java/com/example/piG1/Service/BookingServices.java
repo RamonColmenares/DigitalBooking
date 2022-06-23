@@ -62,7 +62,8 @@ public class BookingServices implements IBookingServices {
 
     @Override
     public BookingDTO save(BookingSaveDTO bookingSaveDTO) throws MessagingException, UnsupportedEncodingException, InvalidObjectException {
-        if(bookingRepository.findByDatesBetween(bookingSaveDTO.getStartDate(), bookingSaveDTO.getEndDate()).size() > 0)
+        List<Booking> bookings = bookingRepository.findByDatesBetweenAndProductId(bookingSaveDTO.getStartDate(), bookingSaveDTO.getEndDate(), bookingSaveDTO.getProductId());
+        if(bookings.size() > 0)
         {
             throw new InvalidObjectException("Esta fecha ya fue tomada");
         }
@@ -157,6 +158,22 @@ public class BookingServices implements IBookingServices {
     @Override
     public List <BookingDTO> findByProductId(Integer productId) throws ResourceNotFoundException {
         List <Booking> bookings = bookingRepository.findByProductId(productId);
+        List <BookingDTO> bookingDTOList = new ArrayList<>();
+
+        bookings.forEach(booking ->
+                bookingDTOList.add(mapper.convertValue(booking, BookingDTO.class)));
+
+        for (BookingDTO bookingDTO : bookingDTOList) {
+            Booking booking = checkId(bookingDTO.getId());
+            bookingDTO.setProductId(booking.getProduct().getId());
+        }
+
+        return bookingDTOList;
+    }
+
+    @Override
+    public List <BookingDTO> findAllByProductId(Integer productId) throws ResourceNotFoundException {
+        List <Booking> bookings = bookingRepository.findAllByProductId(productId);
         List <BookingDTO> bookingDTOList = new ArrayList<>();
 
         bookings.forEach(booking ->

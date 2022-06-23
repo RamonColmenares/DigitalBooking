@@ -62,4 +62,9 @@ public class BookingController {
     public ResponseEntity<List<BookingDTO>> findByProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(iBookingServices.findByProductId(productId));
     }
+
+    @GetMapping("/findAllByProductId/{productId}")
+    public ResponseEntity<List<BookingDTO>> findAllByProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iBookingServices.findAllByProductId(productId));
+    }
 }

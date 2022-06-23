@@ -76,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/cities","cities/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/categories").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/categories","categories/{id}").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/bookings","/bookings/{id}", "/bookings/findByProductId/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/bookings","/bookings/{id}", "/bookings/findByProductId/{id}", "/bookings/findAllByProductId/{productId}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "bookings/findBetweenDates").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/bookings", "bookings/add").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh").permitAll();
