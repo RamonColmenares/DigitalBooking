@@ -10,24 +10,21 @@ import { useLoginStore } from "../../stores/login";
 
 registerLocale("es", es);
 
-const CalendarReservations = () => {
+const CalendarReservations = ({ bookings }) => {
   const classes = useStyles();
   const calendarClasses = useCalendarStyles();
   const navigate = useNavigate();
   const widthScreen = useCurrentWidth();
   const auth = useAuthStore((s) => s.name);
   const setNeedAuth = useLoginStore((s) => s.setNeedAuth);
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
   const today = new Date();
 
-  useEffect(() => {
-    setDateRange([null, null]);
-  }, []);
-
-  const handleSelection = (dates) => {
-    setDateRange(dates);
-  };
+  const reservatedDates =
+    !!bookings.length &&
+    bookings.map((booking) => ({
+      start: Date.parse(booking.startDate),
+      end: Date.parse(booking.endDate),
+    }));
 
   const handleReservation = () => {
     if (auth) {
@@ -49,6 +46,7 @@ const CalendarReservations = () => {
           minDate={today}
           inline
           disabledKeyboardNavigation
+          excludeDateIntervals={reservatedDates}
         />
         <div className={classes.reservation}>
           <h4>Add your travel dates to get the best prices</h4>

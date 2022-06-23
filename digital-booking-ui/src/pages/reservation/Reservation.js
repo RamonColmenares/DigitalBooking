@@ -31,8 +31,6 @@ const Reservation = () => {
   const setProductId = useReservationStore((s) => s.setProductId);
   const doReservation = useReservationStore((s) => s.doReservation);
 
-  console.log({ dateRange });
-
   useEffect(() => {
     setDefaultValues(authValues);
     fetchData(id);
@@ -51,14 +49,26 @@ const Reservation = () => {
 
     const response = await doReservation(authId);
 
-    Swal.fire({
-      title: "The reservation has been made successfully",
-      icon: "success",
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "OK",
-    }).then(() => {
-      navigate("/");
-    });
+    if (response?.id) {
+      Swal.fire({
+        title: "The reservation has been made successfully",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
+      }).then(() => {
+        navigate("/");
+      });
+      return;
+    } else {
+      console.log(response);
+      Swal.fire({
+        title: "An error ocurred while booking",
+        text: response.error_message,
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
   return (
@@ -74,7 +84,7 @@ const Reservation = () => {
           >
             <div className="left-side">
               <FormReservation />
-              <Calendar />
+              <Calendar bookings={accommodation.bookings} />
               <CheckInSection />
             </div>
             <ReservationDetail accommodation={accommodation} />

@@ -42,7 +42,7 @@ const AccommodationPage = () => {
           <ServicesSection accommodation={accommodation} />
           <Map />
           <Rules policies={accommodation.policies} />
-          <CalendarReservations />
+          <CalendarReservations bookings={accommodation.bookings} />
         </>
       )}
     </>
