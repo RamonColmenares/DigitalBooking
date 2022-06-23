@@ -17,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://44.203.147.135")
 @RequestMapping("/bookings")
 public class BookingController {
     @Autowired

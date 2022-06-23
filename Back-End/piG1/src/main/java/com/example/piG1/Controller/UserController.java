@@ -39,6 +39,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("http://44.203.147.135")
 @RequiredArgsConstructor
 @Slf4j
 @Log
