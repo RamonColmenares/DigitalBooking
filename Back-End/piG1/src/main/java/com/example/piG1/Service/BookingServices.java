@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.io.InvalidObjectException;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.*;
@@ -60,7 +61,11 @@ public class BookingServices implements IBookingServices {
     }
 
     @Override
-    public BookingDTO save(BookingSaveDTO bookingSaveDTO) throws MessagingException, UnsupportedEncodingException {
+    public BookingDTO save(BookingSaveDTO bookingSaveDTO) throws MessagingException, UnsupportedEncodingException, InvalidObjectException {
+        if(bookingRepository.findByDatesBetween(bookingSaveDTO.getStartDate(), bookingSaveDTO.getEndDate()).size() > 0)
+        {
+            throw new InvalidObjectException("Esta fecha ya fue tomada");
+        }
         Booking booking = mapper.convertValue(bookingSaveDTO, Booking.class);
         booking.setProduct(productRepository.findById(bookingSaveDTO.getProductId()).get());
         booking.setUser(userRepository.findById(bookingSaveDTO.getUserId()).get());
