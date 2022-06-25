@@ -55,6 +55,14 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/administration"
+            element={
+              <PrivateRoute user={user}>
+                <h1>admin</h1>
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>
