@@ -3,7 +3,7 @@ import { create } from "../utils/createStore";
 const INITIAL_STATE = {
   name: "",
   category: "",
-  city: {},
+  city: "",
   address: "",
   description: "",
   latitude: "",
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 };
 
 const createAdminStore = () =>
-  create("accommodation")((set, get) => ({
+  create("admin")((set, get) => ({
     ...INITIAL_STATE,
     loading: false,
     loaded: false,
@@ -25,10 +25,12 @@ const createAdminStore = () =>
     setLongitude: (longitude) => set({ longitude }),
     setCity: (city) => {
       set({
-        city: {
-          name: "Buenos Aires",
-          name_country: "Argentina",
-        },
+        city,
+        //This format when do the post
+        // city: {
+        //   name: "Buenos Aires",
+        //   name_country: "Argentina",
+        // },
       });
     },
   }));
