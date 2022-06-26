@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core";
 import Reservation from "./pages/reservation/Reservation";
 import { PrivateRoute } from "./components/routes/PrivateRoute";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 const App = () => {
   const user = useAuthStore((s) => s.name);
@@ -59,7 +60,7 @@ const App = () => {
             path="/administration"
             element={
               <PrivateRoute user={user}>
-                <h1>admin</h1>
+                <AdminPage />
               </PrivateRoute>
             }
           />
