@@ -8,6 +8,8 @@ const INITIAL_STATE = {
   description: "",
   latitude: "",
   longitude: "",
+  services: [],
+  service: "",
 };
 
 const createAdminStore = () =>
@@ -26,13 +28,30 @@ const createAdminStore = () =>
     setCity: (city) => {
       set({
         city,
-        //This format when do the post
-        // city: {
-        //   name: "Buenos Aires",
-        //   name_country: "Argentina",
-        // },
       });
     },
+    setService: (service) => set({ service }),
+    setServices: () => {
+      const serviceSelected = get().service;
+      const servicesSelected = get().services;
+      if (serviceSelected && !servicesSelected.includes(serviceSelected)) {
+        set((state) => {
+          return {
+            ...state,
+            services: [...state.services, serviceSelected],
+            service: "",
+          };
+        });
+      }
+      return;
+    },
+    deleteService: (serviceToRemove) =>
+      set((state) => ({
+        ...state,
+        services: state.services.filter(
+          (service) => service !== serviceToRemove
+        ),
+      })),
   }));
 
 export const useAdminStore = createAdminStore();

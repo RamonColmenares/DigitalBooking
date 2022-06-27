@@ -46,3 +46,15 @@ export const SERVICES = {
     text: "No smoking",
   },
 };
+
+export const SERVICES_OPTIONS = {
+  "A/C": "ac",
+  Kitchen: "kitchen",
+  WIFI: "wifi",
+  "Pet friendly": "petFriendly",
+  Pool: "pool",
+  TV: "tv",
+  "Free parking": "parking",
+  "Smoking allowed": "smoking",
+  "No smoking": "noSmoking",
+};

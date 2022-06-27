@@ -60,8 +60,6 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.cardShadow,
     flexDirection: "column",
     "& > div": {
-      // width: "100%",
-      //   border: "2px solid black",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
