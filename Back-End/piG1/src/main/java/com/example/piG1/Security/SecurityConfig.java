@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -77,8 +78,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/categories").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/categories","categories/{id}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/bookings","/bookings/{id}", "/bookings/findByProductId/{id}", "/bookings/findAllByProductId/{productId}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/bookings","/bookings/{id}", "/bookings/findByProductId/{id}","/bookings/findByUserId/{userId}").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "bookings/findBetweenDates").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/bookings", "bookings/add").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/bookings").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/rol/**").hasAnyAuthority("ADMIN");

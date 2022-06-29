@@ -9,6 +9,7 @@ import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Model.Entity.Booking;
+import com.example.piG1.Model.Entity.Image;
 import com.example.piG1.Model.Entity.Product;
 import com.example.piG1.Model.Entity.User;
 import com.example.piG1.Repository.IBookingRepository;
@@ -114,30 +115,30 @@ public class BookingServices implements IBookingServices {
         bookingRepository.saveAll(bookingsList);
     }
 
-    @Override
-    public BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException {
-        //obtengo el producto
-        Optional <Product> product = productRepository.findById(productAddBookingDTO.getProductId());
-        Product product1 = product.get();
-        Booking  booking = mapper.convertValue(productAddBookingDTO.getBooking(), Booking.class);
-        booking.setProduct(productRepository.findById(productAddBookingDTO.getBooking().getProductId()).get());
-        booking.setUser(userRepository.findById(productAddBookingDTO.getBooking().getUserId()).get());
-
-        booking = bookingRepository.save(booking);
-        booking.setProduct(product1);
-        BookingCompliteDTO bookingCompliteDTO = mapper.convertValue(booking, BookingCompliteDTO.class);
-
-        List<ImageDTO> imagesList = imageServices.findByProductId(product1.getId());
-        bookingCompliteDTO.getProduct().setImages(imagesList);
-
-        List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product1.getId());
-        bookingCompliteDTO.getProduct().setPolicies(policyAndTypeOfPolicyDTO);
-
-        List<FeatureDTO> featureDTOS = featureServices.findByProductId(product1.getId());
-        bookingCompliteDTO.getProduct().setFeatures(featureDTOS);
-
-        return  bookingCompliteDTO;
-    }
+//    @Override
+//    public BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException {
+//        //obtengo el producto
+//        Optional <Product> product = productRepository.findById(productAddBookingDTO.getProductId());
+//        Product product1 = product.get();
+//        Booking  booking = mapper.convertValue(productAddBookingDTO.getBooking(), Booking.class);
+//        booking.setProduct(productRepository.findById(productAddBookingDTO.getBooking().getProductId()).get());
+//        booking.setUser(userRepository.findById(productAddBookingDTO.getBooking().getUserId()).get());
+//
+//        booking = bookingRepository.save(booking);
+//        booking.setProduct(product1);
+//        BookingCompliteDTO bookingCompliteDTO = mapper.convertValue(booking, BookingCompliteDTO.class);
+//
+//        List<ImageDTO> imagesList = imageServices.findByProductId(product1.getId());
+//        bookingCompliteDTO.getProduct().setImages(imagesList);
+//
+//        List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product1.getId());
+//        bookingCompliteDTO.getProduct().setPolicies(policyAndTypeOfPolicyDTO);
+//
+//        List<FeatureDTO> featureDTOS = featureServices.findByProductId(product1.getId());
+//        bookingCompliteDTO.getProduct().setFeatures(featureDTOS);
+//
+//        return  bookingCompliteDTO;
+//    }
 
     @Override
     public List <BookingDTO> findBetweenTwoDates(LocalDate startDate, LocalDate endDate) throws ResourceNotFoundException {
@@ -186,4 +187,18 @@ public class BookingServices implements IBookingServices {
 
         return bookingDTOList;
     }
+
+    @Override
+    public List<BookingCompliteDTO> findByUserId(Integer id) throws ResourceNotFoundException {
+        List<BookingCompliteDTO> bookingCompliteDTO = new ArrayList<>();
+        //deberia ser Booking solo
+        List<Booking> bookings = bookingRepository.findByUserId(id);
+        for(Booking booking: bookings){
+            bookingCompliteDTO.add(mapper.convertValue(booking, BookingCompliteDTO.class));
+        }
+        bookingCompliteDTO .sort(Comparator.comparing(BookingCompliteDTO::getId)); //
+        logger.info("La busqueda fue exitosa: "+ bookingCompliteDTO);
+        return bookingCompliteDTO;
+    }
+
 }

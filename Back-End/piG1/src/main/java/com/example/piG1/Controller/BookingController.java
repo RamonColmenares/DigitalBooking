@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bookings")
+@CrossOrigin(origins = "*")
 public class BookingController {
     @Autowired
     IBookingServices iBookingServices;
@@ -36,10 +37,10 @@ public class BookingController {
             return ResponseEntity.ok(iBookingServices.save(bookingSaveDTO));
     }
 
-    @PostMapping ("/add")
-    public ResponseEntity<BookingCompliteDTO> addBookings (@RequestBody ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.addBooking(productAddBookingDTO));
-    }
+//    @PostMapping ("/add")
+//    public ResponseEntity<BookingCompliteDTO> addBookings (@RequestBody ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException {
+//        return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.addBooking(productAddBookingDTO));
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
@@ -66,4 +67,10 @@ public class BookingController {
     public ResponseEntity<List<BookingDTO>> findAllByProductId(@PathVariable Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(iBookingServices.findAllByProductId(productId));
     }
+
+    @GetMapping("/findByUserId/{userId}")
+    public ResponseEntity<List<BookingCompliteDTO>>findByUserId(@PathVariable Integer userId) throws ResourceNotFoundException {
+        return ResponseEntity.ok(iBookingServices.findByUserId(userId));
+    }
+
 }
