@@ -65,7 +65,7 @@ const Reservation = () => {
         title: "An error ocurred while booking",
         text: response.error_message,
         icon: "error",
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#3085d5",
         confirmButtonText: "OK",
       });
     }
