@@ -2,6 +2,7 @@ import { makeStyles, MenuItem, TextField } from "@material-ui/core";
 import React from "react";
 import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
 import BasicData from "../../components/admin/BasicData";
+import PoliciesForm from "../../components/admin/PoliciesForm";
 import ServiceForm from "../../components/admin/ServiceForm";
 import SectionWrapper from "../../components/reservation/SectionWrapper";
 import { CATEGORIES } from "../../models/business/categories";
@@ -19,6 +20,7 @@ const AdminPage = () => {
         <form className={classes.form}>
           <BasicData />
           <ServiceForm />
+          <PoliciesForm />
         </form>
       </section>
     </>
@@ -33,6 +35,5 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     padding: "30px 25px",
-    border: "2px solid red",
   },
 }));
