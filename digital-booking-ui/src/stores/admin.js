@@ -9,7 +9,9 @@ const INITIAL_STATE = {
   latitude: "",
   longitude: "",
   services: [],
-  service: "",
+  currentService: "",
+  currentImage: "",
+  images: [],
 };
 
 const createAdminStore = () =>
@@ -30,21 +32,36 @@ const createAdminStore = () =>
         city,
       });
     },
-    setService: (service) => set({ service }),
+    setCurrentService: (currentService) => set({ currentService }),
     setServices: () => {
-      const serviceSelected = get().service;
+      const serviceSelected = get().currentService;
       const servicesSelected = get().services;
       if (serviceSelected && !servicesSelected.includes(serviceSelected)) {
         set((state) => {
           return {
             ...state,
             services: [...state.services, serviceSelected],
-            service: "",
+            currentService: "",
           };
         });
       }
       return;
     },
+    setCurrentImage: (img) => set({ currentImage: img }),
+    addImages: () => {
+      const currentImage = get().currentImage;
+      const images = get().images;
+      if (currentImage && !images.includes(currentImage)) {
+        set((state) => {
+          return {
+            ...state,
+            images: [...state.images, currentImage],
+            currentImage: "",
+          };
+        });
+      }
+    },
+
     deleteService: (serviceToRemove) =>
       set((state) => ({
         ...state,

@@ -1,7 +1,8 @@
-import { makeStyles, MenuItem, TextField } from "@material-ui/core";
+import { Button, makeStyles, MenuItem, TextField } from "@material-ui/core";
 import React from "react";
 import HeaderAccommodation from "../../components/accomodation/HeaderAccommodation";
 import BasicData from "../../components/admin/BasicData";
+import ImagesForm from "../../components/admin/ImagesForm";
 import PoliciesForm from "../../components/admin/PoliciesForm";
 import ServiceForm from "../../components/admin/ServiceForm";
 import SectionWrapper from "../../components/reservation/SectionWrapper";
@@ -21,6 +22,17 @@ const AdminPage = () => {
           <BasicData />
           <ServiceForm />
           <PoliciesForm />
+          <ImagesForm />
+          <div className={classes.wrapperButton}>
+            <Button
+              className={classes.button}
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Create product
+            </Button>
+          </div>
         </form>
       </section>
     </>
@@ -35,5 +47,14 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     padding: "30px 25px",
+  },
+  wrapperButton: {
+    textAlign: "center",
+    marginTop: "50px",
+  },
+  button: {
+    color: theme.palette.white,
+    fontWeight: "bold",
+    fontSize: "20px",
   },
 }));

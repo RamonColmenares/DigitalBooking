@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Chip,
   IconButton,
@@ -6,7 +7,6 @@ import {
   TextField,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import React from "react";
 import {
   SERVICES,
   SERVICES_OPTIONS,
@@ -16,8 +16,8 @@ import SectionWrapper from "../reservation/SectionWrapper";
 
 const ServiceForm = () => {
   const classes = useStyles();
-  const service = useAdminStore((s) => s.service);
-  const setService = useAdminStore((s) => s.setService);
+  const service = useAdminStore((s) => s.currentService);
+  const setService = useAdminStore((s) => s.setCurrentService);
   const services = useAdminStore((s) => s.services);
   const setServices = useAdminStore((s) => s.setServices);
   const deleteService = useAdminStore((s) => s.deleteService);
@@ -29,7 +29,6 @@ const ServiceForm = () => {
         <TextField
           label="Service"
           id="service"
-          required
           select
           fullWidth
           value={service}
@@ -43,7 +42,6 @@ const ServiceForm = () => {
         </TextField>
         <IconButton
           className={classes.button}
-          //   color="primary"
           aria-label="add service"
           onClick={setServices}
         >
