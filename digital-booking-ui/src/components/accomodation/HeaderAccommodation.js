@@ -4,7 +4,7 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { useNavigate } from "react-router-dom";
 import { CATEGORIES } from "../../models/business/categories";
 
-const HeaderAccommodation = ({ accommodation }) => {
+const HeaderAccommodation = ({ accommodation, isAdmin = false }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -18,8 +18,14 @@ const HeaderAccommodation = ({ accommodation }) => {
         <NavigateBeforeIcon fontSize="large" className="back-arrow" />
       </IconButton>
       <div className={classes.title}>
-        <p>{CATEGORIES[accommodation.category.title]}</p>
-        <h3>{accommodation.name}</h3>
+        {!isAdmin ? (
+          <>
+            <p>{CATEGORIES[accommodation.category.title]}</p>
+            <h3>{accommodation.name}</h3>
+          </>
+        ) : (
+          <h3>Administration</h3>
+        )}
       </div>
     </section>
   );
