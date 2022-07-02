@@ -18,12 +18,3 @@ export const fetchReservation = async (booking) => {
     return [];
   }
 };
-
-// booking: {
-//     "startDate":"2022-06-10",
-//     "endDate":"2022-06-14",
-//     "hour":"00:00:00",
-//     "vaccinated":true,
-//     "productId":1,
-//     "userId":1
-// }

@@ -1,8 +1,8 @@
+import { url_base } from "./fetchLink";
+
 export const fetchProductsByCategory = async (id) => {
   try {
-    const response = await fetch(
-      `http://my-alb-1936629616.us-east-1.elb.amazonaws.com/products/allCategory/${id}`
-    );
+    const response = await fetch(`${url_base}/products/allCategory/${id}`);
     const data = await response.json();
     return data;
   } catch (e) {

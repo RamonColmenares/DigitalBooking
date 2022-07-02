@@ -1,1 +1,2 @@
-export const url_base = "http://my-alb-1936629616.us-east-1.elb.amazonaws.com";
+export const url_base =
+  "http://0621-c5-g1-alb-614361232.us-east-1.elb.amazonaws.com";
