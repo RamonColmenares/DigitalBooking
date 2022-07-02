@@ -19,17 +19,17 @@ Deploy:
     - mv .public public
     - zip -r public.zip public
 
-    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/; sudo rm -rf public.zip;"
-    - scp -o StrictHostKeyChecking=no public.zip ubuntu@10.0.3.69:~/
-    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/public/Back-End/piG1;ps aux; pkill -9 java || true"
-    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/; sudo rm -rf ~/public; unzip public.zip"
-    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/public/Back-End/piG1;  chmod +x mvnw; ./mvnw install; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &"
-#    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.69 "cd ~/; mysql -h g1database-master.ckiqtgesdyez.us-east-1.rds.amazonaws.com -P 3306 -u admin -ppassword piG1 < ~/public/Back-End/cargainicial.sql"
+    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.114 "cd ~/; sudo rm -rf public.zip;"
+    - scp -o StrictHostKeyChecking=no public.zip ubuntu@10.0.3.114:~/
+    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.114 "cd ~/public/Back-End/piG1;ps aux; pkill -9 java || true"
+    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.114 "cd ~/; sudo rm -rf ~/public; unzip public.zip"
+    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.114 "cd ~/public/Back-End/piG1;  chmod +x mvnw; ./mvnw install; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &"
+#    - ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.114 "cd ~/; mysql -h g1database-master.ckiqtgesdyez.us-east-1.rds.amazonaws.com -P 3306 -u admin -ppassword piG1 < ~/public/Back-End/cargainicial.sql"
 
 
-    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "cd ~/; sudo rm -rf public.zip"
-    - scp -o StrictHostKeyChecking=no public.zip ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com:~/
-    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "cd ~/; sudo rm -rf ~/public; unzip public.zip"
-    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "cd ~/public/digital-booking-ui/; npm install --legacy-peer-deps; npm install react-leaflet --save --legacy-peer-deps; npm i leaflet --legacy-peer-deps; npm install react-sweetalert2 --save --legacy-peer-deps; npm i sweetalert2 --legacy-peer-deps; npm run build"
-    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "cd ~/public/digital-booking-ui/; sudo rm -rf /var/www/front; sudo mkdir /var/www/front; sudo chown -R $USER:$USER /var/www/front; sudo cp -r build/* /var/www/front/;"
-    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-203-147-135.compute-1.amazonaws.com "sudo chown -R $USER:$USER /etc/nginx/sites-available/; sudo cp ~/public/digital-booking-ui/default /etc/nginx/sites-available/default; sudo systemctl restart nginx"
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-45-174-37.compute-1.amazonaws.com "cd ~/; sudo rm -rf public.zip"
+    - scp -o StrictHostKeyChecking=no public.zip ubuntu@ec2-52-45-174-37.compute-1.amazonaws.com:~/
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-45-174-37.compute-1.amazonaws.com "cd ~/; sudo rm -rf ~/public; unzip public.zip"
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-45-174-37.compute-1.amazonaws.com "cd ~/public/digital-booking-ui/; npm install --legacy-peer-deps; npm install react-leaflet --save --legacy-peer-deps; npm i leaflet --legacy-peer-deps; npm install react-sweetalert2 --save --legacy-peer-deps; npm i sweetalert2 --legacy-peer-deps; npm run build"
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-45-174-37.compute-1.amazonaws.com "cd ~/public/digital-booking-ui/; sudo rm -rf /var/www/front; sudo mkdir /var/www/front; sudo chown -R $USER:$USER /var/www/front; sudo cp -r build/* /var/www/front/;"
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-45-174-37.compute-1.amazonaws.com "sudo chown -R $USER:$USER /etc/nginx/sites-available/; sudo cp ~/public/digital-booking-ui/default /etc/nginx/sites-available/default; sudo systemctl restart nginx"
