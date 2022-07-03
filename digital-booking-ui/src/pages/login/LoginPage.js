@@ -1,12 +1,11 @@
+import React, { useEffect } from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Email, Password } from "../../common/inputs/formInputs";
 import FormWrapper from "../../components/auth/FormWrapper";
 import { useAuthStore } from "../../stores/auth";
 import { useLoginStore } from "../../stores/login";
-import { useSignUpStore } from "../../stores/signUp";
 
 const LoginPage = () => {
   const classes = useStyles();
