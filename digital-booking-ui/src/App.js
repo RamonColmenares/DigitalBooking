@@ -17,7 +17,7 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 
 const App = () => {
   const user = useAuthStore((s) => s.name);
-  // const user = true;
+  const isAdmin = useAuthStore((s) => s.isAdmin());
   const classes = useStyles();
 
   const fetchCities = useCitiesStore((s) => s.fetchData);
@@ -59,7 +59,7 @@ const App = () => {
           <Route
             path="/administration"
             element={
-              <PrivateRoute user={user}>
+              <PrivateRoute user={isAdmin}>
                 <AdminPage />
               </PrivateRoute>
             }
