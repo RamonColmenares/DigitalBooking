@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@CrossOrigin("http://44.203.147.135")
 @RequestMapping("/policies")
 public class PolicyController {
     @Autowired
