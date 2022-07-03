@@ -10,8 +10,12 @@ const PoliciesForm = () => {
     <SectionWrapper>
       <h3>Policies</h3>
       <div className={classes.container}>
-        {POLICIES.map((policy) => (
-          <PolicyDescription title={policy} className={classes.section} />
+        {POLICIES.map((policy, i) => (
+          <PolicyDescription
+            key={i}
+            title={policy}
+            className={classes.section}
+          />
         ))}
       </div>
     </SectionWrapper>
