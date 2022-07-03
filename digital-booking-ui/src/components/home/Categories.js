@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import { useCategoriesStore } from "../../stores/categories";
@@ -31,8 +31,10 @@ const Categories = () => {
   };
 
   const handleFilterByCategory = (category) => {
-    fetchByCategory(category.id);
-    setFilteredCategories(category);
+    if (category != filteredCategories) {
+      fetchByCategory(category.id);
+      setFilteredCategories(category);
+    }
   };
 
   return (
@@ -46,7 +48,7 @@ const Categories = () => {
             endIcon={<BackspaceIcon fontSize="small" />}
             onClick={handleClearFilter}
           >
-            Clear Filters
+            Clear Filter
           </Button>
         )}
       </div>
@@ -58,6 +60,7 @@ const Categories = () => {
             <CategoryCard
               key={category.id}
               className={classes.card}
+              categorySelected={filteredCategories}
               onClick={() => handleFilterByCategory(category)}
               {...category}
             />
@@ -74,16 +77,25 @@ const CategoryCard = ({
   description,
   urlImage,
   onClick,
+  categorySelected,
   className,
-}) => (
-  <div className={className} onClick={() => onClick(title)}>
-    <img src={urlImage} alt={title} className="card-img" />
-    <div className="card-text">
-      <h3>{title}</h3>
-      <p>{description}</p>
+}) => {
+  const classes = useStyles();
+  const isSelected = categorySelected?.title === title;
+
+  return (
+    <div
+      className={`${className} ${isSelected && classes.selected}`}
+      onClick={() => onClick(title)}
+    >
+      <img src={urlImage} alt={title} className="card-img" />
+      <div className="card-text">
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const SkeletonCategoryCards = () => {
   const classes = useStyles();
@@ -105,6 +117,10 @@ const useStyles = makeStyles((theme) => ({
     "@media (max-width:480px)": {
       padding: "30px 15px",
     },
+  },
+  selected: {
+    borderBottom: `5px solid ${theme.palette.primary.main}`,
+    transform: "scale(1.02)",
   },
   titleWrapper: {
     height: "35px",
