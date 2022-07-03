@@ -6,7 +6,7 @@ const INITIAL_FROM_STATE = {
   surname: "Gomez",
   email: "pepe@gmail.com",
   id: 1,
-  role: "CLIENT",
+  role: "ADMIN",
 };
 
 // const INITIAL_FROM_STATE = {
