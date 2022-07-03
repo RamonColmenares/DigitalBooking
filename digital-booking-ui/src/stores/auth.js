@@ -6,6 +6,7 @@ const INITIAL_FROM_STATE = {
   surname: "Gomez",
   email: "pepe@gmail.com",
   id: 1,
+  role: "CLIENT",
 };
 
 // const INITIAL_FROM_STATE = {
@@ -13,6 +14,7 @@ const INITIAL_FROM_STATE = {
 //   surname: "",
 //   email: "",
 //   id: null,
+//   role: ""
 // };
 
 const createAuthStore = () =>
@@ -25,12 +27,17 @@ const createAuthStore = () =>
     setSurname: (surname) => set({ surname }),
     setEmail: (email) => set({ email }),
     setId: (id) => set({ id }),
+    setRole: (role) => set({ role }),
 
     getValues: () => ({
       name: get().name,
       surname: get().surname,
       email: get().email,
     }),
+
+    isAdmin: () => {
+      return get().role === "ADMIN";
+    },
 
     saveToken: (token) => saveAuthToken(token),
 

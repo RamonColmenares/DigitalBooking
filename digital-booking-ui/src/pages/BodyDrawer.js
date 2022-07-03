@@ -8,12 +8,14 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores/auth";
 
 const LINKS = [
   { text: "Log In", link: "/login" },
   { text: "Sign Up", link: "/signup" },
+  { text: "Administration", link: "/administration" },
 ];
 
 const BodyDrawer = ({ setOpen }) => {
@@ -25,6 +27,7 @@ const BodyDrawer = ({ setOpen }) => {
 
   const userName = useAuthStore((s) => s.name);
   const resetState = useAuthStore((s) => s.resetState);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   const handleLogout = () => {
     resetState();
@@ -55,6 +58,17 @@ const BodyDrawer = ({ setOpen }) => {
                 </div>
               );
             })}
+          {isAdmin() && (
+            <div onClick={() => handleLink("/administration")}>
+              <ListItem button>
+                <ListItemIcon>
+                  <LibraryBooksIcon />
+                </ListItemIcon>
+                <ListItemText>Administration</ListItemText>
+              </ListItem>
+              <Divider />
+            </div>
+          )}
         </List>
       </div>
       <Logout

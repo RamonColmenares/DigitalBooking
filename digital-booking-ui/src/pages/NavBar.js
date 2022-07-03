@@ -19,6 +19,7 @@ const NavBar = () => {
 
   const userName = useAuthStore((s) => s.name);
   const userSurname = useAuthStore((s) => s.surname);
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
     <>
@@ -27,11 +28,20 @@ const NavBar = () => {
           <Link to="/">
             <Logo />
           </Link>
-          {userName ? (
-            <User name={userName} surname={userSurname} navbar />
-          ) : (
-            <AuthActions />
-          )}
+          <div className={classes.containerNav}>
+            {isAdmin() && (
+              <Link to="/administration">
+                <Button variant="outlined" color="primary">
+                  Administration
+                </Button>
+              </Link>
+            )}
+            {userName ? (
+              <User name={userName} surname={userSurname} navbar />
+            ) : (
+              <AuthActions />
+            )}
+          </div>
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -97,6 +107,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
+  },
+  containerNav: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "30px",
+    "@media (max-width:800px)": {
+      display: "none",
+    },
   },
   wrapperButtons: {
     "& > :nth-child(1)": {
