@@ -1,6 +1,6 @@
+import React, { useEffect } from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ConfirmPassword,
@@ -13,6 +13,8 @@ import { useSignUpStore } from "../../stores/signUp";
 import FormWrapper from "../../components/auth/FormWrapper";
 import { isValidEmail } from "../../utils/validations";
 import Swal from "sweetalert2";
+import { useLoginStore } from "../../stores/login";
+import { useAuthStore } from "../../stores/auth";
 
 const SignUpPage = () => {
   const classes = useStyles();
@@ -32,8 +34,17 @@ const SignUpPage = () => {
   const error = useSignUpStore((s) => s.error);
   const setError = useSignUpStore((s) => s.setError);
   const resetState = useSignUpStore((s) => s.resetState);
-
   const signUp = useSignUpStore((s) => s.fetchSignUp);
+
+  const setEmailLogin = useLoginStore((state) => state.setEmail);
+  const setPasswordLogin = useLoginStore((state) => state.setPassword);
+  const login = useLoginStore((s) => s.fetchLogin);
+  const resetStateLogin = useLoginStore((state) => state.resetState);
+
+  const setAuthName = useAuthStore((s) => s.setName);
+  const setAuthSurname = useAuthStore((s) => s.setSurname);
+  const setAuthEmail = useAuthStore((s) => s.setEmail);
+  const setAuthId = useAuthStore((s) => s.setId);
 
   useEffect(() => {
     return () => setError("");
@@ -41,6 +52,7 @@ const SignUpPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     if (password.trim().length < 6 || password2.trim().length < 6) {
       setError("The password should be longer than 6");
       return;
@@ -60,10 +72,20 @@ const SignUpPage = () => {
         title: "The account has been created successfully",
         icon: "success",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Go to Login",
-      }).then(() => {
-        resetState();
-        navigate("/login");
+        confirmButtonText: "Sign in automatically",
+      }).then(async () => {
+        setEmailLogin(email);
+        setPasswordLogin(password);
+        const response = await login();
+        if (response) {
+          setAuthId(response.user_id);
+          setAuthEmail(response.email);
+          setAuthName(response.name);
+          setAuthSurname(response.lastName);
+          resetState();
+          resetStateLogin();
+          navigate("/");
+        }
       });
     }
     return;
