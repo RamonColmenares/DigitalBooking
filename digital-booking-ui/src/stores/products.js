@@ -37,7 +37,6 @@ const createProductsStore = () =>
     fetchDataByLocation: async (location) => {
       set((state) => ({ ...state, loading: true, loaded: false }));
       const response = await fetchProductsByCity(location.id);
-      console.log({ response });
       set({ data: response, loading: false, loaded: true });
     },
     fetchDataByDates: async (dates) => {
