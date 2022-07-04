@@ -60,7 +60,6 @@ const Reservation = () => {
       });
       return;
     } else {
-      console.log(response);
       Swal.fire({
         title: "An error ocurred while booking",
         text: response.error_message,

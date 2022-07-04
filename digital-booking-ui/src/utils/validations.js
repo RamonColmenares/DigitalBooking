@@ -6,3 +6,5 @@ export const isValidEmail = (email) => regexEmail.test(email);
 export const isEmptyObject = (obj) => !Object.values(obj).length > 0;
 
 export const isEmptyArray = (arr) => !arr.length > 0;
+
+export const isNullishArray = (arr) => arr.every((value) => value === null);

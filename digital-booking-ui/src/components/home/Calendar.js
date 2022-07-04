@@ -6,22 +6,20 @@ import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../index.css";
+import { useSearchStore } from "../../stores/search";
 //DatePicker Configuration in Spanish
 registerLocale("es", es);
 
 const Calendar = ({ inline }) => {
   const classes = useStyles();
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
+  const dates = useSearchStore((s) => s.dates);
+  const setDates = useSearchStore((s) => s.setDates);
+  const [startDate, endDate] = dates;
   const today = new Date();
 
   useEffect(() => {
-    setDateRange([null, null]);
+    setDates([null, null]);
   }, []);
-
-  const handleSelection = (dates) => {
-    setDateRange(dates);
-  };
 
   return (
     <div className={classes.wrapper}>
@@ -32,10 +30,10 @@ const Calendar = ({ inline }) => {
         selected={startDate}
         selectsRange={true}
         monthsShown={2}
-        dateFormat="dd 'de' MMM. 'de' yyyy"
-        closeOnScroll={true}
+        dateFormat="MMM. dd 'of' yyyy"
+        closeOnScroll={false}
         minDate={today}
-        onChange={(dates) => handleSelection(dates)}
+        onChange={(dates) => setDates(dates)}
         startDate={startDate}
         endDate={endDate}
         inline={inline}

@@ -29,6 +29,7 @@ const Products = () => {
     <section className={classes.section}>
       <h2>Recommendations</h2>
       <div className={classes.cardWrapper}>
+        {loaded && products.length === 0 && <h3>No data found</h3>}
         {products && loaded ? (
           products.map((product) => (
             <ProductCard

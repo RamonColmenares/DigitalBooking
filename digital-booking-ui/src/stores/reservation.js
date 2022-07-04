@@ -42,12 +42,6 @@ const createReservationSotre = () =>
 
     doReservation: async (userId) => {
       const { dateRange, arrivalTime, productId } = get();
-      //       var dateObj = new Date();
-      // var month = dateObj.getUTCMonth() + 1; //months from 1-12
-      // var day = dateObj.getUTCDate();
-      // var year = dateObj.getUTCFullYear();
-
-      // newdate = year + "/" + month + "/" + day;
       let startDay = dateRange[0].getUTCDate();
       let startMonth = dateRange[0].getUTCMonth() + 1;
       const startYear = dateRange[0].getUTCFullYear();
@@ -86,14 +80,7 @@ const createReservationSotre = () =>
       };
 
       const response = await fetchReservation(data);
-      //   {
-      //     "startDate":"2022-06-10",
-      //     "endDate":"2022-06-14",
-      //     "hour":"00:00:00",
-      //     "vaccinated":true,
-      //     "productId":1,
-      //     "userId":1
-      // }
+
       return response;
     },
 

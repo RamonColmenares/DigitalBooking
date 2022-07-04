@@ -11,6 +11,7 @@ import { useCitiesStore } from "../../stores/cities";
 import { useProductsStore } from "../../stores/products";
 import { useSearchStore } from "../../stores/search";
 import { useCategoriesStore } from "../../stores/categories";
+import { isNullishArray } from "../../utils/validations";
 
 //DatePicker Configuration in Spanish
 registerLocale("es", es);
@@ -20,11 +21,17 @@ const SearchSection = () => {
 
   const setLocation = useSearchStore((s) => s.setLocation);
   const location = useSearchStore((s) => s.location);
+  const dates = useSearchStore((s) => s.dates);
   const clearSearch = useSearchStore((s) => s.resetState);
   const cities = useCitiesStore((s) => s.data);
   const filterByLocation = useProductsStore((s) => s.filterByLocation);
   const clearFilter = useProductsStore((s) => s.clearFilter);
   const cleanFiltered = useCategoriesStore((s) => s.clearFilter);
+  const fetchByCity = useProductsStore((s) => s.fetchDataByLocation);
+  const fetchByDates = useProductsStore((s) => s.fetchDataByDates);
+  const fetchByDatesAndCity = useProductsStore(
+    (s) => s.fetchDataByDatesAndCity
+  );
 
   const handleClearSearch = () => {
     clearFilter();
@@ -36,12 +43,25 @@ const SearchSection = () => {
   }, []);
 
   const handleSearch = (e) => {
+    console.log({ location, dates });
     e.preventDefault();
-    if (!location) {
-      console.log("Invalid search");
+    if (!location && isNullishArray(dates)) return;
+    if (!location && !isNullishArray(dates)) {
+      fetchByDates(dates);
+      console.log("2");
       return;
     }
-    filterByLocation(location);
+    if (location && isNullishArray(dates)) {
+      fetchByCity(location);
+      console.log("3");
+      return;
+    }
+    if (location && !isNullishArray(dates)) {
+      fetchByDatesAndCity(location, dates);
+      return;
+    }
+
+    // filterByLocation(location);
   };
 
   const optionComponent = useCallback((option) => {
@@ -94,7 +114,7 @@ const SearchSection = () => {
         </Button>
         <IconButton
           className={classes.clearSearch}
-          disabled={!location}
+          disabled={!location && isNullishArray(dates)}
           onClick={() => handleClearSearch()}
         >
           <ClearIcon />
