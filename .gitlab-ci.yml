@@ -1,6 +1,9 @@
 stages:
+  - validate
+  - test
   - build
   - deploy
+
 
 Deploy: 
   stage: deploy
