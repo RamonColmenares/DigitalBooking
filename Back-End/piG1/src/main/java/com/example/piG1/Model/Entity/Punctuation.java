@@ -13,21 +13,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "policies")
-public class Policy {
+@Table(name = "punctuactions")
+public class Punctuation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="description")
-    private String description;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "type_of_policy_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private TypeOfPolicy typeOfPolicy;
+    private Integer score;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
     private Product product;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
+    private User user;
+
 }

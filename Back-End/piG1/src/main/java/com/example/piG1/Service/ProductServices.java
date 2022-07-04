@@ -334,4 +334,11 @@ public class ProductServices implements IProductServices {
 
         return productsFiltered;
     }
+
+    @Override
+    public ProductCompliteDTO updateProduct(ProductDTO productDTO) throws ResourceNotFoundException {
+        if(findById(productDTO.getId()) == null)
+            throw  new ResourceNotFoundException("No se puede actualizar el producto con  ID: " + productDTO.getId());
+        return saveComplite(productDTO);
+    }
 }

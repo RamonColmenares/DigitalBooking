@@ -1,8 +1,6 @@
 package com.example.piG1.Model.DTO.BookingDTO;
 
-import com.example.piG1.Model.DTO.ProductDTO.ProductCompliteDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductFullDTO;
+import com.example.piG1.Model.DTO.ProductDTO.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,5 +20,5 @@ public class BookingCompliteDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private Time hour;
-    private ProductCompliteDTO product;
+    private GetAllProductsDTO product;
 }

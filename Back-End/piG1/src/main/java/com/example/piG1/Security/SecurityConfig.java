@@ -53,12 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/add/**",
                 "/products/saveProducts").hasAnyAuthority("ADMIN", "CLIENT");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/punctuation/saveScore").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/{id}",
                 "/products",
                 "/products/{id}",
                 "/products/allData",
                 "/products/allCity/{id}",
                 "/products/allCategory/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/products/update").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/products/deleteProduct/{id}").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/allCategoryAndCity",
                 "/products/allAvailableDates",
                 "/products/allAvailableDates/city",

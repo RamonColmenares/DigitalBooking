@@ -7,6 +7,7 @@ import com.example.piG1.Model.DTO.BookingDTO.BookingSaveDTO;
 import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
+import com.example.piG1.Model.DTO.ProductDTO.GetAllProductsDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Model.Entity.Image;
@@ -191,7 +192,6 @@ public class BookingServices implements IBookingServices {
     @Override
     public List<BookingCompliteDTO> findByUserId(Integer id) throws ResourceNotFoundException {
         List<BookingCompliteDTO> bookingCompliteDTO = new ArrayList<>();
-        //deberia ser Booking solo
         List<Booking> bookings = bookingRepository.findByUserId(id);
         for(Booking booking: bookings){
             bookingCompliteDTO.add(mapper.convertValue(booking, BookingCompliteDTO.class));
@@ -200,5 +200,4 @@ public class BookingServices implements IBookingServices {
         logger.info("La busqueda fue exitosa: "+ bookingCompliteDTO);
         return bookingCompliteDTO;
     }
-
 }
