@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/punctuation")
-@CrossOrigin(origins = "*")
 public class PunctuationController {
     @Autowired
     IPunctuationService iPunctuactionService;

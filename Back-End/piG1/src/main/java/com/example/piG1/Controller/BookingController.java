@@ -5,7 +5,6 @@ import com.example.piG1.Model.DTO.BookingDTO.BookingCompliteDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingFindBetweenDatesDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingSaveDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
 import com.example.piG1.Service.IService.IBookingServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bookings")
-@CrossOrigin(origins = "*")
 public class BookingController {
     @Autowired
     IBookingServices iBookingServices;
