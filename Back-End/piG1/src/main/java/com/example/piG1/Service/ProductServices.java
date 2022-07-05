@@ -55,8 +55,11 @@ public class ProductServices implements IProductServices {
         Optional <Category> category = categoryRepository.findById(productDTO.getCategory_id());
         product.setCategory(category.get());
         product.setCity(city.get());
-
         product = productRepository.save(product);
+        ProductAddImagesDTO productAddImagesDTO = new ProductAddImagesDTO(product.getId(), productDTO.getImages());
+        addImages(productAddImagesDTO);
+        ProductAddFeaturesDTO productAddFeaturesDTO = new ProductAddFeaturesDTO(product.getId(), productDTO.getFeatures());
+        addFeatures(productAddFeaturesDTO);
         System.out.println(product);
 //        log.info(product);
         return mapper.convertValue(product, ProductCompliteDTO.class);
@@ -333,5 +336,12 @@ public class ProductServices implements IProductServices {
         }
 
         return productsFiltered;
+    }
+
+    @Override
+    public ProductCompliteDTO updateProduct(ProductDTO productDTO) throws ResourceNotFoundException {
+        if(findById(productDTO.getId()) == null)
+            throw  new ResourceNotFoundException("No se puede actualizar el producto con  ID: " + productDTO.getId());
+        return saveComplite(productDTO);
     }
 }

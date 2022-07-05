@@ -69,8 +69,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
-//        response.setHeader("access_token", access_token);
-//        response.setHeader("refresh_token", refresh_token);
         com.example.piG1.Model.Entity.User user1 = userServices.getUser(user.getUsername());
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);
@@ -79,6 +77,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         tokens.put("lastName", user1.getLastName());
         tokens.put("user_id", user1.getId().toString());
         tokens.put("email", user.getUsername());
+        tokens.put("role_id", user1.getRoles().stream().findFirst().get().getId().toString());
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(),tokens);
     }

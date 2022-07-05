@@ -20,8 +20,9 @@ public interface IBookingServices extends  ICheckId<Booking> {
     BookingDTO findById(Integer id) throws ResourceNotFoundException;
     List<BookingDTO> findAll();
     void delete(Integer id) throws ResourceNotFoundException;
-    BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException;
+//    BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException;
     List <BookingDTO> findBetweenTwoDates(LocalDate startDate, LocalDate endDate) throws ResourceNotFoundException;
     List <BookingDTO> findByProductId(Integer productId) throws ResourceNotFoundException;
+    List<BookingCompliteDTO> findByUserId(Integer id) throws ResourceNotFoundException;
     List <BookingDTO> findAllByProductId(Integer productId) throws ResourceNotFoundException;
 }

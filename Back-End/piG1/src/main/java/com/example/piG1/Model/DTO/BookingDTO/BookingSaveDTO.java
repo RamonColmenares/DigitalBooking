@@ -18,7 +18,7 @@ public class BookingSaveDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private Time hour;
-    private Boolean vaccinated;
+//    private Boolean vaccinated;
     private Integer productId;
     private Integer userId;
 }

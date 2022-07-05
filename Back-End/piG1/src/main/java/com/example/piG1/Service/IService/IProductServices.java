@@ -23,4 +23,5 @@ public interface IProductServices extends ICheckId<Product> {
     List <ProductFindByFilterDTO> findBetweenTwoDates(ProductBetweenTwoDatesDTO productBetweenTwoDatesDTO) throws ResourceNotFoundException;
     List <ProductFindByFilterDTO> findBetweenTwoDatesAndCity(ProductBetweenDatesAndCityDTO productBetweenDatesAndCityDTO) throws ResourceNotFoundException;
     List <ProductFindByFilterDTO> findBetweenTwoDatesAndCityAndCategory(ProductByDatesCityCategoryDTO  productByDatesCityCategoryDTO) throws ResourceNotFoundException;
+   ProductCompliteDTO updateProduct(ProductDTO productDTO) throws ResourceNotFoundException;
 }

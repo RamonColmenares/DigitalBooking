@@ -92,4 +92,8 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.addFeatures(productAddFeaturesDTO));
     }
 
+    @PutMapping ("/update")
+    public ResponseEntity<ProductCompliteDTO> updateProduct(@RequestBody ProductDTO productDTO) throws ResourceNotFoundException{
+        return ResponseEntity.ok(iProductServices.updateProduct(productDTO));
+    }
 }
