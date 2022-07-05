@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/add/**",
                 "/products/saveProducts").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/punctuation/saveScore").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET,"/punctuation/findByProduct/{id}" ).permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/{id}",
                 "/products",
                 "/products/{id}",

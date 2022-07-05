@@ -2,6 +2,7 @@ package com.example.piG1.Service.IService;
 
 import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.PunctuationDTO.PunctuationDTO;
+import com.example.piG1.Model.DTO.PunctuationDTO.PunctuationGetFindByProduct;
 import com.example.piG1.Model.Entity.Punctuation;
 import com.example.piG1.Service.ICheckId;
 
@@ -12,5 +13,5 @@ public interface IPunctuationService extends ICheckId<Punctuation> {
     PunctuationDTO findById(Integer id) throws ResourceNotFoundException;
     List<PunctuationDTO> findAll();
     void delete(Integer id) throws ResourceNotFoundException;
-    List<PunctuationDTO> findPunctuationsByProductId(Integer id);
+    List<PunctuationGetFindByProduct> findPunctuationsByProductId(Integer id);
 }

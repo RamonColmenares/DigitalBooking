@@ -1,6 +1,8 @@
 package com.example.piG1.Service;
 import com.example.piG1.Exceptions.ResourceNotFoundException;
+import com.example.piG1.Model.DTO.ProductDTO.GetAllProductsDTO;
 import com.example.piG1.Model.DTO.PunctuationDTO.PunctuationDTO;
+import com.example.piG1.Model.DTO.PunctuationDTO.PunctuationGetFindByProduct;
 import com.example.piG1.Model.Entity.Punctuation;
 import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Repository.IPunctuationRepository;
@@ -70,13 +72,15 @@ public class PunctuationServices implements IPunctuationService {
     }
 
     @Override
-    public List<PunctuationDTO> findPunctuationsByProductId(Integer id) {
+    public List<PunctuationGetFindByProduct> findPunctuationsByProductId(Integer id) {
         List<Punctuation> punctuations = punctuactionRepository.findPunctuationsByProductId(id);
-        List<PunctuationDTO> punctuationDTOS =new ArrayList<>();
+        List<PunctuationGetFindByProduct> punctuationDTOList =new ArrayList<>();
         for (Punctuation punctuation: punctuations) {
-            punctuationDTOS.add(mapper.convertValue(punctuation,PunctuationDTO.class));
+            punctuationDTOList.add(mapper.convertValue(punctuation,PunctuationGetFindByProduct.class));
         }
-        return punctuationDTOS;
+        punctuationDTOList.sort(Comparator.comparing(PunctuationGetFindByProduct::getId)); //
+        logger.info("La busqueda fue exitosa: "+ punctuationDTOList);
+        return punctuationDTOList;
     }
 
 

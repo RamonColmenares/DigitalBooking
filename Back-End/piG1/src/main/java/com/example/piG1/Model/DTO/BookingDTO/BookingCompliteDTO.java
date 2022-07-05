@@ -20,5 +20,5 @@ public class BookingCompliteDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private Time hour;
-    private GetAllProductsDTO product;
+    private ProductDTO product;
 }
