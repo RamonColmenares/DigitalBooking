@@ -9,6 +9,7 @@ export const fetchProductsByDates = async (dates) => {
       body: JSON.stringify(dates),
     });
     const data = await response.json();
+    if (data.error) return [];
     return data;
   } catch (e) {
     console.log(e);

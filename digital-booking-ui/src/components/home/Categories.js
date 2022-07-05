@@ -53,7 +53,8 @@ const Categories = () => {
         )}
       </div>
       <div className={classes.cardWrapper}>
-        {loading ? (
+        {loaded && isEmptyArray(categories) && <h3>No data found</h3>}
+        {loading && !categories.length > 0 ? (
           <SkeletonCategoryCards />
         ) : (
           categories.map((category) => (

@@ -12,6 +12,7 @@ export const fetchProductsByDatesAndCity = async (body) => {
       }
     );
     const data = await response.json();
+    if (data.error) return [];
     return data;
   } catch (e) {
     console.log(e);

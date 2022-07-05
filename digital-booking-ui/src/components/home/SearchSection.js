@@ -43,17 +43,14 @@ const SearchSection = () => {
   }, []);
 
   const handleSearch = (e) => {
-    console.log({ location, dates });
     e.preventDefault();
     if (!location && isNullishArray(dates)) return;
     if (!location && !isNullishArray(dates)) {
       fetchByDates(dates);
-      console.log("2");
       return;
     }
     if (location && isNullishArray(dates)) {
       fetchByCity(location);
-      console.log("3");
       return;
     }
     if (location && !isNullishArray(dates)) {
