@@ -49,8 +49,8 @@ DeployBackEnd:
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/public/Back-End/piG1; pkill -9 java || true"
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; sudo rm -rf ~/public; unzip public.zip"
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/public/Back-End/piG1;  chmod +x mvnw; ./mvnw install"
-    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; echo "export DB_USER=$DB_USER" >> script.sh; echo "export DB_PASS=$DB_PASS" >> script.sh; echo "export DB_ENDPOINT=$DB_ENDPOINT" >> script.sh; echo "export MAIL_USER=$MAIL_USER" >> script.sh; echo "export MAIL_PASS=$MAIL_PASS" >> script.sh; echo "export AWS_ACCESS_KEY=$AWS_ACCESS_KEY" >> script.sh; echo "export AWS_SECRET_KEY=$AWS_SECRET_KEY" >> script.sh; echo "export AWS_REGION=$AWS_REGION" >> script.sh; . ./script.sh; cd ~/public/Back-End/piG1; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &; rm script.sh"
-
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; echo "export DB_USER=$DB_USER" >> script.sh; echo "export DB_PASS=$DB_PASS" >> script.sh; echo "export DB_ENDPOINT=$DB_ENDPOINT" >> script.sh; echo "export MAIL_USER=$MAIL_USER" >> script.sh; echo "export MAIL_PASS=$MAIL_PASS" >> script.sh; echo "export AWS_ACCESS_KEY=$AWS_ACCESS_KEY" >> script.sh; echo "export AWS_SECRET_KEY=$AWS_SECRET_KEY" >> script.sh; echo "export AWS_REGION=$AWS_REGION" >> script.sh; . ./script.sh; cd ~/public/Back-End/piG1; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; rm script.sh"
   only:
     - develop        
 
