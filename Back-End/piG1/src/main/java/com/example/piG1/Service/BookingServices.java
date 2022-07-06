@@ -4,20 +4,8 @@ import com.example.piG1.Exceptions.ResourceNotFoundException;
 import com.example.piG1.Model.DTO.BookingDTO.BookingCompliteDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingDTO;
 import com.example.piG1.Model.DTO.BookingDTO.BookingSaveDTO;
-import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
-import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
-import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
-import com.example.piG1.Model.DTO.ProductDTO.GetAllProductsDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductDTO;
-import com.example.piG1.Model.DTO.ProductDTO.ProductFullDTO;
-import com.example.piG1.Model.Entity.Booking;
-import com.example.piG1.Model.Entity.Image;
-import com.example.piG1.Model.Entity.Product;
-import com.example.piG1.Model.Entity.User;
-import com.example.piG1.Repository.IBookingRepository;
-import com.example.piG1.Repository.IProductRepository;
-import com.example.piG1.Repository.IUserRepository;
+import com.example.piG1.Model.Entity.*;
+import com.example.piG1.Repository.*;
 import com.example.piG1.Service.IService.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
@@ -39,8 +27,10 @@ public class BookingServices implements IBookingServices {
     private IBookingRepository bookingRepository;
     @Autowired
     private IProductRepository productRepository;
-//    @Autowired
-//    private IProductServices productServices;
+    @Autowired
+    private ICityRepository cityRepository;
+    @Autowired
+    private ICategoryRepository categoryRepository;
     @Autowired
     private IUserRepository userRepository;
     @Autowired
@@ -120,31 +110,6 @@ public class BookingServices implements IBookingServices {
         bookingRepository.saveAll(bookingsList);
     }
 
-//    @Override
-//    public BookingCompliteDTO addBooking (ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException {
-//        //obtengo el producto
-//        Optional <Product> product = productRepository.findById(productAddBookingDTO.getProductId());
-//        Product product1 = product.get();
-//        Booking  booking = mapper.convertValue(productAddBookingDTO.getBooking(), Booking.class);
-//        booking.setProduct(productRepository.findById(productAddBookingDTO.getBooking().getProductId()).get());
-//        booking.setUser(userRepository.findById(productAddBookingDTO.getBooking().getUserId()).get());
-//
-//        booking = bookingRepository.save(booking);
-//        booking.setProduct(product1);
-//        BookingCompliteDTO bookingCompliteDTO = mapper.convertValue(booking, BookingCompliteDTO.class);
-//
-//        List<ImageDTO> imagesList = imageServices.findByProductId(product1.getId());
-//        bookingCompliteDTO.getProduct().setImages(imagesList);
-//
-//        List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product1.getId());
-//        bookingCompliteDTO.getProduct().setPolicies(policyAndTypeOfPolicyDTO);
-//
-//        List<FeatureDTO> featureDTOS = featureServices.findByProductId(product1.getId());
-//        bookingCompliteDTO.getProduct().setFeatures(featureDTOS);
-//
-//        return  bookingCompliteDTO;
-//    }
-
     @Override
     public List <BookingDTO> findBetweenTwoDates(LocalDate startDate, LocalDate endDate) throws ResourceNotFoundException {
         List <Booking> bookings = bookingRepository.findByDatesBetween(startDate, endDate);
@@ -197,20 +162,14 @@ public class BookingServices implements IBookingServices {
     public List<BookingCompliteDTO> findByUserId(Integer id) throws ResourceNotFoundException {
         List<BookingCompliteDTO> bookingCompliteDTO = new ArrayList<>();
         List<Booking> bookings = bookingRepository.findByUserId(id);
-        List<Integer> productId = bookingRepository.findByUserIdProduct(id);
-        List<Product> productList = new ArrayList<>();
-        BookingCompliteDTO bookingComplite = new BookingCompliteDTO();
-        List<ProductDTO> p1 = new ArrayList<>();
-        for (Integer item:productId) {
-            Product p = productRepository.findById(item).orElse(null);
-            productList.add(p);
-            p1.add(mapper.convertValue(p, ProductDTO.class));
-        }
         for(Booking booking: bookings){
-            bookingCompliteDTO.add(mapper.convertValue(booking, BookingCompliteDTO.class));
+            BookingCompliteDTO bookingCompliteDTO1 = mapper.convertValue(booking, BookingCompliteDTO.class);
+            bookingCompliteDTO1.getProduct().setImages(imageServices.findByProductId(bookingCompliteDTO1.getProduct().getId()));
+            bookingCompliteDTO1.getProduct().setPolicyAndTypeOfPolicyDTOList(policyServices.findByProductId(bookingCompliteDTO1.getProduct().getId()));
+            bookingCompliteDTO1.getProduct().setFeatures(featureServices.findByProductId(bookingCompliteDTO1.getProduct().getId()));
+//
+            bookingCompliteDTO.add(bookingCompliteDTO1);
         }
-        bookingComplite.setProductDTOList(p1);
-        bookingCompliteDTO.add(bookingComplite);
         bookingCompliteDTO .sort(Comparator.comparing(BookingCompliteDTO::getId)); //
         logger.info("La busqueda fue exitosa: "+ bookingCompliteDTO);
         return bookingCompliteDTO;

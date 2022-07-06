@@ -87,6 +87,11 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.addImages(productAddImagesDTO));
     }
 
+    @PostMapping("/add/punctuation")
+    public ResponseEntity<ProductCompliteDTO> addPunctuation(@RequestBody ProductAddPunctuactionDTO productAddPunctuactionDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.addPuntuation(productAddPunctuactionDTO));
+    }
+
     @PostMapping("/add/features")
     public ResponseEntity<ProductCompliteDTO> addFeatures(@RequestBody ProductAddFeaturesDTO productAddFeaturesDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(iProductServices.addFeatures(productAddFeaturesDTO));

@@ -35,11 +35,6 @@ public class BookingController {
             return ResponseEntity.ok(iBookingServices.save(bookingSaveDTO));
     }
 
-//    @PostMapping ("/add")
-//    public ResponseEntity<BookingCompliteDTO> addBookings (@RequestBody ProductAddBookingDTO productAddBookingDTO) throws ResourceNotFoundException {
-//        return ResponseEntity.status(HttpStatus.CREATED).body(iBookingServices.addBooking(productAddBookingDTO));
-//    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws ResourceNotFoundException {
         iBookingServices.delete(id);

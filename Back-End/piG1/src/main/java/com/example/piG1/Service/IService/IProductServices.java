@@ -12,6 +12,7 @@ public interface IProductServices extends ICheckId<Product> {
     ProductCompliteDTO addImages(ProductAddImagesDTO productAddImagesDTO);
     ProductCompliteDTO addPolicies(ProductAddPoliciesDTO productAddPoliciesDTO);
     ProductCompliteDTO addFeatures(ProductAddFeaturesDTO productAddFeaturesDTO);
+    ProductCompliteDTO addPuntuation (ProductAddPunctuactionDTO productAddPunctuactionDTO);
     ProductDTO save(ProductDTO ProductDTO);
     ProductFullDTO findById(Integer id) throws ResourceNotFoundException;
     ProductCompliteDTO findByIdComplite(Integer id) throws ResourceNotFoundException;
