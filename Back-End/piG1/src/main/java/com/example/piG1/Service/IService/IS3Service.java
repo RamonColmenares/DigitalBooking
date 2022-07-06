@@ -9,4 +9,5 @@ public interface IS3Service {
     String uploadFile(MultipartFile file);
     List<String> getObjectFromS3();
     String getObjectUrl(String key);
+    void deleteObject(String key);
 }

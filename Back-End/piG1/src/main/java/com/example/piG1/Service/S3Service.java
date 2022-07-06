@@ -32,7 +32,7 @@ public class S3Service implements IS3Service {
         File mainFile = new File(file.getOriginalFilename());
         try(FileOutputStream stream = new FileOutputStream(mainFile)) {
             stream.write(file.getBytes());
-            String newFileName = System.currentTimeMillis() + "_" + mainFile.getName();
+            String newFileName =  "img/products_images/" + mainFile.getName();
             logger.info("Uploading file " + newFileName + " to S3");
             PutObjectRequest request = new PutObjectRequest(bucketName, newFileName, mainFile);
             amazonS3.putObject(request);
@@ -53,5 +53,10 @@ public class S3Service implements IS3Service {
     @Override
     public String getObjectUrl(String key) {
         return String.format("https://%s.s3.amazonaws.com/%s3", bucketName, key);
+    }
+
+    @Override
+    public void deleteObject(String key){
+        amazonS3.deleteObject(bucketName, key);
     }
 }
