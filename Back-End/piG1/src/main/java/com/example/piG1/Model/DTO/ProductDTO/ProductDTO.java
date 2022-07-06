@@ -1,7 +1,9 @@
 package com.example.piG1.Model.DTO.ProductDTO;
 import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
 import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyAddPoliciesDTO;
 import com.example.piG1.Model.Entity.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.util.List;
@@ -16,6 +18,10 @@ public class ProductDTO {
     private String name;
     private String description;
     private List<ImageDTO> images;
+//    private TypeOfPolicyAddPoliciesDTO typeOfPolicyAddPoliciesDTO;
+    private List<TypeOfPolicyAddPoliciesDTO> typeOfPolicyAddPoliciesDTOList;
+//    @JsonIgnore
+//    private Integer productId;
     private Integer city_id;
     private Integer category_id;
     private List<FeatureDTO> features;

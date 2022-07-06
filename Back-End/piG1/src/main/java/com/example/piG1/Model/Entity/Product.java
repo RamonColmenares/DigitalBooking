@@ -2,10 +2,12 @@ package com.example.piG1.Model.Entity;
 
 import com.example.piG1.Model.Entity.Category;
 import com.example.piG1.Model.Entity.City;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,4 +42,5 @@ public class Product {
     @JoinColumn(name = "city_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private City city;
+
 }
