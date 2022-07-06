@@ -20,12 +20,8 @@ BuildBackEnd:
     paths:
       - Back-End/piG1/target/piG1-0.0.1-SNAPSHOT.jar
 
-#  rules:
-#    - changes:
-#        - Back-End
-
-#  only:
-#    - develop
+  only:
+    - develop
 
 DeployBackEnd: 
 
@@ -54,8 +50,8 @@ DeployBackEnd:
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/public/Back-End/piG1;  chmod +x mvnw; ./mvnw install; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &"
     
 
-#  only:
-#    - develop        
+  only:
+    - develop        
 
 BuildFrontEnd:
   stage: build
@@ -69,18 +65,14 @@ BuildFrontEnd:
     - npm i sweetalert2 --legacy-peer-deps
     - npm run build
     - echo "Finished building"
-  
-#  rules:
-#    - changes:
-#        - Back-End
 
   artifacts:
     expire_in: 1 week
     paths:
       - digital-booking-ui/build
 
-#  only:
-#      - develop
+  only:
+      - develop
 
 DeployFrontEnd: 
 
@@ -104,5 +96,5 @@ DeployFrontEnd:
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2_IPADDRESS "sudo chown -R $USER:$USER /etc/nginx/sites-available/; sudo systemctl restart nginx"
     - echo "Finished deploying the app."
 
-#  only:
-#    - develop
+  only:
+    - develop
