@@ -1,11 +1,11 @@
 package com.example.piG1.Service;
 import com.example.piG1.Exceptions.ResourceNotFoundException;
-import com.example.piG1.Model.DTO.ProductDTO.GetAllProductsDTO;
 import com.example.piG1.Model.DTO.PunctuationDTO.PunctuationDTO;
 import com.example.piG1.Model.DTO.PunctuationDTO.PunctuationGetFindByProduct;
-import com.example.piG1.Model.Entity.Punctuation;
+import com.example.piG1.Model.Entity.*;
 import com.example.piG1.Repository.IProductRepository;
 import com.example.piG1.Repository.IPunctuationRepository;
+import com.example.piG1.Repository.IUserRepository;
 import com.example.piG1.Service.IService.IPunctuationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j;
@@ -26,14 +26,20 @@ public class PunctuationServices implements IPunctuationService {
     private IPunctuationRepository punctuactionRepository;
     @Autowired
     private IProductRepository productRepository;
+    @Autowired
+    private IUserRepository userRepository;
 
     @Autowired
     ObjectMapper mapper;
 
 
     @Override
-    public PunctuationDTO save(PunctuationDTO punctuationDTO) {
+    public PunctuationGetFindByProduct save(PunctuationDTO punctuationDTO) {
         Punctuation punctuation = mapper.convertValue(punctuationDTO, Punctuation.class);
+        Optional <Product> product = productRepository.findById(punctuationDTO.getProductId());
+        Optional <User> user = userRepository.findById(punctuationDTO.getUserId());
+        punctuation.setProduct(product.get());
+        punctuation.setUser(user.get());
         punctuactionRepository.save(punctuation);
         if (punctuationDTO.getId() == null){
             punctuationDTO.setId(punctuation.getId());
@@ -41,7 +47,7 @@ public class PunctuationServices implements IPunctuationService {
         }else{
             logger.info("Puntuacion actualizado correctamente: "+ punctuationDTO);
         }
-        return punctuationDTO;
+        return mapper.convertValue(punctuation, PunctuationGetFindByProduct.class);
     }
 
     @Override

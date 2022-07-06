@@ -1,0 +1,4 @@
+[2022-07-0615:58:51] [ ERROR] [GlobalExceptionHandler:20] No se encontraron resultados con id: 11
+[2022-07-0616:07:51] [ ERROR] [GlobalExceptionHandler:20] No se encontraron resultados con id: 11
+[2022-07-0616:08:10] [ ERROR] [GlobalExceptionHandler:27] JSON parse error: Unrecognized token 'p': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false'); nested exception is com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'p': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 2, column: 12]

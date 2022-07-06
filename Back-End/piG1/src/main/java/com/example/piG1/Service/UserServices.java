@@ -59,7 +59,7 @@ public class UserServices implements IUserServices, UserDetailsService {
         emailSenderService.sendWelcomeTemplate(user.getUserName(), "Welcome to DBooking!", templateModel);
 
         Collection<Role> roles = new ArrayList<>();
-        Role role = roleRepository.findByName("ADMIN");
+        Role role = roleRepository.findByName("CLIENT");
         roles.add(role);
         user.setRoles(roles);
         return user1;
@@ -67,15 +67,12 @@ public class UserServices implements IUserServices, UserDetailsService {
 
     @Override
     public Role saveRole(Role role) {
-//        role.getName()
         log.info("Saving new role  to the database");
         return roleRepository.save(role);
     }
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        //esto va en log.info pero me aparece subrayado
-//        ,roleName,username
         log.info("Adding role  to user " );
         User user = userRepository.findByUserName(username);
         Role role = roleRepository.findByName(roleName);
