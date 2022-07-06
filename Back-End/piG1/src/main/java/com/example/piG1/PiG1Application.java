@@ -3,6 +3,7 @@ package com.example.piG1;
 import com.example.piG1.Model.Entity.Role;
 import com.example.piG1.Service.UserServices;
 import com.example.piG1.Service.RoleServices;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PiG1Application {
 
 	public static void main(String[] args) {
+		PropertyConfigurator.configure("log4j.properties");
 		SpringApplication.run(PiG1Application.class, args);
 	}
 

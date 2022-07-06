@@ -9,7 +9,7 @@ import com.example.piG1.Service.ICheckId;
 import java.util.List;
 
 public interface IPunctuationService extends ICheckId<Punctuation> {
-    PunctuationDTO save(PunctuationDTO punctuationDTO);
+    PunctuationGetFindByProduct save(PunctuationDTO punctuationDTO);
     PunctuationDTO findById(Integer id) throws ResourceNotFoundException;
     List<PunctuationDTO> findAll();
     void delete(Integer id) throws ResourceNotFoundException;

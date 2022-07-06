@@ -22,7 +22,6 @@ public class Feature {
     private String name;
     @Column(name="icon")
     private String icon;
-//    cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id")

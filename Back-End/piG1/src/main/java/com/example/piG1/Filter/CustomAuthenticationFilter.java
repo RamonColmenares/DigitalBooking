@@ -43,8 +43,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String username  = request.getParameter("username");
         String password  = request.getParameter("password");
-        //username
-        //password
         log.info("Username is: {}");
         log.info("Password is: {}");
         UsernamePasswordAuthenticationToken authenticationToken = new
@@ -54,7 +52,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        //genero el token y luego se lo envio al usuario, para autenticacion exitosa
         User user = (User)authentication.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
         String access_token = JWT.create()

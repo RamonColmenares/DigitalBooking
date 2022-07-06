@@ -31,13 +31,13 @@ public class Booking {
     @Column(name= "vaccinated")
     private Boolean vaccinated;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
     private User user;
