@@ -45,10 +45,11 @@ DeployBackEnd:
 
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; sudo rm -rf public.zip;"
     - scp -o StrictHostKeyChecking=no public.zip $SSH_USER@$EC2PRIVATE_IPADDRESS:~/
+    - scp -o StrictHostKeyChecking=no Infra/script.sh $SSH_USER@$EC2PRIVATE_IPADDRESS:~/
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/public/Back-End/piG1; pkill -9 java || true"
     - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; sudo rm -rf ~/public; unzip public.zip"
-    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/public/Back-End/piG1;  chmod +x mvnw; ./mvnw install; env; source ~/.bashrc; env; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &"
-    
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/public/Back-End/piG1;  chmod +x mvnw; ./mvnw install"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; echo $SSH_USER;env; echo "export DB_USER='admin'" >> script.sh; echo "export DB_PASS='certifiedtechdeveloper'" >> script.sh; echo "export DB_ENDPOINT='jdbc:mysql://c5-0621-g1-db.ckiqtgesdyez.us-east-1.rds.amazonaws.com:3306/piG1'" >> script.sh; echo "export MAIL_USER='viejoamargado@gmail.com'" >> script.sh; echo "export MAIL_PASS='vhwfduhttiwhrtzt'" >> script.sh; echo "export AWS_ACCESS_KEY='AKIASDYGBXDR6XH4ON5C'" >> script.sh; echo "export MAIL_PASS='vhwfduhttiwhrtzt'" >> script.sh; echo "export AWS_SECRET_KEY='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'" >> script.sh; echo "export AWS_REGION='us-east-1'" >> script.sh; cd ~/public/Back-End/piG1; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &"
 
   only:
     - develop        
