@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingCompliteDTO {
     private Integer id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -23,6 +22,5 @@ public class BookingCompliteDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private Time hour;
-    private ProductDTO product;
-    private List<ProductDTO> productDTOList;
+    private ProductFindByUserIdDTO product;
 }

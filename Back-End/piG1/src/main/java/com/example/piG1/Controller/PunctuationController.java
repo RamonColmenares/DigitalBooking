@@ -23,7 +23,7 @@ public class PunctuationController {
     }
 
     @PostMapping("/saveScore")
-    public ResponseEntity<PunctuationDTO> save(@RequestBody PunctuationDTO punctuationDTO){
+    public ResponseEntity<PunctuationGetFindByProduct> save(@RequestBody PunctuationDTO punctuationDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(iPunctuactionService.save(punctuationDTO));
     }
 

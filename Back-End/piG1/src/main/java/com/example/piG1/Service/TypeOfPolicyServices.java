@@ -45,24 +45,24 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
 
     @Override
     public TypeOfPolicyDTO addPolicies(TypeOfPolicyAddPoliciesDTO typeOfPolicyAddPoliciesDTO) {
-        Optional <TypeOfPolicy> typeOfPolicy = typeOfPolicyRepository.findById(typeOfPolicyAddPoliciesDTO.getTypeOfPolicyId());
-        Optional <Product> product = productRepository.findById(typeOfPolicyAddPoliciesDTO.getProductId());
-        List <Policy> policyList = new ArrayList<>();
-        for (PolicyDTO policyDTO: typeOfPolicyAddPoliciesDTO.getListPolicies()){
-            Policy  policy = mapper.convertValue(policyDTO, Policy.class);
+        Optional<TypeOfPolicy> typeOfPolicy = typeOfPolicyRepository.findById(typeOfPolicyAddPoliciesDTO.getTypeOfPolicyId());
+        Optional<Product> product = productRepository.findById(typeOfPolicyAddPoliciesDTO.getProductId());
+        List<Policy> policyList = new ArrayList<>();
+        for (PolicyDTO policyDTO : typeOfPolicyAddPoliciesDTO.getListPolicies()) {
+            Policy policy = mapper.convertValue(policyDTO, Policy.class);
             policy.setProduct(product.get());
             policy.setTypeOfPolicy(typeOfPolicy.get());
             policyList.add(policy);
         }
         policyServices.savePolicies(policyList);
         typeOfPolicy = typeOfPolicyRepository.findById(typeOfPolicyAddPoliciesDTO.getTypeOfPolicyId());
-        return  mapper.convertValue(typeOfPolicy, TypeOfPolicyDTO.class);
+        return mapper.convertValue(typeOfPolicy, TypeOfPolicyDTO.class);
     }
 
     @Override
     public TypeOfPolicyDTO save(TypeOfPolicyDTO typeOfPolicyDTO) {
         TypeOfPolicy typeOfPolicy = mapper.convertValue(typeOfPolicyDTO, TypeOfPolicy.class);
-        typeOfPolicy= typeOfPolicyRepository.save(typeOfPolicy);
+        typeOfPolicy = typeOfPolicyRepository.save(typeOfPolicy);
         return mapper.convertValue(typeOfPolicy, TypeOfPolicyDTO.class);
     }
 
@@ -76,13 +76,13 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
 
     @Override
     public List<TypeOfPolicyDTO> findAll() {
-        List<TypeOfPolicyDTO> typeOfPoliciesDTO= new ArrayList<>();
+        List<TypeOfPolicyDTO> typeOfPoliciesDTO = new ArrayList<>();
         List<TypeOfPolicy> typeOfPolicies = typeOfPolicyRepository.findAll();
-        for(TypeOfPolicy typeOfPolicy: typeOfPolicies){
+        for (TypeOfPolicy typeOfPolicy : typeOfPolicies) {
             typeOfPoliciesDTO.add(mapper.convertValue(typeOfPolicy, TypeOfPolicyDTO.class));
         }
-        typeOfPoliciesDTO .sort(Comparator.comparing(TypeOfPolicyDTO::getId)); //
-        logger.info("La busqueda fue exitosa: "+ typeOfPoliciesDTO);
+        typeOfPoliciesDTO.sort(Comparator.comparing(TypeOfPolicyDTO::getId)); //
+        logger.info("La busqueda fue exitosa: " + typeOfPoliciesDTO);
         return typeOfPoliciesDTO;
     }
 
@@ -90,6 +90,6 @@ public class TypeOfPolicyServices implements ITypeOfPolicyServices {
     public void delete(Integer id) throws ResourceNotFoundException {
         checkId(id);
         typeOfPolicyRepository.deleteById(id);
-        logger.info("Se elimino la politica correctamente con el id("+id+")");
+        logger.info("Se elimino la politica correctamente con el id(" + id + ")");
     }
 }

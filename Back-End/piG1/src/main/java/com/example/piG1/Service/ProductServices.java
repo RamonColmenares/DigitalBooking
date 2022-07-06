@@ -64,20 +64,16 @@ public class ProductServices implements IProductServices {
             item.setProductId(productN.getId());
             typeOfPolicyServices.addPolicies(item);
         }
-//        TypeOfPolicyAddPoliciesDTO typeOfPolicyAddPoliciesDTO = productDTO.getTypeOfPolicyAddPoliciesDTO();
-//        typeOfPolicyAddPoliciesDTO.setProductId(productN.getId());
         ProductAddImagesDTO productAddImagesDTO = new ProductAddImagesDTO(product.getId(), productDTO.getImages());
         addImages(productAddImagesDTO);
         ProductAddFeaturesDTO productAddFeaturesDTO = new ProductAddFeaturesDTO(product.getId(), productDTO.getFeatures());
         addFeatures(productAddFeaturesDTO);
         System.out.println(product);
-//        log.info(product);
         return mapper.convertValue(product, ProductCompliteDTO.class);
     }
 
     @Override
     public ProductCompliteDTO addImages(ProductAddImagesDTO productAddImagesDTO) {
-        //obtengo el producto
         Optional <Product> product = productRepository.findById(productAddImagesDTO.getProductId());
         List <Image> listImage = new ArrayList<>();
         for (ImageDTO imageDTO: productAddImagesDTO.getListImages()){
@@ -86,14 +82,21 @@ public class ProductServices implements IProductServices {
             listImage.add(image);
         }
         imageServices.saveImages(listImage);
-        //ya debe tener imagenes
         product = productRepository.findById(productAddImagesDTO.getProductId());
         return  mapper.convertValue(product, ProductCompliteDTO.class);
     }
 
     @Override
+    public ProductCompliteDTO addPuntuation (ProductAddPunctuactionDTO productAddPunctuactionDTO){
+        Optional <Product> product = productRepository.findById(productAddPunctuactionDTO.getProductId());
+            Punctuation  punctuation = mapper.convertValue(productAddPunctuactionDTO, Punctuation.class);
+            punctuation.setProduct(product.get());
+        product = productRepository.findById(productAddPunctuactionDTO.getProductId());
+        return  mapper.convertValue(product, ProductCompliteDTO.class);
+    }
+
+    @Override
     public ProductCompliteDTO addPolicies(ProductAddPoliciesDTO productAddPoliciesDTO) {
-        //obtengo el producto
         Optional <Product> product = productRepository.findById(productAddPoliciesDTO.getProductId());
         List <Policy> policiesList = new ArrayList<>();
         for (PolicyDTO policyDTO: productAddPoliciesDTO.getListPolicies()){
@@ -102,14 +105,12 @@ public class ProductServices implements IProductServices {
             policiesList.add(policy);
         }
         policyServices.savePolicies(policiesList);
-        //ya debe tener imagenes
         product = productRepository.findById(productAddPoliciesDTO.getProductId());
         return  mapper.convertValue(product, ProductCompliteDTO.class);
     }
 
     @Override
     public ProductCompliteDTO addFeatures (ProductAddFeaturesDTO productAddFeaturesDTO) {
-        //obtengo el producto
         Optional <Product> product = productRepository.findById(productAddFeaturesDTO.getProductId());
         List <Feature> featureList = new ArrayList<>();
         for (FeatureDTO featureDTO: productAddFeaturesDTO.getListFeatures()){

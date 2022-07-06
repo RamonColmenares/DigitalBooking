@@ -23,7 +23,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -52,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/add/**",
                 "/products/saveProducts").hasAnyAuthority("ADMIN", "CLIENT");
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/punctuation/saveScore").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/punctuation/saveScore").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers(HttpMethod.GET,"/punctuation/findByProduct/{id}" ).permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/products/{id}",
                 "/products",

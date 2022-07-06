@@ -67,15 +67,12 @@ public class UserServices implements IUserServices, UserDetailsService {
 
     @Override
     public Role saveRole(Role role) {
-//        role.getName()
         log.info("Saving new role  to the database");
         return roleRepository.save(role);
     }
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        //esto va en log.info pero me aparece subrayado
-//        ,roleName,username
         log.info("Adding role  to user " );
         User user = userRepository.findByUserName(username);
         Role role = roleRepository.findByName(roleName);
