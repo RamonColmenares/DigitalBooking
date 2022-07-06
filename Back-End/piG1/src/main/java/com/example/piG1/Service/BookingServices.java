@@ -9,6 +9,8 @@ import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.ProductDTO.GetAllProductsDTO;
 import com.example.piG1.Model.DTO.ProductDTO.ProductAddBookingDTO;
+import com.example.piG1.Model.DTO.ProductDTO.ProductDTO;
+import com.example.piG1.Model.DTO.ProductDTO.ProductFullDTO;
 import com.example.piG1.Model.Entity.Booking;
 import com.example.piG1.Model.Entity.Image;
 import com.example.piG1.Model.Entity.Product;
@@ -37,6 +39,8 @@ public class BookingServices implements IBookingServices {
     private IBookingRepository bookingRepository;
     @Autowired
     private IProductRepository productRepository;
+//    @Autowired
+//    private IProductServices productServices;
     @Autowired
     private IUserRepository userRepository;
     @Autowired
@@ -193,9 +197,20 @@ public class BookingServices implements IBookingServices {
     public List<BookingCompliteDTO> findByUserId(Integer id) throws ResourceNotFoundException {
         List<BookingCompliteDTO> bookingCompliteDTO = new ArrayList<>();
         List<Booking> bookings = bookingRepository.findByUserId(id);
+        List<Integer> productId = bookingRepository.findByUserIdProduct(id);
+        List<Product> productList = new ArrayList<>();
+        BookingCompliteDTO bookingComplite = new BookingCompliteDTO();
+        List<ProductDTO> p1 = new ArrayList<>();
+        for (Integer item:productId) {
+            Product p = productRepository.findById(item).orElse(null);
+            productList.add(p);
+            p1.add(mapper.convertValue(p, ProductDTO.class));
+        }
         for(Booking booking: bookings){
             bookingCompliteDTO.add(mapper.convertValue(booking, BookingCompliteDTO.class));
         }
+        bookingComplite.setProductDTOList(p1);
+        bookingCompliteDTO.add(bookingComplite);
         bookingCompliteDTO .sort(Comparator.comparing(BookingCompliteDTO::getId)); //
         logger.info("La busqueda fue exitosa: "+ bookingCompliteDTO);
         return bookingCompliteDTO;

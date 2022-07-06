@@ -3,6 +3,9 @@ package com.example.piG1.Model.DTO.ProductDTO;
 import com.example.piG1.Model.DTO.CategoryDTO.CategoryDTO;
 import com.example.piG1.Model.DTO.CityDTO.CityDTO;
 import com.example.piG1.Model.DTO.FeatureDTO.FeatureDTO;
+import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyAddPoliciesDTO;
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyDTO;
 import lombok.*;
 
 import java.util.List;
@@ -19,4 +22,5 @@ public class GetAllProductsDTO {
     private CategoryDTO category;
     private String imageUrl;
     private List<FeatureDTO> features;
+    private List<PolicyAndTypeOfPolicyDTO> policies;
 }

@@ -7,6 +7,7 @@ import com.example.piG1.Model.DTO.ImageDTO.ImageDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyAndTypeOfPolicyDTO;
 import com.example.piG1.Model.DTO.PolicyDTO.PolicyDTO;
 import com.example.piG1.Model.DTO.ProductDTO.*;
+import com.example.piG1.Model.DTO.TypeOfPolicyDTO.TypeOfPolicyAddPoliciesDTO;
 import com.example.piG1.Model.Entity.*;
 import com.example.piG1.Repository.ICategoryRepository;
 import com.example.piG1.Repository.ICityRepository;
@@ -44,6 +45,8 @@ public class ProductServices implements IProductServices {
     private IFeatureServices featureServices;
     @Autowired
     private ICityServices cityServices;
+    @Autowired
+    private ITypeOfPolicyServices typeOfPolicyServices;
 
     @Autowired
     ObjectMapper mapper;
@@ -55,7 +58,14 @@ public class ProductServices implements IProductServices {
         Optional <Category> category = categoryRepository.findById(productDTO.getCategory_id());
         product.setCategory(category.get());
         product.setCity(city.get());
-        product = productRepository.save(product);
+        Product productN = productRepository.saveAndFlush(product);
+        List<TypeOfPolicyAddPoliciesDTO> typeOfPolicyAddPoliciesDTOList= productDTO.getTypeOfPolicyAddPoliciesDTOList();
+        for (TypeOfPolicyAddPoliciesDTO item : typeOfPolicyAddPoliciesDTOList) {
+            item.setProductId(productN.getId());
+            typeOfPolicyServices.addPolicies(item);
+        }
+//        TypeOfPolicyAddPoliciesDTO typeOfPolicyAddPoliciesDTO = productDTO.getTypeOfPolicyAddPoliciesDTO();
+//        typeOfPolicyAddPoliciesDTO.setProductId(productN.getId());
         ProductAddImagesDTO productAddImagesDTO = new ProductAddImagesDTO(product.getId(), productDTO.getImages());
         addImages(productAddImagesDTO);
         ProductAddFeaturesDTO productAddFeaturesDTO = new ProductAddFeaturesDTO(product.getId(), productDTO.getFeatures());
@@ -153,6 +163,8 @@ public class ProductServices implements IProductServices {
             GetAllProductsDTO getProductsAllDTO1 = mapper.convertValue(product, GetAllProductsDTO.class);
             List<FeatureDTO> features = featureServices.findByProductId(product.getId());
             getProductsAllDTO1.setFeatures(features);
+            List<PolicyAndTypeOfPolicyDTO> policies = policyServices.findByProductId(product.getId());
+            getProductsAllDTO1.setPolicies(policies);
             System.out.println(getProductsAllDTO1);
             List<ImageDTO> imagesList = imageServices.findByProductId(product.getId());
             String url_image = "";
@@ -193,7 +205,14 @@ public class ProductServices implements IProductServices {
             String url_image = imagesList.get(0).getUrl();
             productFindByFilterDTO.setImageUrl(url_image);
             productsFindByFilterDTO.add(productFindByFilterDTO);
+
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(productId);
+            productFindByFilterDTO.setPolicies(policyAndTypeOfPolicyDTO);
+
+            List<FeatureDTO> featuresDTO = featureServices.findByProductId(productId);
+            productFindByFilterDTO.setFeatures(featuresDTO);
         }
+
         productsFindByFilterDTO .sort(Comparator.comparing(ProductFindByFilterDTO::getId)); //
         logger.info("La busqueda fue exitosa: "+ productsFindByFilterDTO);
         return productsFindByFilterDTO;
@@ -210,10 +229,10 @@ public class ProductServices implements IProductServices {
             String url_image = imagesList.get(0).getUrl();
             productFindByFilterDTO.setImageUrl(url_image);
 
-            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
+            List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(productId);
             productFindByFilterDTO.setPolicies(policyAndTypeOfPolicyDTO);
 
-            List<FeatureDTO> featureDTOS = featureServices.findByProductId(product.getId());
+            List<FeatureDTO> featureDTOS = featureServices.findByProductId(productId);
             productFindByFilterDTO.setFeatures(featureDTOS);
             productsFindByFilterDTO.add(productFindByFilterDTO);
         }

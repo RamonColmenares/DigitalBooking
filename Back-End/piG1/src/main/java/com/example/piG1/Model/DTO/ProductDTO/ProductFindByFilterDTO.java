@@ -24,8 +24,4 @@ public class ProductFindByFilterDTO {
     private String imageUrl;
     private List<PolicyAndTypeOfPolicyDTO> policies;
     private List<FeatureDTO> features;
-
-    //Volverlo un objeto tipo mapa
-    //private String latitude;
-    //private String longitude;
 }

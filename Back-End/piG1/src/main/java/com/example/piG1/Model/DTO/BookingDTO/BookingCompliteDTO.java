@@ -1,18 +1,21 @@
 package com.example.piG1.Model.DTO.BookingDTO;
 
 import com.example.piG1.Model.DTO.ProductDTO.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingCompliteDTO {
     private Integer id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -21,4 +24,5 @@ public class BookingCompliteDTO {
     private LocalDate endDate;
     private Time hour;
     private ProductDTO product;
+    private List<ProductDTO> productDTOList;
 }

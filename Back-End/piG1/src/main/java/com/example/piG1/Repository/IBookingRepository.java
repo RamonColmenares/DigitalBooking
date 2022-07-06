@@ -36,4 +36,6 @@ public interface IBookingRepository extends JpaRepository<Booking,Integer> {
 
     List<Booking> findAllByProductId(Integer productId);
     List<Booking> findByUserId(Integer id);
+    @Query (value = "select product_id from bookings where user_id = :userId", nativeQuery = true)
+    List<Integer> findByUserIdProduct(@Param("userId") Integer userId);
 }
