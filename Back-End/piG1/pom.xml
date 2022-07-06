@@ -122,6 +122,12 @@
 				<artifactId>javax.inject</artifactId>
 				<version>1</version>
 			</dependency>
+			<dependency>
+				<groupId>io.awspring.cloud</groupId>
+				<artifactId>spring-cloud-aws-context</artifactId>
+				<version>2.3.0</version>
+			</dependency>
+
 		</dependencies>
 
 		<build>
