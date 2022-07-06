@@ -8,8 +8,6 @@ data "template_file" "scriptApp" {
 
 data "aws_availability_zones" "available" {}
 
-// según la documentación de amazon, el siguiente bloque de data es así para la imagen de ubuntu server
-
 data "aws_ami" "ubuntu" {
     most_recent = true
     owners = ["099720109477"]
@@ -37,8 +35,6 @@ resource "aws_instance" "instanceWeb" {
     }
 
     user_data = "${data.template_file.scriptWeb.rendered}"
-
-    // según la documentación de terraform, coalesce es una función que devuelve el primer valor que no es nulo.
 
     connection {
         host = coalesce(self.public_ip, self.private_ip)
