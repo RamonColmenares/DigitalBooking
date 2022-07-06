@@ -36,6 +36,8 @@ public class S3Service implements IS3Service {
             logger.info("Uploading file " + newFileName + " to S3");
             PutObjectRequest request = new PutObjectRequest(bucketName, newFileName, mainFile);
             amazonS3.putObject(request);
+            stream.close();
+            mainFile.delete();
             return newFileName;
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
