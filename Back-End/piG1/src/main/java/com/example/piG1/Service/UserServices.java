@@ -59,7 +59,7 @@ public class UserServices implements IUserServices, UserDetailsService {
         emailSenderService.sendWelcomeTemplate(user.getUserName(), "Welcome to DBooking!", templateModel);
 
         Collection<Role> roles = new ArrayList<>();
-        Role role = roleRepository.findByName("ADMIN");
+        Role role = roleRepository.findByName("CLIENT");
         roles.add(role);
         user.setRoles(roles);
         return user1;

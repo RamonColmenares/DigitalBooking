@@ -1,6 +1,7 @@
 package com.example.piG1.Controller;
 
 import com.example.piG1.Service.S3Service;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/s3")
 public class S3Controller {
+
+    protected final static Logger logger = Logger.getLogger(S3Controller.class);
 
     @Autowired
     private S3Service s3Service;
