@@ -331,6 +331,8 @@ public class ProductServices implements IProductServices {
                 url_image = imagesList.get(0).getUrl();
             }
 
+            product.setImageUrl(url_image);
+
             List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
             product.setPolicies(policyAndTypeOfPolicyDTO);
 

@@ -62,8 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/products/deleteProduct/{id}").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/products/allCategoryAndCity",
                 "/products/allAvailableDates",
-                "/products/allAvailableDates/city",
-                "/products/allAvailableDates/category").permitAll();
+                "/products/allAvailableDates/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/typeOfPolicies/add/policies",
                 "/typeOfPolicies").hasAnyAuthority("ADMIN", "CLIENT");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/typeOfPolicies/{id}",
