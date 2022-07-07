@@ -203,7 +203,10 @@ public class ProductServices implements IProductServices {
             ProductFindByFilterDTO productFindByFilterDTO = mapper.convertValue(product, ProductFindByFilterDTO.class);
             Integer productId = product.getId();
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
-            String url_image = imagesList.get(0).getUrl();
+            String url_image = "";
+            if (imagesList.size() > 0){
+                url_image = imagesList.get(0).getUrl();
+            }
             productFindByFilterDTO.setImageUrl(url_image);
             productsFindByFilterDTO.add(productFindByFilterDTO);
 
@@ -227,7 +230,10 @@ public class ProductServices implements IProductServices {
             ProductFindByFilterDTO productFindByFilterDTO = mapper.convertValue(product, ProductFindByFilterDTO.class);
             Integer productId = product.getId();
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
-            String url_image = imagesList.get(0).getUrl();
+            String url_image = "";
+            if (imagesList.size() > 0){
+                url_image = imagesList.get(0).getUrl();
+            }
             productFindByFilterDTO.setImageUrl(url_image);
 
             List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(productId);
@@ -253,7 +259,10 @@ public class ProductServices implements IProductServices {
         for(ProductFindByFilterDTO product: productsFiltered){
             Integer productId = product.getId();
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
-            String url_image = imagesList.get(0).getUrl();
+            String url_image = "";
+            if (imagesList.size() > 0){
+                url_image = imagesList.get(0).getUrl();
+            }
             product.setImageUrl(url_image);
 
             List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
@@ -284,7 +293,10 @@ public class ProductServices implements IProductServices {
         for(ProductFindByFilterDTO product: productsFiltered){
             Integer productId = product.getId();
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
-            String url_image = imagesList.get(0).getUrl();
+            String url_image = "";
+            if (imagesList.size() > 0){
+                url_image = imagesList.get(0).getUrl();
+            }
             product.setImageUrl(url_image);
 
             List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
@@ -314,8 +326,10 @@ public class ProductServices implements IProductServices {
         for(ProductFindByFilterDTO product: productsFiltered){
             Integer productId = product.getId();
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
-            String url_image = imagesList.get(0).getUrl();
-            product.setImageUrl(url_image);
+            String url_image = "";
+            if (imagesList.size() > 0){
+                url_image = imagesList.get(0).getUrl();
+            }
 
             List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
             product.setPolicies(policyAndTypeOfPolicyDTO);
@@ -345,7 +359,10 @@ public class ProductServices implements IProductServices {
         for(ProductFindByFilterDTO product: productsFiltered){
             Integer productId = product.getId();
             List<ImageDTO> imagesList = imageServices.findByProductId(productId);
-            String url_image = imagesList.get(0).getUrl();
+            String url_image = "";
+            if (imagesList.size() > 0){
+                url_image = imagesList.get(0).getUrl();
+            }
             product.setImageUrl(url_image);
 
             List<PolicyAndTypeOfPolicyDTO> policyAndTypeOfPolicyDTO = policyServices.findByProductId(product.getId());
