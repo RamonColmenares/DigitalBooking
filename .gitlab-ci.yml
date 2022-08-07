@@ -1,0 +1,101 @@
+stages:
+  - build
+  - deploy
+
+BuildBackEnd:
+  stage: build
+
+  image: maven:3.6.1-jdk-17-slim
+
+  script:
+    - cd Back-End
+    - cd piG1
+    - echo "Building..."
+    - chmod +x mvnw
+    - ./mvnw install
+    - echo "Finished building"
+
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - Back-End/piG1/target/piG1-0.0.1-SNAPSHOT.jar
+
+  only:
+    - develop
+
+DeployBackEnd: 
+
+  stage: deploy
+
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $EC2PRIVATE_IPADDRESS >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+  script:    
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+    - zip -r public.zip public
+    
+
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; sudo rm -rf public.zip;"
+    - scp -o StrictHostKeyChecking=no public.zip $SSH_USER@$EC2PRIVATE_IPADDRESS:~/
+    - scp -o StrictHostKeyChecking=no Infra/script.sh $SSH_USER@$EC2PRIVATE_IPADDRESS:~/
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/public/Back-End/piG1; pkill -9 java || true"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; sudo rm -rf ~/public; unzip public.zip"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/public/Back-End/piG1;  chmod +x mvnw; ./mvnw install"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; echo "export DB_USER=$DB_USER" >> script.sh; echo "export DB_PASS=$DB_PASS" >> script.sh; echo "export DB_ENDPOINT=$DB_ENDPOINT" >> script.sh; echo "export MAIL_USER=$MAIL_USER" >> script.sh; echo "export MAIL_PASS=$MAIL_PASS" >> script.sh; echo "export AWS_ACCESS_KEY=$AWS_ACCESS_KEY" >> script.sh; echo "export AWS_SECRET_KEY=$AWS_SECRET_KEY" >> script.sh; echo "export AWS_REGION=$AWS_REGION" >> script.sh; . ./script.sh; cd ~/public/Back-End/piG1; nohup ./mvnw spring-boot:run </dev/null &>/dev/null &"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2PRIVATE_IPADDRESS "cd ~/; rm script.sh"
+  only:
+    - develop        
+
+BuildFrontEnd:
+  stage: build
+  script:
+    - cd digital-booking-ui
+    - echo "Building..."
+    - npm install --legacy-peer-deps
+    - npm install react-leaflet --save --legacy-peer-deps
+    - npm i leaflet --legacy-peer-deps
+    - npm install react-sweetalert2 --save --legacy-peer-deps
+    - npm i sweetalert2 --legacy-peer-deps
+    - npm run build
+    - echo "Finished building"
+
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - digital-booking-ui/build
+
+  only:
+      - develop
+
+DeployFrontEnd: 
+
+  stage: deploy
+
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $EC2_IPADDRESS >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+  script:    
+    - echo "Deploying started..."
+    - scp digital-booking-ui/default $SSH_USER@$EC2_IPADDRESS:~/
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2_IPADDRESS "cd ~/; sudo rm -rf ~/build;"
+    - scp -r digital-booking-ui/build $SSH_USER@$EC2_IPADDRESS:~/
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2_IPADDRESS "cd ~/; sudo rm -rf /var/www/front; sudo mkdir /var/www/front; sudo chown -R $USER:$USER /var/www/front; sudo cp -r build/* /var/www/front/;"
+    - ssh -o StrictHostKeyChecking=no $SSH_USER@$EC2_IPADDRESS "sudo chown -R $USER:$USER /etc/nginx/sites-available/; sudo systemctl restart nginx"
+    - echo "Finished deploying the app."
+
+  only:
+    - develop
